@@ -6,7 +6,7 @@
     </tr>
     <tr>
         <td>Country</td>
-        <td><form:input path="country"/></td>
+        <td><form:select path="country" items="${countries}"/></td>
         <td><form:errors path="country" cssClass="error" element="div"/></td>
     </tr>
     <tr>
