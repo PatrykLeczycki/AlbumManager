@@ -1,3 +1,18 @@
 .error{
     color: red;
 }
+
+.deletion-info{
+    font-weight: bold;
+    color: blue;
+}
+
+a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+    color: initial;
+    padding: 5px 10px;
+}

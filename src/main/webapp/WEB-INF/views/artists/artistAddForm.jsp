@@ -1,4 +1,4 @@
-<table style="text-align: center">
+<table style="text-align: center" cellpadding = "10">
 
     <tr>
         <td>Pseudonym</td>
@@ -23,15 +23,15 @@
     <tr>
         <td>Sex</td>
         <td>
-            Male: <form:radiobutton path="sex" value="M"/><br>
-            Female: <form:radiobutton path="sex" value="F"/>
+            Male: <form:radiobutton path="sex" value="Male"/><br>
+            Female: <form:radiobutton path="sex" value="Female"/>
         </td>
         <td><form:errors path="sex" cssClass="error" element="div"/></td>
     </tr>
     <tr>
         <td>Country</td>
-        <td><form:select path="country" items="${countries}"/></td>
-        <td><form:errors path="country" cssClass="error" element="div"/></td>
+        <td><form:select path="nationality" items="${countries}"/></td>
+        <td><form:errors path="nationality" cssClass="error" element="div"/></td>
     </tr>
     <tr>
         <td></td>

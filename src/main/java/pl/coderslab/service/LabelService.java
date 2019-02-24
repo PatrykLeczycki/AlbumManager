@@ -24,4 +24,8 @@ public class LabelService {
     public Label getLabelById(long id){
         return labelRepo.findOne(id);
     }
+
+    public void deleteLabel(long id){
+        labelRepo.delete(id);
+    }
 }

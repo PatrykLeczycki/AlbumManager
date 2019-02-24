@@ -17,11 +17,12 @@
 
 <h1>Label list</h1>
 
-<table border="1" style="text-align: center">
+<table border="1" style="text-align: center" cellpadding = "10">
     <thead>
     <th>ID</th>
     <th>Name</th>
     <th>Country</th>
+    <th colspan = "2">Actions</th>
     </thead>
 
     <tbody>
@@ -31,7 +32,7 @@
     </tbody>
 </table>
 
-<a href="/labels/add">Add new label</a>
+<br><a href="/labels/add" class="button">Add label</a>
 
 </body>
 </html>

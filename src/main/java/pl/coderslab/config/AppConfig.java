@@ -1,5 +1,6 @@
 package pl.coderslab.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -8,15 +9,18 @@ import org.springframework.format.FormatterRegistry;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.LocaleContextResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import pl.coderslab.converter.ArtistConverter;
+import pl.coderslab.converter.LabelConverter;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityManagerFactory;
 import java.util.Locale;
 
@@ -26,6 +30,22 @@ import java.util.Locale;
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "pl.coderslab.repository")
 public class AppConfig extends WebMvcConfigurerAdapter {
+
+
+    // HIDING MODELATTRIBUTE ARGS WHILE REDIRECTING
+
+    @Autowired
+    private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
+
+    @PostConstruct
+    public void init() {
+        requestMappingHandlerAdapter.setIgnoreDefaultModelOnRedirect(true);
+    }
+
+    /////////////////////////////////////////////////
+
+    // VIEW RESOLVER
+
     @Bean
     public ViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -54,19 +74,26 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         return new JpaTransactionManager(emf);
     }
 
-   /* @Override
+    @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(getUserConverter());
-    }*/
 
-    /*@Bean
-    public UserConverter getUserConverter() {
-        return new UserConverter();
-    }*/
+        registry.addConverter(getLabelConverter());
+        registry.addConverter(getArtistConverter());
+    }
+
+    @Bean
+    public LabelConverter getLabelConverter() {
+        return new LabelConverter();
+    }
+
+    @Bean
+    public ArtistConverter getArtistConverter() {
+        return new ArtistConverter();
+    }
 
     ///////////////////////////////////////////////////////////////////////
 
-    // Walidator - plik tłumaczeń
+    // VALIDATOR - TRANSLATIONS
 
     @Bean(name="localeResolver")
     public LocaleContextResolver getLocaleContextResolver() {

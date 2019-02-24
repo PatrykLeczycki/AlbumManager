@@ -22,13 +22,13 @@ public class LabelController {
     private LabelService labelService;
 
     @GetMapping("/add")
-    public String add(Model model){
+    public String addLabel(Model model){
         model.addAttribute("label", new Label());
         return "labels/add";
     }
 
     @PostMapping("/add")
-    public String add(@Valid Label label, BindingResult result){
+    public String addLabel(@Valid Label label, BindingResult result){
         if (result.hasErrors())
             return "labels/add";
 
@@ -37,23 +37,48 @@ public class LabelController {
     }
 
     @GetMapping("/all")
-    public String all(Model model){
+    public String allLabels(Model model){
         model.addAttribute("labels", labelService.getAllLabels());
         return "labels/all";
     }
 
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable long id, Model model){
+    public String editLabel(@PathVariable long id, Model model){
         model.addAttribute("label", labelService.getLabelById(id));
         return "labels/edit";
     }
 
     @PostMapping("/edit")
-    public String edit(@Valid Label label, BindingResult result){
+    public String editLabel(@Valid Label label, BindingResult result){
         if (result.hasErrors())
             return "labels/edit";
 
         labelService.addLabel(label);
         return "redirect:/labels/all";
     }
+
+    @GetMapping("/delete/{id}")
+    public String deleteLabel(@PathVariable long id){
+        labelService.deleteLabel(id);
+        return "redirect:/labels/all";
+    }
+
+
+    @ModelAttribute("countries")
+    public List<String> countries(){
+
+        Locale.setDefault(new Locale("en"));
+        String[] locales = Locale.getISOCountries();
+
+        List<String> names = new ArrayList<>();
+
+        for (String countryCode : locales){
+            names.add(new Locale("", countryCode).getDisplayCountry());
+        }
+
+        Collections.sort(names);
+
+        return names;
+    }
+
 }
