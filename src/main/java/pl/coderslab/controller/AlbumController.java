@@ -5,9 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.coderslab.model.Album;
 import pl.coderslab.model.Artist;
-import pl.coderslab.model.Format;
+import pl.coderslab.model.enums.Format;
 import pl.coderslab.model.Label;
 import pl.coderslab.service.AlbumService;
 import pl.coderslab.service.ArtistService;
@@ -68,11 +69,12 @@ public class AlbumController {
     }
 
     @GetMapping("/delete/{id}")
-    private String deleteAlbum(@PathVariable long id, Model model){
+    private String deleteAlbum(@PathVariable long id, Model model, RedirectAttributes redirectAttributes){
 
         albumService.deleteAlbum(id);
-        model.addAttribute("deletion", "Album has been deleted.");
+        //model.addAttribute("deletion", "Album has been deleted.");
 
+        redirectAttributes.addFlashAttribute("deletion", "Album has been deleted.");
         return "redirect:/albums/all";
     }
 

@@ -16,3 +16,37 @@ a.button {
     color: initial;
     padding: 5px 10px;
 }
+
+table:not(.outter-main-table){
+    text-align: center;
+    background-color: #dbe4f0;
+}
+
+.table{
+    display: inline-block;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #13263a;
+    border-radius: 40px;
+    color: #13263a;
+    background-color: #dbe4f0;
+}
+
+.table-list{
+    display: inline-block;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #13263a;
+    color: #13263a;
+    background-color: #dbe4f0;
+}
+
+
+
+body:not(.header){
+    background-image: url("/images/background-image.jpg");
+}
+
+.list-table{
+    background-color: #dbe4f0;
+}

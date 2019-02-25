@@ -15,6 +15,8 @@
 </head>
 <body>
 
+<br><a href="/" class="button">Homepage</a><br><br>
+
 <h1>Label list</h1>
 
 <table border="1" style="text-align: center" cellpadding = "10">
@@ -32,7 +34,7 @@
     </tbody>
 </table>
 
-<br><a href="/labels/add" class="button">Add label</a>
+<br><br><a href="/labels/add" class="button">Add label</a>
 
 </body>
 </html>

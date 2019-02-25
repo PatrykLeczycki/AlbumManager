@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: patryk
@@ -12,24 +13,33 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+
+<p style="color: red">${wrongData}</p>
+
 <table border="1" style="text-align: center" cellpadding = "10">
 
-    <thead>
-        <th>Log in</th>
-    </thead>
-
     <tbody>
-        <form method="post" action="/login">
+    <form:form method="post" action="/user/login" modelAttribute="user">
+        <table cellpadding = "10">
+
             <tr>
-                <td><input type="text" placeholder="Login"/></td>
+                <td>Login</td>
+                <td>
+                    <form:input path="login"/>
+                </td>
+                <td><form:errors path="login" cssClass="error" element="div"/></td>
             </tr>
             <tr>
-                <td><input type="password" placeholder="Password"></td>
+                <td>Password</td>
+                <td><form:password path="password"/></td>
+                <td><form:errors path="password" cssClass="error" element="div"/></td>
             </tr>
             <tr>
-                <td><input type="submit" value="Log in"/></td>
+                <td></td>
+                <td><input type="submit" value="add"></td>
             </tr>
-        </form>
+        </table>
+    </form:form>
     </tbody>
 </table>
 </body>

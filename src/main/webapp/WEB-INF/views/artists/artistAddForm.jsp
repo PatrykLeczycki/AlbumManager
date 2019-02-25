@@ -17,7 +17,7 @@
     </tr>
     <tr>
         <td>Age</td>
-        <td><form:input path="age"/></td>
+        <td><form:input path="age" placeholder=""/></td>
         <td><form:errors path="age" cssClass="error" element="div"/></td>
     </tr>
     <tr>

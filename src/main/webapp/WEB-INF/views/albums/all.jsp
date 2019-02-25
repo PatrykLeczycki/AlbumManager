@@ -14,18 +14,27 @@
 </head>
 <body>
 
+<br><a href="/" class="button">Homepage</a><br><br>
+
+${deleteInfo}<br><br>
+
 <h1>Album list</h1>
 
-<table border="1" style="text-align: center" cellpadding = "10">
+<table class="table-list" border="1" style="text-align: center; position: relative; vertical-align: 50%; transform: translateY(100%)" cellpadding = "10" align="center">
 
     <thead>
-    <th>ID</th>
-    <th>Artists</th>
-    <th>Title</th>
-    <th>Label</th>
-    <th>Release date</th>
-    <th>Format</th>
-    <th colspan = "2">Actions</th>
+    <tr>
+        <th colspan="7">Album list</th>
+    </tr>
+    <tr>
+        <th>ID</th>
+        <th>Artists</th>
+        <th>Title</th>
+        <th>Label</th>
+        <th>Release date</th>
+        <th>Format</th>
+        <th colspan = "2">Actions</th>
+    </tr>
     </thead>
 
     <tbody>
@@ -35,7 +44,7 @@
     </tbody>
 </table>
 
-<br><a href="/albums/add" class="button">Add album</a>
+<br><br><a href="/albums/add" class="button">Add album</a>
 
 </body>
 </html>

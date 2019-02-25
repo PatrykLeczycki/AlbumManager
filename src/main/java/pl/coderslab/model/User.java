@@ -1,7 +1,6 @@
 package pl.coderslab.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
-import pl.coderslab.utils.BCrypt;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -16,15 +15,22 @@ public class User {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    @Size(min = 5)
+    @Size(min = 5, max = 20)
     private String login;
 
     @Column(nullable = false)
-    @Size(min = 8)
+    @Size(min = 8, max = 30)
     private String password;
 
+    public User() {
+    }
+
+    public User(String login, String password) {
+        this.login = login;
+        this.setPassword(password);
+    }
+
     @ManyToMany
-    @NotEmpty
     private List<Album> albumList;
 
     public Long getId() {
@@ -50,15 +56,5 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public User(String login, String password) {
-        this.login = login;
-        this.setPasswordHashed(password);
-    }
-
-    public void setPasswordHashed(String password) {
-        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
-    }
-
 
 }

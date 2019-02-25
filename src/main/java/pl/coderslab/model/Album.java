@@ -3,10 +3,10 @@ package pl.coderslab.model;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.coderslab.model.enums.Format;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 

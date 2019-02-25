@@ -1,4 +1,4 @@
-<table cellpadding = "10">
+<table cellpadding = "10" align="center" style="position: relative; vertical-align: 50%; transform: translateY(100%)">
 
     <tr>
         <td>Artists</td>

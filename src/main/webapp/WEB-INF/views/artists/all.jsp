@@ -14,6 +14,8 @@
 </head>
 <body>
 
+<br><a href="/" class="button">Homepage</a><br><br>
+
 <h1>Artist list</h1>
 
 <table border="1" style="text-align: center" cellpadding = "10">
@@ -35,7 +37,7 @@
     </tbody>
 </table>
 
-<br><a href="/artists/add" class="button">Add artist</a>
+<br><br><a href="/artists/add" class="button">Add artist</a>
 
 </body>
 </html>

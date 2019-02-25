@@ -14,6 +14,8 @@
 </head>
 <body>
 
+<br><a href="/" class="button">Homepage</a><br><br>
+
 <h1>Current values:</h1>
 
 <table border="1" style="text-align: center" cellpadding = "10">
@@ -38,6 +40,8 @@
     <form:hidden path="id"/>
     <%@include file="artistAddForm.jsp"%>
 </form:form>
+
+<br><br><a href="/artists/all" class="button">Back</a>
 
 </body>
 </html>

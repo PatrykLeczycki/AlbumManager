@@ -20,18 +20,3 @@ public class DateConverter implements Converter<String, LocalDate> {
         return date;
     }
 }
-
-/*public class DateConverter implements Converter<String, Date> {
-    @Override
-    public Date convert(String s) {
-
-        DateFormat formatter = new SimpleDateFormat("dd.mm.yyyy");
-        Date date = null;
-        try {
-            date = formatter.parse(s);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return date;
-    }
-}*/

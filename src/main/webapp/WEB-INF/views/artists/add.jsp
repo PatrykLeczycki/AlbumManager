@@ -14,11 +14,15 @@
 </head>
 <body>
 
+<br><a href="/" class="button">Homepage</a><br><br>
+
 <h1>Add new artist</h1>
 
 <form:form method="post" action="/artists/add" modelAttribute="artist">
     <%@include file="artistAddForm.jsp"%>
 </form:form>
+
+<br><br><a href="/artists/all" class="button">Back</a>
 
 </body>
 </html>
