@@ -2,6 +2,7 @@ package pl.coderslab.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import pl.coderslab.model.LoggedUser;
 import pl.coderslab.model.User;
 import pl.coderslab.repository.UserRepo;
 
@@ -19,8 +20,8 @@ public class UserService {
         return userRepo.findUserByLogin(login);
     }
 
-    public void changePassword(String pass){
-
+    public void changePassword(User user){
+        userRepo.save(user);
     }
 
 }

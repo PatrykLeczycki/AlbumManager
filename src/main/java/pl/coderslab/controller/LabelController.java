@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.model.Label;
+import pl.coderslab.model.LoggedUser;
 import pl.coderslab.service.LabelService;
 
 import javax.validation.Valid;
@@ -20,6 +21,9 @@ public class LabelController {
 
     @Autowired
     private LabelService labelService;
+
+    @Autowired
+    private LoggedUser loggedUser;
 
     @GetMapping("/add")
     public String addLabel(Model model){
@@ -39,6 +43,7 @@ public class LabelController {
     @GetMapping("/all")
     public String allLabels(Model model){
         model.addAttribute("labels", labelService.getAllLabels());
+        System.out.println(loggedUser.getLogin());
         return "labels/all";
     }
 

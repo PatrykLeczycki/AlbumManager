@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.model.Artist;
+import pl.coderslab.model.LoggedUser;
 import pl.coderslab.service.ArtistService;
 
 import javax.validation.Valid;
@@ -20,6 +21,10 @@ public class ArtistController {
 
     @Autowired
     private ArtistService artistService;
+
+
+    @Autowired
+    private LoggedUser loggedUser;
 
     @GetMapping("/add")
     private String addArtist(Model model){
@@ -38,6 +43,7 @@ public class ArtistController {
 
     @GetMapping("/all")
     private String allArtists(Model model){
+        System.out.println(loggedUser.getLogin());
         model.addAttribute("artists", artistService.getAllArtists());
         return "artists/all";
     }

@@ -16,18 +16,21 @@
 
 <br><a href="/" class="button">Homepage</a><br><br>
 
-<h1>Artist list</h1>
-
 <table border="1" style="text-align: center" cellpadding = "10">
     <thead>
-    <th>ID</th>
-    <th>Pseudonym</th>
-    <th>Name</th>
-    <th>Surname</th>
-    <th>Age</th>
-    <th>Sex</th>
-    <th>Nationality</th>
-    <th colspan = "2">Actions</th>
+    <tr>
+        <th colspan="9">Artist list</th>
+    </tr>
+    <tr>
+        <th>ID</th>
+        <th>Pseudonym</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Age</th>
+        <th>Sex</th>
+        <th>Nationality</th>
+        <th colspan = "2">Actions</th>
+    </tr>
     </thead>
 
     <tbody>

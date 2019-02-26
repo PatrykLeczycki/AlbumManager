@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "login"))
 public class User {
 
     @Id
@@ -19,7 +19,7 @@ public class User {
     private String login;
 
     @Column(nullable = false)
-    @Size(min = 8, max = 30)
+    @Size(min = 8)
     private String password;
 
     public User() {
@@ -55,6 +55,10 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setPasswordHashed(String password){
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
 }

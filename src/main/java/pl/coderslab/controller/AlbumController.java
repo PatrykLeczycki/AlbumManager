@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.coderslab.model.Album;
 import pl.coderslab.model.Artist;
+import pl.coderslab.model.LoggedUser;
 import pl.coderslab.model.enums.Format;
 import pl.coderslab.model.Label;
 import pl.coderslab.service.AlbumService;
@@ -31,6 +32,9 @@ public class AlbumController {
     @Autowired
     private ArtistService artistService;
 
+    @Autowired
+    private LoggedUser loggedUser;
+
     @GetMapping("/add")
     private String addAlbum(Model model){
         model.addAttribute("album", new Album());
@@ -39,7 +43,6 @@ public class AlbumController {
 
     @PostMapping("/add")
     private String addAlbum(@Valid Album album, BindingResult result){
-        System.out.println(album.getReleaseDate());
         if (result.hasErrors())
             return "albums/add";
 
@@ -50,6 +53,7 @@ public class AlbumController {
     @GetMapping("/all")
     private String allAlbums(Model model){
         model.addAttribute("albums", albumService.getAllAlbums());
+        System.out.println(loggedUser.getLogin());
         return "albums/all";
     }
 

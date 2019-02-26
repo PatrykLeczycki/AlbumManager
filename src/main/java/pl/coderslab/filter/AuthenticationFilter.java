@@ -1,14 +1,21 @@
 package pl.coderslab.filter;
 
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.web.filter.GenericFilterBean;
+import pl.coderslab.model.LoggedUser;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter("/app/*")
-public class AuthenticationFilter implements Filter {
+@WebFilter("/albums/*")
+public class AuthenticationFilter extends GenericFilterBean implements Filter {
+
+    private LoggedUser loggedUser;
+
     public void destroy() {
     }
 
@@ -17,15 +24,34 @@ public class AuthenticationFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
 
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("loggedUser") == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
+        if(null == loggedUser.getLogin()){
+            ServletContext servletContext = request.getServletContext();
+            WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
+            loggedUser = webApplicationContext.getBean(LoggedUser.class);
+            response.sendRedirect("/user/login");
         } else chain.doFilter(request, response);
 
+
+        /*if (loggedUser == null) {
+            System.out.println(loggedUser);
+            response.sendRedirect("/user/login");
+        } else chain.doFilter(request, response);*/
     }
+}
+/*
 
-    public void init(FilterConfig config) throws ServletException {
-
+public class AuthenticationTokenProcessingFilter extends GenericFilterBean {
+    private MyServices service;
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        if(service==null){
+            ServletContext servletContext = request.getServletContext();
+            WebApplicationContext webApplicationContext = WebApplicationContextUtils.getWebApplicationContext(servletContext);
+            service = webApplicationContext.getBean(MyServices.class);
+        }
+        your code ...
     }
 
 }
+
+ */

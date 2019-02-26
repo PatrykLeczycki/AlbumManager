@@ -17,14 +17,17 @@
 
 <br><a href="/" class="button">Homepage</a><br><br>
 
-<h1>Label list</h1>
-
 <table border="1" style="text-align: center" cellpadding = "10">
     <thead>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Country</th>
-    <th colspan = "2">Actions</th>
+    <tr>
+        <th colspan="5">Label list</th>
+    </tr>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Country</th>
+        <th colspan = "2">Actions</th>
+    </tr>
     </thead>
 
     <tbody>

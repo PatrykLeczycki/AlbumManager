@@ -27,7 +27,7 @@
     </tr>
     <tr>
         <td>Release date</td>
-        <td><form:input type="date" path="releaseDate"/></td>
+        <td><input type="date" name="releaseDate" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}/></td>
         <td><form:errors path="releaseDate" cssClass="error" element="div"/></td>
     </tr>
     <tr>
@@ -37,6 +37,6 @@
     </tr>
     <tr>
         <td></td>
-        <td><input type="submit" value="add"></td>
+        <td><form: type="submit" value="add"></td>
     </tr>
 </table>

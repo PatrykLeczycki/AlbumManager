@@ -6,8 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.model.LoggedUser;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/")
 public class HomeController {

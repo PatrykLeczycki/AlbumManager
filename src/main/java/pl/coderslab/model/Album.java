@@ -4,10 +4,9 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.coderslab.model.enums.Format;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -33,7 +32,7 @@ public class Album {
     @Column(nullable = false)
     @NotNull
     @DateTimeFormat(pattern = "yyyy-mm-dd")
-    private Date releaseDate;
+    private LocalDate releaseDate;
 
     @Column(nullable = false)
     @NotNull
@@ -63,12 +62,11 @@ public class Album {
         this.label = label;
     }
 
-    public Date getReleaseDate() {
-        System.out.println(this.releaseDate);
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
 

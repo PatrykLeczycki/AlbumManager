@@ -18,8 +18,8 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import pl.coderslab.converter.ArtistConverter;
+import pl.coderslab.converter.DateConverter;
 import pl.coderslab.converter.LabelConverter;
-
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManagerFactory;
 import java.util.Locale;
@@ -74,12 +74,9 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         return new JpaTransactionManager(emf);
     }
 
-    @Override
-    public void addFormatters(FormatterRegistry registry) {
+    ///////////////////////////////////////////////////////////////////////
 
-        registry.addConverter(getLabelConverter());
-        registry.addConverter(getArtistConverter());
-    }
+    // CONVERTERS
 
     @Bean
     public LabelConverter getLabelConverter() {
@@ -89,6 +86,23 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     @Bean
     public ArtistConverter getArtistConverter() {
         return new ArtistConverter();
+    }
+
+    @Bean
+    public DateConverter getDateConverter() {
+        return new DateConverter();
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+
+    // CONVERTERS REGISTERING
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+
+        registry.addConverter(getLabelConverter());
+        registry.addConverter(getArtistConverter());
+        registry.addConverter(getDateConverter());
     }
 
     ///////////////////////////////////////////////////////////////////////

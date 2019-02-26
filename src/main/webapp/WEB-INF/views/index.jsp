@@ -83,8 +83,8 @@
                         <th style="font-size: 20px;">Dashboard</th>
                         </thead>
                         <tbody>
-                        <tr><td>Test</td></tr>
-                        <tr><td>Test</td></tr>
+                        <tr><td><a href="/user/login" class="button">Log in</a></td></tr>
+                        <tr><td><a href="/labels/all" class="button">All labels</a></td></tr>
                         </tbody>
 
                     </table>
