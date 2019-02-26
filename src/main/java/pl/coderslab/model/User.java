@@ -57,6 +57,14 @@ public class User {
         this.password = password;
     }
 
+    public List<Album> getAlbumList() {
+        return albumList;
+    }
+
+    public void setAlbumList(List<Album> albumList) {
+        this.albumList = albumList;
+    }
+
     public void setPasswordHashed(String password){
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }

@@ -1,17 +1,21 @@
 package pl.coderslab.controller;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.model.LoggedUser;
 import pl.coderslab.model.User;
 import pl.coderslab.service.UserService;
+
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@SessionAttributes("logged")
+public class LoginRegisterController {
 
     @Autowired
     private UserService userService;
@@ -19,7 +23,7 @@ public class UserController {
     @Autowired
     private LoggedUser loggedUser;
 
-    /*@GetMapping("/register")
+    @GetMapping("/register")
     public String register(Model model){
         model.addAttribute("user", new User());
         return "users/register";
@@ -42,7 +46,7 @@ public class UserController {
             return "users/login";
         }
 
-        return "redirect:/";
+        return "redirect:/user/dashboard";
     }
 
     @PostMapping("/login")
@@ -54,9 +58,10 @@ public class UserController {
             loggedUser.setLogin(user.getLogin());
             loggedUser.setPassword(user.getPassword());
             model.addAttribute("hello", "Hello, " + loggedUser.getLogin());
-            session.setAttribute("logged", true);
-            return "users/dashboard";
+            session.setAttribute("logged", loggedUser.getLogin());
+            return "redirect:/user/dashboard";
         }
+
 
         model.addAttribute("wrongData", "Incorrect login or password.");
         return "users/login";
@@ -67,48 +72,43 @@ public class UserController {
         if(loggedUser.getLogin() != null){
             loggedUser.setLogin(null);
             loggedUser.setPassword(null);
+            System.out.println("NULLLOGOUTTEST");
             model.addAttribute("logout", "You have been logged out.");  //TODO: dodać to do widoku index.jsp
-            session.setAttribute("logged", false);
+            //session.setAttribute("logged", null);
+            session.removeAttribute("logged");
         }
 
         return "redirect:/";
-    }*/
-
-
-    @GetMapping("/newpassword")
-    public String newPassword(){
-        return "users/newPassword";
     }
 
-    @PostMapping("/newpassword")
-    public String newPassword(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, @RequestParam("newPasswordRepeat") String newPasswordRepeat, Model model){
+    @GetMapping("/lostpassword")
+    public String lostPassword(){
+        if (loggedUser.getLogin() == null)
+            return "/users/lostPassword";
 
-        if (!oldPassword.equals(loggedUser.getPassword())){
-            model.addAttribute("errorInfo", "Old password doesn't match.");
-            return "users/newPassword";
+        return "redirect:/user/dashboard";   //TODO: zrobić akcję do wyświetlania dashboarda i zmienić na redirect
+    }
+
+    //TODO: zagnieździć weryfikację
+
+    @PostMapping("/lostpassword")
+    public String lostPassword(@RequestParam("login") String login, @RequestParam("newPassword") String newPassword, @RequestParam("newPasswordRepeat") String newPasswordRepeat, Model model){
+
+        if(userService.findUserByLogin(login).getLogin() == null){
+            model.addAttribute("errorInfo", "No user with given login exists.");
+            return "users/lostpassword";
         }
 
-        if (!newPassword.equals(newPasswordRepeat)){
+        if(!newPassword.equals(newPasswordRepeat)){
             model.addAttribute("errorInfo", "Passwords don't match.");
-            return "users/newPassword";
+            return "users/lostpassword";
         }
-        User user = userService.findUserByLogin(loggedUser.getLogin());
+
+        User user = userService.findUserByLogin(login);
+
         user.setPasswordHashed(newPassword);
         userService.changePassword(user);
         model.addAttribute("newPassInfo", "Password has been changed.");
-        return "users/dashboard";
-    }
-
-
-
-    @RequestMapping("/dashboard")
-    public String dashboard(HttpSession session, Model model){
-
-        return "users/dashboard";
-        /*if (loggedUser.getLogin() != null){
-            return "users/dashboard";
-        }
-
-        return "redirect:/login";*/
+        return "redirect:/user/login";
     }
 }

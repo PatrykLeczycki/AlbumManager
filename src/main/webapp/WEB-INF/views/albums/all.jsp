@@ -29,7 +29,7 @@
         <th>Label</th>
         <th>Release date</th>
         <th>Format</th>
-        <th colspan = "2">Actions</th>
+        <th colspan = "3">Actions</th>
     </tr>
     </thead>
 

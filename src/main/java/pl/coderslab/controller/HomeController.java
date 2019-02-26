@@ -15,10 +15,6 @@ public class HomeController {
 
     @RequestMapping("/")
     public String home(Model model){
-
-        if (loggedUser.getLogin() != null){
-            model.addAttribute("hello", "Hello, " + loggedUser.getLogin());
-        }
         return "index";
     }
 }

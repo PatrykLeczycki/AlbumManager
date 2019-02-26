@@ -9,17 +9,41 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>New password</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 
-<c:if test="${not empty newPassInfo}">${newPassInfo}</c:if><br><br>
+<c:if test="${not empty errorInfo}">${errorInfo}</c:if><br><br>
 
-<form action="/user/newpassword" method="post">
-    <input name="oldPassword" type="password"/><br/>
-    <input name="newPassword" type="password"/><br/>
-    <input name="newPasswordRepeat" type="password"/><br/>
-    <input type="submit" value="Submit"/>
-</form>
+
+    <table class="table" align="center" style="text-align: center; position: relative; /*vertical-align: 50%;*/ transform: translateY(75%)" cellpadding = "10" >
+        <form action="/user/newpassword" method="post">
+        <tr>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Old password</td>
+            <td><input name="oldPassword" type="password"/></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>New password</td>
+            <td><input name="newPassword" type="password"/><br/></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Confirm new password</td>
+            <td><input name="newPasswordRepeat" type="password"/><br/></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <input type="submit" value="Submit"></form>
+                <a href="/user/dashboard" style="padding: auto"><button>Back</button></a>
+            </td>
+        </tr>
+    </table>
+
 </body>
 </html>
