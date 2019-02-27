@@ -66,6 +66,13 @@ public class UserController {
         return "redirect:/albums/all";
     }
 
+    @RequestMapping(value = "/deletealbum/{id}", method = RequestMethod.GET)
+    public String deleteAlbumFromCollection(@PathVariable long id){
+
+        userService.deleteAlbumFromCollection(loggedUser.getId(), id);
+        return "redirect:/albums/all";
+    }
+
     @ModelAttribute("albums")
     public List<Album> allAlbums(){
         return albumService.getAllAlbums();

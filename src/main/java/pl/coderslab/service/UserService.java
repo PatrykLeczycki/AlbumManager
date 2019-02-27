@@ -27,4 +27,7 @@ public class UserService {
         userRepo.addAlbumToCollection(user_id, album_id);
     }
 
+    public void deleteAlbumFromCollection(long user_id, long album_id){
+        userRepo.deleteAlbumFromCollection(user_id, album_id);
+    }
 }

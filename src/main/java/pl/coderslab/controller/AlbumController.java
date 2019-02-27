@@ -14,6 +14,7 @@ import pl.coderslab.model.Label;
 import pl.coderslab.service.AlbumService;
 import pl.coderslab.service.ArtistService;
 import pl.coderslab.service.LabelService;
+import pl.coderslab.service.UserService;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -34,6 +35,9 @@ public class AlbumController {
 
     @Autowired
     private LoggedUser loggedUser;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/add")
     private String addAlbum(Model model){
@@ -101,5 +105,10 @@ public class AlbumController {
         }
 
         return formatList;
+    }
+
+    @ModelAttribute("useralbumsids")
+    public List<Long> getIds(){
+        return albumService.getAlbumIdsByUserId(loggedUser.getId());
     }
 }

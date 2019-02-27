@@ -21,6 +21,10 @@ public class AlbumService {
         return albumRepo.findAll();
     }
 
+    public List<Long> getAlbumIdsByUserId(Long id){
+        return albumRepo.getAlbumIdsByUserId(id);
+    }
+
     public Album getAlbumById(long id){
         return albumRepo.findOne(id);
     }
