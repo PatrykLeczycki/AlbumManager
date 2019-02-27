@@ -22,6 +22,8 @@ public class User {
     @Size(min = 8)
     private String password;
 
+    private boolean admin;
+
     public User() {
     }
 
@@ -30,8 +32,8 @@ public class User {
         this.setPassword(password);
     }
 
-    @ManyToMany
-    private List<Album> albumList;
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    private List<Album> albums;
 
     public Long getId() {
         return id;
@@ -57,12 +59,12 @@ public class User {
         this.password = password;
     }
 
-    public List<Album> getAlbumList() {
-        return albumList;
+    public List<Album> getAlbums() {
+        return albums;
     }
 
-    public void setAlbumList(List<Album> albumList) {
-        this.albumList = albumList;
+    public void setAlbums(List<Album> albumList) {
+        this.albums = albumList;
     }
 
     public void setPasswordHashed(String password){

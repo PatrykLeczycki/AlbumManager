@@ -87,16 +87,24 @@ public class Album {
     }
 
     public String getArtistsToString(){
-        StringBuilder artistsToString = new StringBuilder();
+        StringBuilder artists = new StringBuilder();
         int counter = 0;
 
         for (Artist x : this.artists){
             if (counter != 0)
-                artistsToString.append(", ");
-            artistsToString.append(x.getPseudonym());
+                artists.append(", ");
+            artists.append(x.getPseudonym());
             counter++;
         }
+        return artists.toString();
+    }
 
-        return artistsToString.toString();
+    public String getFullTitleToString(){
+
+        StringBuilder fullTitle = new StringBuilder();
+        String artists = getArtistsToString();
+        artists += " - " + this.title;
+
+        return artists;
     }
 }

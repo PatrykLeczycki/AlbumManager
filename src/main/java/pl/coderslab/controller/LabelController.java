@@ -43,7 +43,6 @@ public class LabelController {
     @GetMapping("/all")
     public String allLabels(Model model){
         model.addAttribute("labels", labelService.getAllLabels());
-        System.out.println(loggedUser.getLogin());
         return "labels/all";
     }
 

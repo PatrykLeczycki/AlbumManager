@@ -17,15 +17,7 @@ public class AuthorizationFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) resp;
         HttpSession session = request.getSession(false);
 
-        boolean loggedIn = (session != null) && (session.getAttribute("logged") != null);
-
-        if (session != null){
-            System.out.println("null1");
-        }
-
-        if (session.getAttribute("logged") != null){
-            System.out.println("null2");
-        }
+        boolean loggedIn = (session != null) && (session.getAttribute("logged") != null) && (boolean) session.getAttribute("logged");
 
         if (loggedIn) chain.doFilter(request, response);
 

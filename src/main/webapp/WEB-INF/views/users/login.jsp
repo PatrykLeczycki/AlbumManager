@@ -29,10 +29,8 @@
 </head>
 <body>
 
-<div class="container">
+<%--<div class="container">
     <!-- Trigger the modal with a button -->
-    <button type="button" class="btn btn-default btn-lg" id="myBtn">Login</button>
-
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
@@ -68,18 +66,9 @@
 
         </div>
     </div>
-</div>
+</div>--%>
 
-<script>
-    $(document).ready(function(){
-        $("#myBtn").click(function(){
-            $("#myModal").modal();
-        });
-    });
-</script>
-
-
-<%--<table border="1" style="text-align: center" cellpadding = "10">
+<table border="1" style="text-align: center" cellpadding = "10">
 
     <tbody>
     <form:form method="post" action="/login" modelAttribute="user">
@@ -104,6 +93,6 @@
         </table>
     </form:form>
     </tbody>
-</table>--%>
+</table>
 </body>
 </html>

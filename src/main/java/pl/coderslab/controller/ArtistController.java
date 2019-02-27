@@ -43,7 +43,6 @@ public class ArtistController {
 
     @GetMapping("/all")
     private String allArtists(Model model){
-        System.out.println(loggedUser.getLogin());
         model.addAttribute("artists", artistService.getAllArtists());
         return "artists/all";
     }

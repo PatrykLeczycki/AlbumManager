@@ -53,7 +53,6 @@ public class AlbumController {
     @GetMapping("/all")
     private String allAlbums(Model model){
         model.addAttribute("albums", albumService.getAllAlbums());
-        System.out.println(loggedUser.getLogin());
         return "albums/all";
     }
 

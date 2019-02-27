@@ -45,9 +45,7 @@ table:not(.outter-main-table){
     background-color: #dbe4f0;
 }
 
-
-
-body:not(.header){
+body{
     background-image: url("/images/background-image.jpg");
 }
 

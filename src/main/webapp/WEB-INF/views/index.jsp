@@ -139,31 +139,20 @@
             <a class="navbar-brand" href="/">Album Manager</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="#">Page 1</a></li>
-            <li><a href="#">Page 2</a></li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1
-                    <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Page 1-1</a></li>
-                    <li><a href="#">Page 1-2</a></li>
-                    <li><a href="#">Page 1-3</a></li>
-                </ul>
-            </li>
+            <li><a href="/albums/all">Albums</a></li>
+            <li><a href="/artists/all">Artists</a></li>
+            <li><a href="/labels/all">Labels</a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <%--<li><a href="/login"><span class="glyphicon glyphicon-log-in" id="myBtn"></span> Login</a></li>--%>
-            <li><a href="#myModal" class="trigger-btn" data-toggle="modal"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+            <li><a href="#myModalRegister" class="trigger-btn" data-toggle="modal"><span class="glyphicon glyphicon-pencil"></span> Sign Up</a></li>
+            <li><a href="#myModal" class="trigger-btn" data-toggle="modal" name="login"><span class="glyphicon glyphicon-user"></span> Login</a></li>
         </ul>
     </div>
 </nav>
 
 <div class="container">
     <!-- Trigger the modal with a button -->
-    <%--<button type="button" class="glyphicon glyphicon-log-in" id="myBtn">Login</button>--%>
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
@@ -193,8 +182,54 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-                    <p>Not a member? <a href="#">Sign Up</a></p>
-                    <p>Forgot <a href="#">Password?</a></p>
+                    <p>Not a member? <a href="#myModalRegister" data-toggle="modal" data-dismiss="modal">Sign up</a></p>
+                    <p>Forgot <a href="/lostpassword">Password?</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%----%>
+
+<div class="container">
+    <!-- Trigger the modal with a button -->
+    <%--<button type="button" class="glyphicon glyphicon-log-in" id="myBtn">Login</button>--%>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModalRegister" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="padding:35px 50px;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4><span class="glyphicon glyphicon-pencil"></span> Register</h4>
+                </div>
+                <div class="modal-body" style="padding:40px 50px;">
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="email"><span class="glyphicon glyphicon-envelope"></span> E-mail</label>
+                            <input type="text" class="form-control" id="email" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <label for="login"><span class="glyphicon glyphicon-user"></span> Login</label>
+                            <input type="text" class="form-control" id="login" placeholder="Enter login">
+                        </div>
+                        <div class="form-group">
+                            <label for="psw1"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+                            <input type="text" class="form-control" id="psw1" placeholder="Enter password">
+                        </div>
+                        <div class="form-group">
+                            <label for="psw2"><span class="glyphicon glyphicon-eye-open"></span> Confirm password</label>
+                            <input type="text" class="form-control" id="psw2" placeholder="Confirm password">
+                        </div>
+                        <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-pencil"></span> Register</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                    <p>Already have an account? <a href="#myModal" data-toggle="modal" data-dismiss="modal">Sign in</a></p>
                 </div>
             </div>
 
@@ -203,99 +238,17 @@
 </div>
 
 <script>
-    $(document).ready(function(){
-        $("#myBtn").click(function(){
-            $("#myModal").modal();
-        });
+    $(function() {
+        //Check if we have a hash, if so try to click an element that links to it
+        if (location.hash.length > 0) {
+            if (location.hash.includes("Register")){
+                if(sessionStorage.getItem("logged")){
+                    $('a[href="#myModal"]').click();
+                }
+            } else $('a[href="#myModalRegister"]').click();
+        }
     });
 </script>
-
-
-
-<%--<div class="main-div">
-    <a href="/albums/all">All albums</a><br>
-    <a href="/albums/add">Add album</a>
-</div>
-
-
-<div class="main-div">
-    <a href="/artists/all">All artists</a>
-    <a href="/artists/add">Add artist</a>
-</div>
-
-<div class="main-div">
-    <a href="/labels/all">All labels</a>
-    <a href="/labels/add">Add label</a>
-</div>--%>
-
-    <table class="outter-main-table" align="center" style="position: relative; /*vertical-align: 50%;*/ transform: translateY(75%)">
-        <tbody>
-        <tr>
-            <td>
-                <%--<div class="mainpage-div">--%>
-                <table style="font-family: 'Times New Roman', Times, serif" class = "table" style="text-align: center" cellpadding = "20">
-                    <thead>
-                    <th style="font-size: 20px;">Albums</th>
-                    </thead>
-                    <tbody>
-                    <tr><td><a href="/albums/all"><button>All albums</button></a></td></tr>
-                    <tr><td><a href="/albums/add"><button>Add album</button></a></td></tr>
-                    </tbody>
-                </table>
-                <%--</div>--%>
-            </td>
-            <%--<div class="mainpage-div">--%>
-            <td>
-                <table class = "table" style="text-align: center" cellpadding = "20">
-                    <thead>
-                    <th style="font-size: 20px">Artists</th>
-                    </thead>
-                    <tbody>
-                    <tr><td><a href="/artists/all"><button>All artists</button></a></td></tr>
-                    <tr><td><a href="/artists/add"><button>Add artist</button></a></td></tr>
-                    </tbody>
-
-                </table>
-            </td>
-            <%--</div>--%>
-
-            <%--<div class="mainpage-div">--%>
-            <td>
-                <table class = "table" cellpadding = "20">
-                    <thead>
-                    <th style="font-size: 20px">Labels</th>
-                    </thead>
-                    <tbody>
-                    <tr><td><a href="/labels/all"><button>All labels</button></a></td></tr>
-                    <tr><td><a href="/labels/add"><button>Add label</button></a></td></tr>
-                    </tbody>
-
-                </table>
-                <%--</div>--%>
-
-                <%--<div class="mainpage-div">--%>
-                <%--</div>--%>
-            </td>
-        </tr>
-
-        <% if (session.getAttribute("logged") == null) { %>
-        <tr>
-            <td></td>
-            <td>
-                <table class = "table" style="text-align: center" cellpadding = "20">
-                    <thead>
-                    <th style="font-size: 20px;">Dashboard</th>
-                    </thead>
-                    <tbody>
-                    <tr><td><a href="/login" class="button">Log in</a></td></tr>
-                    </tbody>
-
-                </table>
-            </td>
-        </tr>
-        <% } %>
-        </tbody>
-    </table>
 
 </body>
 </html>

@@ -6,11 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.model.Album;
 import pl.coderslab.model.LoggedUser;
 import pl.coderslab.model.User;
 import pl.coderslab.service.UserService;
-
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -36,7 +35,7 @@ public class LoginRegisterController {
         }
         user.setPasswordHashed(user.getPassword());
         userService.addUser(user);
-        return "index";
+        return "redirect:/login";
     }
 
     @GetMapping("/login")
@@ -50,34 +49,39 @@ public class LoginRegisterController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute User user, Model model, HttpSession session){
+    public String login(@ModelAttribute User user, Model model){
+
+        user.setId(userService.findUserByLogin(user.getLogin()).getId());
 
         User validUser = userService.findUserByLogin(user.getLogin());
+        System.out.println(validUser.getLogin() == null);
 
         if(validUser.getLogin() != null && BCrypt.checkpw(user.getPassword(), validUser.getPassword())){
+            long id = user.getId();
+            loggedUser.setId(id);
             loggedUser.setLogin(user.getLogin());
             loggedUser.setPassword(user.getPassword());
+            loggedUser.setAlbums(user.getAlbums());
             model.addAttribute("hello", "Hello, " + loggedUser.getLogin());
-            session.setAttribute("logged", loggedUser.getLogin());
+            model.addAttribute("logged", true);
+
             return "redirect:/user/dashboard";
         }
-
 
         model.addAttribute("wrongData", "Incorrect login or password.");
         return "users/login";
     }
 
     @RequestMapping("/logout")
-    public String logout(Model model, HttpSession session){
+    public String logout(Model model){
         if(loggedUser.getLogin() != null){
+            userService.findUserByLogin(loggedUser.getLogin()).setAlbums(loggedUser.getAlbums());
+            loggedUser.setId(0L);
             loggedUser.setLogin(null);
             loggedUser.setPassword(null);
-            System.out.println("NULLLOGOUTTEST");
             model.addAttribute("logout", "You have been logged out.");  //TODO: dodać to do widoku index.jsp
-            //session.setAttribute("logged", null);
-            session.removeAttribute("logged");
+            model.addAttribute("logged", false);
         }
-
         return "redirect:/";
     }
 

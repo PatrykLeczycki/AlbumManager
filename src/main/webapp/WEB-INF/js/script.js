@@ -1,3 +1,4 @@
+/*
 $(document).ready(function(){
     $('.modal-footer button').click(function(){
         var button = $(this);
@@ -61,4 +62,4 @@ $(document).ready(function(){
 
 
 
-    
+    */

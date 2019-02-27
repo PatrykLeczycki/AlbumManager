@@ -1,6 +1,5 @@
 package pl.coderslab.model;
 
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
@@ -13,9 +12,10 @@ import java.util.List;
         proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class LoggedUser {
 
+    private Long id;
     private String login;
     private String password;
-    private List<Album> albumList;
+    private List<Album> albums;
 
     public LoggedUser() {
     }
@@ -23,7 +23,14 @@ public class LoggedUser {
     public LoggedUser(String login, String password) {
         this.login = login;
         setPassword(password);
-        System.out.println("konstruktor");
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getLogin() {
@@ -42,15 +49,12 @@ public class LoggedUser {
         this.password = password;
     }
 
-    public List<Album> getAlbumList() {
-        return albumList;
+    public List<Album> getAlbums() {
+        return albums;
     }
 
-    public void setAlbumList(List<Album> albumList) {
-        this.albumList = albumList;
+    public void setAlbums(List<Album> albumList) {
+        this.albums = albumList;
     }
 
-    public void setPasswordHashed(String password){
-        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
-    }
 }
