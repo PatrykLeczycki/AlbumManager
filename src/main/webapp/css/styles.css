@@ -1,39 +1,87 @@
-.error{
-    color: red;
+body{
+    background-image: url("/images/background-image.jpg");
 }
 
-.deletion-info{
-    font-weight: bold;
-    color: blue;
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_asc_disabled:before,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting_desc:before,
+table.dataTable thead .sorting_desc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:before {
+    bottom: .5em;
 }
 
-a.button {
-    -webkit-appearance: button;
-    -moz-appearance: button;
-    appearance: button;
-
-    text-decoration: none;
-    color: initial;
-    padding: 5px 10px;
-    font-family: Arial, Times, serif;
-    font-size: 20px;
+.pagination>li {
+    display: inline;
+    padding:0px !important;
+    margin:0px !important;
+    border:none !important;
 }
-button{
-    font-size: medium;
+.modal-backdrop {
+    z-index: -1 !important;
+}
+/*
+Fix to show in full screen demo
+*/
+iframe
+{
+    height:700px !important;
+}
+
+.btn {
+    display: inline-block;
+    padding: 6px 12px !important;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.btn-primary {
+    color: #fff !important;
+    background: #428bca !important;
+    border-color: #357ebd !important;
+    box-shadow:none !important;
+}
+.btn-danger {
+    color: #fff !important;
+    background: #d9534f !important;
+    border-color: #d9534f !important;
+    box-shadow:none !important;
 }
 
 table:not(.outter-main-table){
-    /*text-align: center;*/
+    text-align: center;
     background-color: #dbe4f0;
+    font-family: initial;
 }
 
 .table{
+    display: inline-block;
     border-width: 5px;
     border-style: solid;
     border-color: #13263a;
     border-radius: 40px;
     color: #13263a;
     background-color: #dbe4f0;
+
 }
 
 .table-list{
@@ -45,7 +93,9 @@ table:not(.outter-main-table){
     background-color: #dbe4f0;
 }
 
-body{
+
+
+body:not(.header){
     background-image: url("/images/background-image.jpg");
 }
 

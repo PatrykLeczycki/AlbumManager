@@ -22,7 +22,8 @@
     </script>
 </head>
 <body>
-<br><a href="/" class="button">Homepage</a><br><br>
+
+<%@include file="../header.jsp"%>
 
 <h1>Current values:</h1>
 

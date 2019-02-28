@@ -25,50 +25,50 @@
         .modal-footer {
             background-color: #f9f9f9;
         }
+
     </style>
 </head>
 <body>
 
-<%--<div class="container">
+<div class="container">
     <!-- Trigger the modal with a button -->
+
     <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
+    <div role="dialog">
         <div class="modal-dialog">
 
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header" style="padding:35px 50px;">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal">x</button>
                     <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
                 </div>
                 <div class="modal-body" style="padding:40px 50px;">
-                    <form role="form">
+                <form:form method="post" action="/loginpanel" modelAttribute="user">
                         <div class="form-group">
-                            <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
-                            <input type="text" class="form-control" id="usrname" placeholder="Enter email">
+                            <label for="usrname"><span class="glyphicon glyphicon-user"></span> Login</label>
+                            <form:input type="text" path="login" class="form-control" id="usrname" placeholder="Enter login"/>
                         </div>
                         <div class="form-group">
                             <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-                            <input type="text" class="form-control" id="psw" placeholder="Enter password">
+                            <form:input type="password" path="password" class="form-control" id="psw" placeholder="Enter password"/>
                         </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox" value="" checked>Remember me</label>
-                        </div>
+
                         <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
-                    </form>
+                    </form:form>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-                    <p>Not a member? <a href="#">Sign Up</a></p>
-                    <p>Forgot <a href="#">Password?</a></p>
+                    <p>Not a member? <a href="#myModalRegister" data-toggle="modal" data-dismiss="modal">Sign up</a></p>
+                    <p>Forgot <a href="/lostpassword">Password?</a></p>
                 </div>
             </div>
-
         </div>
     </div>
-</div>--%>
+</div>
 
-<table border="1" style="text-align: center" cellpadding = "10">
+
+<%--<table border="1" style="text-align: center" cellpadding = "10">
 
     <tbody>
     <form:form method="post" action="/login" modelAttribute="user">
@@ -93,6 +93,6 @@
         </table>
     </form:form>
     </tbody>
-</table>
+</table>--%>
 </body>
 </html>

@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
-import pl.coderslab.model.Album;
 import pl.coderslab.model.User;
 
 import java.util.List;
@@ -13,6 +12,8 @@ import java.util.List;
 public interface UserRepo extends JpaRepository<User, Long> {
 
     User findUserByLogin(String login);
+
+    User findUserByEmail(String email);
 
     // TODO: sprawdzić czy można wypchnąć annotacje nad interfejs
 
@@ -25,4 +26,8 @@ public interface UserRepo extends JpaRepository<User, Long> {
     @Transactional
     @Query(value = "delete from user_album where user_album.User_id = :tempuser AND user_album.albums_id = :album", nativeQuery = true)
     void deleteAlbumFromCollection(@Param("tempuser") long user_id, @Param("album") long album_id);
+
+    @Query(value = "select user_album.albums_id from user_album where User_id = :tempid", nativeQuery = true)
+    List<Long> getAllUserAlbums(@Param("user_id") Long id);
+
 }

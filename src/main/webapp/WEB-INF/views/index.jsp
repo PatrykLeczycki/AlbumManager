@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page session="true" %>
 
 <%--
@@ -18,7 +19,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap Flat Modal Login Modal Form</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -133,7 +133,17 @@
     </style>
 </head>
 <body>
-<%@include file="header.jsp"%>
+<%--TODO: dać na głównej inny header jeśli użytkownik jest zalogowany--%>
+
+<c:choose>
+    <c:when test="${sessionScope.logged}">
+        <%@include file="headerLogged.jsp"%>
+    </c:when>
+    <c:otherwise>
+        <%@include file="header.jsp"%>
+    </c:otherwise>
+</c:choose>
+
 <div class="container">
     <!-- Trigger the modal with a button -->
 
@@ -144,22 +154,20 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header" style="padding:35px 50px;">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal">x</button>
                     <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
                 </div>
                 <div class="modal-body" style="padding:40px 50px;">
-                    <form role="form">
+                    <form role="form" method="post" action="/login">
                         <div class="form-group">
-                            <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
-                            <input type="text" class="form-control" id="usrname" placeholder="Enter email">
+                            <label for="usrname"><span class="glyphicon glyphicon-user"></span> Login</label>
+                            <input type="text" name="login" class="form-control" id="usrname" placeholder="Enter login">
                         </div>
                         <div class="form-group">
                             <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-                            <input type="text" class="form-control" id="psw" placeholder="Enter password">
+                            <input type="password" name="password" class="form-control" id="psw" placeholder="Enter password">
                         </div>
-                        <div class="checkbox">
-                            <label><input type="checkbox" value="" checked>Remember me</label>
-                        </div>
+
                         <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
                     </form>
                 </div>
@@ -190,22 +198,22 @@
                     <h4><span class="glyphicon glyphicon-pencil"></span> Register</h4>
                 </div>
                 <div class="modal-body" style="padding:40px 50px;">
-                    <form role="form">
+                    <form role="form" action="/register" method="get">
                         <div class="form-group">
                             <label for="email"><span class="glyphicon glyphicon-envelope"></span> E-mail</label>
-                            <input type="text" class="form-control" id="email" placeholder="Enter email">
+                            <input type="text" name="email" class="form-control" id="email" placeholder="Enter email">
                         </div>
                         <div class="form-group">
                             <label for="login"><span class="glyphicon glyphicon-user"></span> Login</label>
-                            <input type="text" class="form-control" id="login" placeholder="Enter login">
+                            <input type="text" class="form-control" name="login" id="login" placeholder="Enter login">
                         </div>
                         <div class="form-group">
                             <label for="psw1"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-                            <input type="text" class="form-control" id="psw1" placeholder="Enter password">
+                            <input type="password" class="form-control" name="password1" id="psw1" placeholder="Enter password">
                         </div>
                         <div class="form-group">
                             <label for="psw2"><span class="glyphicon glyphicon-eye-open"></span> Confirm password</label>
-                            <input type="text" class="form-control" id="psw2" placeholder="Confirm password">
+                            <input type="password" class="form-control" name="password2" id="psw2" placeholder="Confirm password">
                         </div>
                         <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-pencil"></span> Register</button>
                     </form>
@@ -221,14 +229,13 @@
 </div>
 
 <script>
-    $(function() {
-        //Check if we have a hash, if so try to click an element that links to it
+    jQuery(function(){
         if (location.hash.length > 0) {
-            if (location.hash.includes("Register")){
+            if (location.hash.endsWith("Modal")){
                 if(sessionStorage.getItem("logged")){
-                    $('a[href="#myModal"]').click();
+                    jQuery('#myModal').click();
                 }
-            } else $('a[href="#myModalRegister"]').click();
+            }
         }
     });
 </script>

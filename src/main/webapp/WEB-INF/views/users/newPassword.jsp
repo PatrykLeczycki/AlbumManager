@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
-  User: patryk
+  Use1/4 oglądających r: patryk
   Date: 26.02.19
   Time: 14:13
   To change this template use File | Settings | File Templates.
@@ -14,10 +14,12 @@
 </head>
 <body>
 
+<%@include file="../headerLogged.jsp"%>
+
 <c:if test="${not empty errorInfo}">${errorInfo}</c:if><br><br>
 
 
-    <table class="table" align="center" style="text-align: center; position: relative; /*vertical-align: 50%;*/ transform: translateY(75%)" cellpadding = "10" >
+    <table class="table" style="text-align: center; margin: 0 auto; transform: translateY(75%)" cellpadding = "10" >
         <form action="/user/newpassword" method="post">
         <tr>
             <td></td>

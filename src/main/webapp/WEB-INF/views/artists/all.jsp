@@ -9,14 +9,28 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Artist list</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap Flat Modal Login Modal Form</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-<br><a href="/" class="button">Homepage</a><br><br>
+<c:choose>
+    <c:when test="${sessionScope.logged}">
+        <%@include file="../headerLogged.jsp"%>
+    </c:when>
+    <c:otherwise>
+        <%@include file="../header.jsp"%>
+    </c:otherwise>
+</c:choose>
 
-<table border="1" style="text-align: center" cellpadding = "10">
+<table border="1" style="text-align: center; margin: 0 auto" cellpadding = "10">
     <thead>
     <tr>
         <th colspan="9">Artist list</th>
@@ -39,8 +53,6 @@
     </c:forEach>
     </tbody>
 </table>
-
-<br><br><a href="/artists/add" class="button">Add artist</a>
 
 </body>
 </html>

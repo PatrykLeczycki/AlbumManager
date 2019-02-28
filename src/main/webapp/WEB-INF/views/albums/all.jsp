@@ -9,12 +9,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Artist list</title>
+    <title>Hello, world!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 
-<br><a href="/" class="button">Homepage</a><br><br>
+<c:choose>
+    <c:when test="${sessionScope.logged}">
+        <%@include file="../headerLogged.jsp"%>
+    </c:when>
+    <c:otherwise>
+        <%@include file="../header.jsp"%>
+    </c:otherwise>
+</c:choose>
 
 <table border="1" style="text-align: center; margin: 0 auto;" cellpadding = "10">
 
@@ -39,8 +47,5 @@
     </c:forEach>
     </tbody>
 </table>
-
-<br><br><a href="/albums/add" class="button">Add album</a>
-
 </body>
 </html>

@@ -1,5 +1,6 @@
 package pl.coderslab.model;
 
+import org.hibernate.validator.constraints.Email;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.*;
@@ -22,9 +23,18 @@ public class User {
     @Size(min = 8)
     private String password;
 
-    private boolean admin;
+    @Email(regexp = "[_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.([a-zA-Z]{2,}){1}")
+    private String email;
+
+    //private boolean admin;
 
     public User() {
+    }
+
+    public User(String login, String password, String email) {
+        this.login = login;
+        this.setPasswordHashed(password);
+        this.email = email;
     }
 
     public User(String login, String password) {
@@ -57,6 +67,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public List<Album> getAlbums() {

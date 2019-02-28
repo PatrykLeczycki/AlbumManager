@@ -1,5 +1,6 @@
 package pl.coderslab.controller;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,12 +32,13 @@ public class UserController {
 
     @GetMapping("/newpassword")
     public String newPassword(){
+        System.out.println("1");
         return "users/newPassword";
     }
 
     @PostMapping("/newpassword")
     public String newPassword(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, @RequestParam("newPasswordRepeat") String newPasswordRepeat, Model model){
-
+        System.out.println("2");
         if (!oldPassword.equals(loggedUser.getPassword())){
             model.addAttribute("errorInfo", "Old password doesn't match.");
             return "users/newPassword";
@@ -56,19 +58,26 @@ public class UserController {
 
     @RequestMapping("/dashboard")
     public String dashboard(HttpSession session, Model model){
+        System.out.println("3");
         return "users/dashboard";
+    }
+
+    @GetMapping("/all")
+    private String allUserAlbumIds(Model model){
+        model.addAttribute("albums", userService.getAllUserAlbums(loggedUser.getId()));
+        return "allalbums";
     }
 
     @RequestMapping(value = "/addalbum/{id}", method = RequestMethod.GET)
     public String addAlbumToCollection(@PathVariable long id){
-
+        System.out.println("4");
         userService.addAlbumToCollection(loggedUser.getId(), id);
         return "redirect:/albums/all";
     }
 
     @RequestMapping(value = "/deletealbum/{id}", method = RequestMethod.GET)
     public String deleteAlbumFromCollection(@PathVariable long id){
-
+        System.out.println("5");
         userService.deleteAlbumFromCollection(loggedUser.getId(), id);
         return "redirect:/albums/all";
     }
@@ -76,5 +85,10 @@ public class UserController {
     @ModelAttribute("albums")
     public List<Album> allAlbums(){
         return albumService.getAllAlbums();
+    }
+
+    @ModelAttribute("useralbums")
+    public List<Long> allUsersAlbums(){
+        return userService.getAllUserAlbums(loggedUser.getId());
     }
 }
