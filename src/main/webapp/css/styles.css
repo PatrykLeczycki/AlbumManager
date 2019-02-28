@@ -73,6 +73,10 @@ table:not(.outter-main-table){
     font-family: initial;
 }
 
+td, th, tr {
+    padding: 10px;
+    text-align: center;
+}
 .table{
     display: inline-block;
     border-width: 5px;
@@ -92,8 +96,6 @@ table:not(.outter-main-table){
     color: #13263a;
     background-color: #dbe4f0;
 }
-
-
 
 body:not(.header){
     background-image: url("/images/background-image.jpg");

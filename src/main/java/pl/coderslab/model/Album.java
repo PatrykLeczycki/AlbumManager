@@ -13,6 +13,8 @@ import java.util.List;
 @Table(name = "album")
 public class Album {
 
+    //TODO: dodać gatunek
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

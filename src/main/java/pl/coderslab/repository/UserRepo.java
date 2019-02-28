@@ -27,7 +27,7 @@ public interface UserRepo extends JpaRepository<User, Long> {
     @Query(value = "delete from user_album where user_album.User_id = :tempuser AND user_album.albums_id = :album", nativeQuery = true)
     void deleteAlbumFromCollection(@Param("tempuser") long user_id, @Param("album") long album_id);
 
-    @Query(value = "select user_album.albums_id from user_album where User_id = :tempid", nativeQuery = true)
+    @Query(value = "select albums_id from user_album where User_id = :user_id", nativeQuery = true)
     List<Long> getAllUserAlbums(@Param("user_id") Long id);
 
 }

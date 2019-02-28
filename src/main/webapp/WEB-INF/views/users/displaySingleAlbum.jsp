@@ -1,4 +1,5 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <c:set var="contains" value="false"/>
 <c:forEach items="${useralbumids}" var="useralbumid">
     <c:if test="${useralbumid eq album.id}">
@@ -14,4 +15,5 @@
     <td>${album.label.name}</td>
     <td>${album.releaseDate}</td>
     <td>${album.format}</td>
+    <td><a href="/user/deletealbum/${album.id}" onclick="return confirm('Are you sure you want to remove this album from your collection?');">Remove from collection</a></td>
 </c:if>

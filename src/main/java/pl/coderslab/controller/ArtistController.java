@@ -32,6 +32,8 @@ public class ArtistController {
         return "artists/add";
     }
 
+    // TODO: sprawdzić debuggerem czemu trzeba odświeżyć, żeby zobaczyć świeżo dodany item
+
     @PostMapping("/add")
     private String addArtist(@Valid Artist artist, BindingResult result){
         if (result.hasErrors())

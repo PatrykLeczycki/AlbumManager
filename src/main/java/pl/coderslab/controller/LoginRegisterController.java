@@ -39,14 +39,14 @@ public class LoginRegisterController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(@RequestParam("email") String email, @RequestParam("login") String login, @RequestParam("password1") String password, @RequestParam("password2") String confirmPassword, Model model){
         if (!password.equals(confirmPassword) || userService.findUserByLogin(login) != null || login.length() < 5 || password.length() < 8){
-            return "redirect:/#myModalRegister";
+            return "redirect:/register";
         }
 
         User user = new User(login, password, email);
         userService.addUser(user);
         model.addAttribute("toLogin", true);
 
-        return "redirect:/login";
+        return "redirect:/loginpanel";
     }
 
     @GetMapping("/loginpanel")
@@ -65,9 +65,6 @@ public class LoginRegisterController {
 
         User userFromDb = userService.findUserByLogin(user.getLogin());
 
-        /*tempUser.setId(userService.findUserByLogin(tempUser.getLogin()).getId());
-        tempUser.setEmail(userService.findUserByLogin(tempUser.getLogin()).getEmail());*/
-
         if(loggedUser.getLogin() != null || (userFromDb.getLogin() != null && BCrypt.checkpw(user.getPassword(), userFromDb.getPassword()))){
             loggedUser.setId(userService.findUserByLogin(user.getLogin()).getId());
             loggedUser.setLogin(user.getLogin());
@@ -81,10 +78,10 @@ public class LoginRegisterController {
 
         model.addAttribute("wrongData", "Incorrect login or password.");
         model.addAttribute("toLogin", true);
-        return "redirect:/login";
+        return "redirect:/loginpanel";
     }
 
-    @RequestMapping("/login")
+    /*@RequestMapping("/login")
     public String login(@RequestParam("login") String login, @RequestParam("password") String password, Model model){
 
         User tempUser = new User(login, password);
@@ -114,7 +111,7 @@ public class LoginRegisterController {
         model.addAttribute("toLogin", true);
         return "redirect:/login";
     }
-
+*/
     @RequestMapping("/logout")
     public String logout(Model model){
         if(loggedUser.getLogin() != null){
