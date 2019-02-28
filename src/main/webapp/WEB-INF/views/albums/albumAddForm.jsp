@@ -1,4 +1,4 @@
-<table cellpadding = "10">
+<table border="1" style="text-align: center; margin: 0 auto; border-width: medium;" cellpadding = "10">
 
     <tr>
         <td>Artists</td>
@@ -38,5 +38,6 @@
     <tr>
         <td></td>
         <td><input type="submit" value="add"></td>
+        <td></td>
     </tr>
 </table>

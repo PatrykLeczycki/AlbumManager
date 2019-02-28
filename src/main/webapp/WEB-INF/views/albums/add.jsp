@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: patryk
@@ -10,28 +11,24 @@
 <html>
 <head>
     <title>Add album</title>
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <%--<script>
-        $( function() {
-            $( "#datepicker" ).datepicker();
-        } );
-    </script>--%>
+    <%@include file="../files.jsp"%>
 </head>
 <body>
 
-<br><a href="/" class="button">Homepage</a><br><br>
-
-<h1>Add new album</h1>
+<c:choose>
+    <c:when test="${sessionScope.logged}">
+        <%@include file="../headerLogged.jsp"%>
+    </c:when>
+    <c:otherwise>
+        <%@include file="../header.jsp"%>
+    </c:otherwise>
+</c:choose>
 
 <form:form method="post" action="/albums/add" modelAttribute="album">
     <%@include file="albumAddForm.jsp"%>
 </form:form>
 
-<br><br><a href="/albums/all" class="button">Back</a>
-
+<%@include file="../modals.jsp"%>
+<%@include file="../footer.jsp"%>
 </body>
 </html>

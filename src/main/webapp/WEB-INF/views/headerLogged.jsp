@@ -1,20 +1,20 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="/">Album Manager</a>
+            <a class="navbar-brand" href="/" style="font-size: 30px">Album Manager</a>
         </div>
         <ul class="nav navbar-nav">
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Albums
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="font-size: 20px">Albums
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/albums/all">All albums</a></li>
-                    <li><a href="#">Your albums</a></li>
+                    <li><a href="/user/all">Your albums</a></li>
                     <li><a href="/albums/add">Add album</a></li>
                 </ul>
             </li>
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Artists
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="font-size: 20px">Artists
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/artists/all">All artists</a></li>
@@ -22,7 +22,7 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Labels
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="font-size: 20px">Labels
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/labels/all">All labels</a></li>
@@ -32,7 +32,7 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="/user/dashboard"><span>Dashboard</span></a></li>
+            <li><a href="/user/dashboard" style="font-size: 20px"><span>Dashboard</span></a></li>
             <ul class="dropdown-menu">
                 <li><a href="/albums/all">All albums</a></li>
                 <li><a href="#">Your albums</a></li>
@@ -41,7 +41,7 @@
 
             <%--TODO: spróbować dać settings tylko w dashboardzie--%>
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Settings
+                <a class="dropdown-toggle" data-toggle="dropdown" href="/#">Settings
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/user/newpassword">New password</a></li>
@@ -51,5 +51,3 @@
         </ul>
     </div>
 </nav>
-
-<h1><</h1>

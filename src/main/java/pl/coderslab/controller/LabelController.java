@@ -1,6 +1,7 @@
 package pl.coderslab.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,6 +34,8 @@ public class LabelController {
 
     @PostMapping("/add")
     public String addLabel(@Valid Label label, BindingResult result){
+
+        //TODO: dać tłumaczenia błędów
         if (result.hasErrors())
             return "labels/add";
 

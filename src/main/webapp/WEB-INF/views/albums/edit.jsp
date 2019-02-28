@@ -1,36 +1,27 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: patryk
-  Date: 24.02.19
-  Time: 12:32
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-        $( function() {
-            $( "#datepicker" ).datepicker();
-        } );
-    </script>
+    <%@include file="../files.jsp"%>
 </head>
 <body>
 
-<%@include file="../header.jsp"%>
+<c:choose>
+    <c:when test="${sessionScope.logged}">
+        <%@include file="../headerLogged.jsp"%>
+    </c:when>
+    <c:otherwise>
+        <%@include file="../header.jsp"%>
+    </c:otherwise>
+</c:choose>
 
-<h1>Current values:</h1>
-
-<table border="1" style="text-align: center" cellpadding = "10" align="center" style="position: relative; vertical-align: 50%; transform: translateY(100%)">
+<table border="1" style="text-align: center; margin: 0 auto; border-width: medium;" cellpadding = "10">
     <thead>
     <tr>
-        <th colspan="7">Edit album</th>
+        <th colspan="9">Edit album</th>
     </tr>
     <tr>
         <th>ID</th>
@@ -39,7 +30,7 @@
         <th>Label</th>
         <th>Release date</th>
         <th>Format</th>
-        <th colspan = "2">Actions</th>
+        <th colspan = "3">Actions</th>
     </tr>
     </thead>
 
@@ -48,13 +39,13 @@
     </tbody>
 </table>
 
-<h1>New values:</h1>
 <form:form method="post" action="/albums/edit" modelAttribute="album">
     <form:hidden path="id"/>
     <%@include file="albumAddForm.jsp"%>
 </form:form>
 
-<br><br><a href="/albums/all" class="button">Back</a>
+<%@include file="../modals.jsp"%>
+<%@include file="../footer.jsp"%>
 
 </body>
 </html>

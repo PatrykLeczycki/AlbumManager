@@ -11,6 +11,8 @@ import pl.coderslab.model.User;
 import pl.coderslab.service.UserService;
 
 import javax.validation.Valid;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller
 @SessionAttributes({"logged", "toLogin"})
@@ -38,7 +40,21 @@ public class LoginRegisterController {
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(@RequestParam("email") String email, @RequestParam("login") String login, @RequestParam("password1") String password, @RequestParam("password2") String confirmPassword, Model model){
-        if (!password.equals(confirmPassword) || userService.findUserByLogin(login) != null || login.length() < 5 || password.length() < 8){
+
+        String text    =
+                "This is the text to be searched " +
+                        "for occurrences of the http:// pattern.";
+
+        String emailPatternString = "[_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.([a-zA-Z]{2,}){1}";
+
+        Pattern emailPattern = Pattern.compile(emailPatternString);
+
+        Matcher matcher = emailPattern.matcher(email);
+
+        if (!matcher.matches() || userService.findUserByEmail(email) != null || !password.equals(confirmPassword) || userService.findUserByLogin(login) != null || login.length() < 5 || password.length() < 8){
+
+            if (!matcher.matches())
+
             return "redirect:/register";
         }
 

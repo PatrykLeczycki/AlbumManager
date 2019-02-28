@@ -47,6 +47,7 @@ public class AlbumController {
 
     @PostMapping("/add")
     private String addAlbum(@Valid Album album, BindingResult result){
+        //TODO: dać tłumaczenia błędów
         if (result.hasErrors())
             return "albums/add";
 

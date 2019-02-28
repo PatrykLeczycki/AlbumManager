@@ -10,17 +10,25 @@
 <html>
 <head>
     <title>Dashboard</title>
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <title>Bootstrap Flat Modal Login Modal Form</title>
+   <%@include file="../files.jsp"%>
 </head>
 <body>
-<c:if test="${not empty newPassInfo}">${newPassInfo}</c:if>
-<c:if test="${not empty hello}">${hello}</c:if>
 
 <%--TODO: usunąć z dashboarda guzik dashboard--%>
 
-<%@include file="../headerLogged.jsp"%>
+<c:choose>
+    <c:when test="${sessionScope.logged}">
+        <%@include file="../headerLogged.jsp"%>
+    </c:when>
+    <c:otherwise>
+        <%@include file="../header.jsp"%>
+    </c:otherwise>
+</c:choose>
+
+<%@include file="../modals.jsp"%>
+
+<%@include file="../footer.jsp"%>
+
 
 </body>
 </html>

@@ -10,8 +10,7 @@
 <html>
 <head>
     <title>Hello, world!</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/styles.css">
+    <%@include file="../files.jsp"%>
 </head>
 <body>
 
@@ -24,11 +23,11 @@
     </c:otherwise>
 </c:choose>
 
-<table border="1" style="text-align: center; margin: 0 auto;" cellpadding = "10">
+<table border="1" style="text-align: center; margin: 0 auto; border-width: medium;" cellpadding = "10">
 
     <thead>
     <tr>
-        <th colspan="8">Album list</th>
+        <th colspan="9">Album list</th>
     </tr>
     <tr>
         <th>ID</th>
@@ -46,6 +45,9 @@
         <%@include file="displaySingle.jsp"%>
     </c:forEach>
     </tbody>
+
+<%@include file="../modals.jsp"%>
+<%@include file="../footer.jsp"%>
 </table>
 </body>
 </html>

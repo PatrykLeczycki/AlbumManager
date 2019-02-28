@@ -11,14 +11,21 @@
 <html>
 <head>
     <title>Label list</title>
-
-    <link rel="stylesheet" href="/css/styles.css">
-    <style type="text/css">
-    </style>
+    <%@include file="../files.jsp"%>
 </head>
 <body>
 
-<table border="1" style="text-align: center" cellpadding = "10">
+<c:choose>
+    <c:when test="${sessionScope.logged}">
+        <%@include file="../headerLogged.jsp"%>
+    </c:when>
+    <c:otherwise>
+        <%@include file="../header.jsp"%>
+    </c:otherwise>
+</c:choose>
+
+
+<table border="1" style="text-align: center; margin: 0 auto; border-width: medium;" cellpadding = "10">
     <thead>
     <tr>
         <th colspan="5">Label list</th>
@@ -37,6 +44,10 @@
     </c:forEach>
     </tbody>
 </table>
+
+<%@include file="../modals.jsp"%>
+<%@include file="../footer.jsp"%>
+
 
 </body>
 </html>

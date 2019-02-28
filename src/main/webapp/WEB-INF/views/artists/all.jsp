@@ -9,13 +9,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link rel="stylesheet" href="/css/styles.css">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap Flat Modal Login Modal Form</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>All artists</title>
+    <%@include file="../files.jsp"%>
 </head>
 <body>
 
@@ -28,7 +23,7 @@
     </c:otherwise>
 </c:choose>
 
-<table border="1" style="text-align: center; margin: 0 auto" cellpadding = "10">
+<table border="1" style="text-align: center; margin: 0 auto; border-width: medium;" cellpadding = "10">
     <thead>
     <tr>
         <th colspan="9">Artist list</th>
@@ -51,6 +46,10 @@
     </c:forEach>
     </tbody>
 </table>
+
+<%@include file="../modals.jsp"%>
+
+<%@include file="../footer.jsp"%>
 
 </body>
 </html>

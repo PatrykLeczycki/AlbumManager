@@ -33,7 +33,7 @@ public class Album {
 
     @Column(nullable = false)
     @NotNull
-    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate releaseDate;
 
     @Column(nullable = false)

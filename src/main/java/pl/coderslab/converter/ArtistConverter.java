@@ -12,6 +12,6 @@ public class ArtistConverter implements Converter<String, Artist> {
 
     @Override
     public Artist convert(String s) {
-        return artistService.getArtistById(Long.parseLong(s));
+            return artistService.getArtistById(Long.parseLong(s));
     }
 }

@@ -9,11 +9,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <link rel="stylesheet" href="/css/styles.css">
     <title>Title</title>
+    <%@include file="../files.jsp"%>
 </head>
 <body>
-<table border="1" style="text-align: center" cellpadding = "10">
+<c:choose>
+    <c:when test="${sessionScope.logged}">
+        <%@include file="../headerLogged.jsp"%>
+    </c:when>
+    <c:otherwise>
+        <%@include file="../header.jsp"%>
+    </c:otherwise>
+</c:choose>
+
+<table border="1" style="text-align: center; border-width: medium; margin: 0 auto" cellpadding = "10">
     <thead>
     <tr>
         <th colspan="7">Your album list</th>
@@ -35,6 +44,10 @@
     </c:forEach>
     </tbody>
 </table>
+
+<%@include file="../modals.jsp"%>
+
+<%@include file="../footer.jsp"%>
 
 </body>
 </html>

@@ -1,5 +1,4 @@
-<table style="text-align: center" cellpadding = "10">
-
+<table border="1" style="text-align: center; margin: 0 auto; border-width: medium;" cellpadding = "10">
     <tr>
         <td>Pseudonym</td>
         <td><form:input path="pseudonym"/></td>
@@ -36,5 +35,6 @@
     <tr>
         <td></td>
         <td><input type="submit" value="add"></td>
+        <td></td>
     </tr>
 </table>

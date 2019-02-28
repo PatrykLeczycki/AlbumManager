@@ -36,6 +36,7 @@ public class ArtistController {
 
     @PostMapping("/add")
     private String addArtist(@Valid Artist artist, BindingResult result){
+        //TODO: dać tłumaczenia błędów
         if (result.hasErrors())
             return "artists/add";
 
