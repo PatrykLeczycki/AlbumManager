@@ -24,9 +24,12 @@
         </div>
         <div class="modal-body" style="padding:40px 50px;">
 
-            <form action="/loginpanel" method="post">
+            <form action="/login" method="post">
                 <div class="form-group">
                     <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
+                    <c:if test="${sessionScope.loginerror}">
+                        <br><span class="error">Incorrect login or password</span>
+                    </c:if>
                     <input type="text" name="login" class="form-control" id="usrname" placeholder="Enter login">
                 </div>
                 <div class="form-group">
@@ -38,7 +41,7 @@
 
         </div>
         <div class="modal-footer">
-            <p>Not a member? <a href="#myModalRegister" data-toggle="modal" data-dismiss="modal">Sign up</a></p>
+            <p>Not a member? <a href="/register" data-toggle="modal" data-dismiss="modal">Sign up</a></p>
             <p>Forgot <a href="/lostpassword">Password?</a></p>
         </div>
     </div>

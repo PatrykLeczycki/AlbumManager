@@ -15,6 +15,7 @@ public class LoggedUser {
     private Long id;
     private String login;
     private String password;
+    private String email;
     private List<Album> albums;
 
     public LoggedUser() {
@@ -57,4 +58,11 @@ public class LoggedUser {
         this.albums = albumList;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

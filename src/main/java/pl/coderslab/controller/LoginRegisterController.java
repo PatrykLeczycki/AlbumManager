@@ -16,7 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Controller
-@SessionAttributes({"logged", "toLogin", "emailpattern", "emailexists", "passwordsequal", "loginexists", "loginlength", "passlength"})
+@SessionAttributes({"logged", "toLogin", "emailpattern", "emailexists", "passwordsequal", "loginexists", "loginlength", "passlength", "loginerror"})
 public class LoginRegisterController {
 
     @Autowired
@@ -29,7 +29,6 @@ public class LoginRegisterController {
 
     @GetMapping("/register")
     public String register(){
-        System.out.println("test1");
         return "users/register";
     }
 
@@ -64,96 +63,37 @@ public class LoginRegisterController {
         return "users/register";    //TODO: tutaj pewnie będzie wyświetlenie nowego widoku
     }
 
-    /*@GetMapping("/register")
-    public String register(Model model){
-        System.out.println("test1");
+    @GetMapping("/login")
+    public String loginPanel(){
 
-
-        return "users/register";
-    }
-
-    @PostMapping(value = "/register")
-    public String register(@RequestParam("email") String email, @RequestParam("login") String login, @RequestParam("password1") String password, @RequestParam("password2") String confirmPassword){
-
-        System.out.println("test");
-
-        String emailPatternString = "[_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.([a-zA-Z]{2,}){1}";
-
-        Pattern emailPattern = Pattern.compile(emailPatternString);
-
-        Matcher matcher = emailPattern.matcher(email);
-
-        if (!matcher.matches() || userService.findUserByEmail(email) != null || !password.equals(confirmPassword) || userService.findUserByLogin(login) != null || login.length() < 5 || password.length() < 8){
-            return "modals/register";    //TODO: tutaj pewnie będzie wyświetlenie nowego widoku
-        }
-
-        User user = new User(login, password, email);
-        userService.addUser(user);
-
-        return "redirect:/loginpanel";
-    }*/
-
-    /*@GetMapping("/loginpanel")
-    public String testLoginPanel(){
-        if (loggedUser.getLogin() == null){
+        if (loggedUser.getLogin() == null)
             return "users/login";
-        }
+
         return "redirect:/user/dashboard";
-    }*/
-
-    /*@RequestMapping(value = "/loginpanel", method = RequestMethod.GET)
-    public String testLoginPanel(@RequestParam("login") String login, @RequestParam("password") String password, Model model) {
-
-        User userFromDb = userService.findUserByLogin(login);
-        if (userFromDb == null){
-            model.addAttribute("notfound", "Couldn't find user with given login");
-        } else if (!BCrypt.checkpw(password, userFromDb.getPassword())){
-            model.addAttribute("wrongpass", "Wrong password");
-        } else {
-            loggedUser.setId(userFromDb.getId());
-            loggedUser.setLogin(login);
-            loggedUser.setPassword(password);
-            loggedUser.setAlbums(userFromDb.getAlbums());
-            return "redirect:/user/dashboard";
-        }
-
-        return "modals/login";
-    }*/
-
-    @GetMapping("/loginpanel")
-    public String loginPanel(Model model){
-
-        model.addAttribute("user", new User());
-        return "users/login";
     }
 
     //TODO: zagnieździć weryfikację
 
-    @PostMapping("/loginpanel")
-    public String loginPanel(@Valid User user, BindingResult result, Model model){
+    @PostMapping("/login")
+    public String loginPanel(@RequestParam("login") String login, @RequestParam("password") String password, HttpSession session, Model model){
 
-        if(result.hasErrors()){
-            return "users/login";
-        }
+        User userFromDb = userService.findUserByLogin(login);
 
-        User userFromDb = userService.findUserByLogin(user.getLogin());
+        if(userFromDb != null && BCrypt.checkpw(password, userFromDb.getPassword())){
+            System.out.println(login + " x " + userFromDb.getLogin());
+            loggedUser = new LoggedUser(login, password);
+            loggedUser.setId(userFromDb.getId());
+            loggedUser.setEmail(userFromDb.getEmail());
+            loggedUser.setAlbums(userFromDb.getAlbums());
 
-        // TODO: loggedUser.getLogin() != null dać do geta
-
-        if(loggedUser.getLogin() != null || (userFromDb.getLogin() != null && BCrypt.checkpw(user.getPassword(), userFromDb.getPassword()))){
-            loggedUser.setId(userService.findUserByLogin(user.getLogin()).getId());
-            loggedUser.setLogin(user.getLogin());
-            loggedUser.setPassword(userService.findUserByLogin(user.getLogin()).getPassword());
-            loggedUser.setAlbums(userService.findUserByLogin(user.getLogin()).getAlbums());
-            model.addAttribute("hello", "Hello, " + loggedUser.getLogin());
+            session.removeAttribute("loginerror");
             model.addAttribute("logged", true);
-
             return "redirect:/user/dashboard";
         }
 
-        model.addAttribute("wrongData", "Incorrect login or password.");
+        model.addAttribute("loginerror", true);
         model.addAttribute("toLogin", true);
-        return "redirect:/loginpanel";
+        return "redirect:/login";
     }
 
     @RequestMapping("/logout")
