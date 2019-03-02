@@ -29,7 +29,8 @@
     <%@include file="artistAddForm.jsp"%>
 </form:form>
 
-<%@include file="../modals.jsp"%>
+<%@include file="../modals/login.jsp"%>
+<%@include file="../modals/register.jsp"%>
 <%@include file="../footer.jsp"%>
 
 </body>

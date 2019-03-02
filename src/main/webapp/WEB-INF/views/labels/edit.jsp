@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: patryk
@@ -10,15 +11,21 @@
 <html>
 <head>
     <title>Edit label</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <<%@include file="../files.jsp"%>
 </head>
 <body>
 
-<br><a href="/" class="button">Homepage</a><br><br>
+<c:choose>
+    <c:when test="${sessionScope.logged}">
+        <%@include file="../headerLogged.jsp"%>
+    </c:when>
+    <c:otherwise>
+        <%@include file="../header.jsp"%>
+    </c:otherwise>
+</c:choose>
 
-<h1>Current values:</h1>
 
-<table border="1" style="text-align: center" cellpadding = "10">
+<table border="1" style="text-align: center; margin: 0 auto; border-width: medium;" cellpadding = "10">
     <thead>
     <th>ID</th>
     <th>Name</th>
@@ -37,7 +44,10 @@
     <%@include file="labelAddForm.jsp"%>
 </form:form>
 
-<br><br><a href="/labels/all" class="button">Back</a>
+<%@include file="../modals/login.jsp"%>
+<%@include file="../modals/register.jsp"%>
+<%@include file="../footer.jsp"%>
+
 
 </body>
 </html>

@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Your albums</title>
     <%@include file="../files.jsp"%>
 </head>
 <body>
@@ -45,8 +45,8 @@
     </tbody>
 </table>
 
-<%@include file="../modals.jsp"%>
-
+<%@include file="../modals/login.jsp"%>
+<%@include file="../modals/register.jsp"%>
 <%@include file="../footer.jsp"%>
 
 </body>

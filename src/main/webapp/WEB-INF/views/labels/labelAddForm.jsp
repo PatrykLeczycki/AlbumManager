@@ -1,4 +1,4 @@
-<table style="text-align: center" cellpadding = "10">
+<table border="1" style="text-align: center; margin: 0 auto; border-width: medium;" cellpadding = "10">
     <tr>
         <td>Name</td>
         <td><form:input path="name"/></td>

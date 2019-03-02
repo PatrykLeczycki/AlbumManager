@@ -23,6 +23,8 @@ public class Artist {
     @NotBlank
     private String surname;
 
+    //TODO: zmienić na datę
+
     @Min(1)
     private Integer age;
 

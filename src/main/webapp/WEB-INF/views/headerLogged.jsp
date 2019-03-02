@@ -32,7 +32,9 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="/user/dashboard" style="font-size: 20px"><span>Dashboard</span></a></li>
+            <c:if test="${dashboard == false}">
+                <li><a href="/user/dashboard" style="font-size: 20px"><span>Dashboard</span></a></li>
+            </c:if>
             <ul class="dropdown-menu">
                 <li><a href="/albums/all">All albums</a></li>
                 <li><a href="#">Your albums</a></li>
@@ -41,13 +43,13 @@
 
             <%--TODO: spróbować dać settings tylko w dashboardzie--%>
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="/#">Settings
+                <a class="dropdown-toggle" data-toggle="dropdown" href="/#" style="font-size: 20px">Settings
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/user/newpassword">New password</a></li>
                 </ul>
             </li>
-            <li><a href="/logout" class="trigger-btn" data-toggle="modal" name="login"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            <li><a href="/logout" class="trigger-btn" data-toggle="modal" name="login" style="font-size: 20px"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
     </div>
 </nav>

@@ -10,20 +10,21 @@
 <html>
 <head>
     <title>New password</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <%@include file="../files.jsp"%>
 </head>
 <body>
 
-<%@include file="../headerLogged.jsp"%>
+<c:choose>
+    <c:when test="${sessionScope.logged}">
+        <%@include file="../headerLogged.jsp"%>
+    </c:when>
+    <c:otherwise>
+        <%@include file="../header.jsp"%>
+    </c:otherwise>
+</c:choose>
 
-<c:if test="${not empty errorInfo}">${errorInfo}</c:if><br><br>
-
-
-    <table class="table" style="text-align: center; margin: 0 auto; transform: translateY(75%)" cellpadding = "10" >
+<table border="1" style="text-align: center; border-width: medium; margin: 0 auto" cellpadding = "10">
         <form action="/user/newpassword" method="post">
-        <tr>
-            <td></td>
-        </tr>
         <tr>
             <td>Old password</td>
             <td><input name="oldPassword" type="password"/></td>
@@ -42,10 +43,14 @@
         <tr>
             <td colspan="3">
                 <input type="submit" value="Submit"></form>
-                <a href="/user/dashboard" style="padding: auto"><button>Back</button></a>
+                <a href="/user/dashboard" style="padding: auto; color: black"><button>Back</button></a>
             </td>
         </tr>
     </table>
+
+<%@include file="../modals/login.jsp"%>
+<%@include file="../modals/register.jsp"%>
+<%@include file="../footer.jsp"%>
 
 </body>
 </html>

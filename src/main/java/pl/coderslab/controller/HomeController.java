@@ -17,4 +17,9 @@ public class HomeController {
     public String home(Model model){
         return "index";
     }
+
+    @RequestMapping("/test")
+    public String table(){
+        return "testtable";
+    }
 }

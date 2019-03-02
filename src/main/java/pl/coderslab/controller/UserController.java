@@ -1,6 +1,7 @@
 package pl.coderslab.controller;
 
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,8 @@ import pl.coderslab.model.LoggedUser;
 import pl.coderslab.model.User;
 import pl.coderslab.service.AlbumService;
 import pl.coderslab.service.UserService;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -37,7 +40,8 @@ public class UserController {
 
     @PostMapping("/newpassword")
     public String newPassword(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, @RequestParam("newPasswordRepeat") String newPasswordRepeat, Model model){
-        if (!oldPassword.equals(loggedUser.getPassword())){
+
+        if(!BCrypt.checkpw(oldPassword, loggedUser.getPassword())){
             model.addAttribute("errorInfo", "Old password doesn't match.");
             return "users/newPassword";
         }
@@ -47,15 +51,18 @@ public class UserController {
             return "users/newPassword";
         }
 
+        //TODO: dodać walidację
         User user = userService.findUserByLogin(loggedUser.getLogin());
         user.setPasswordHashed(newPassword);
         userService.changePassword(user);
         model.addAttribute("newPassInfo", "Password has been changed.");
-        return "users/dashboard";
+        return "redirect:/user/dashboard";
     }
 
     @RequestMapping("/dashboard")
     public String dashboard(HttpSession session, Model model){
+
+        model.addAttribute("dashboard", true);
         return "users/dashboard";
     }
 
@@ -72,8 +79,11 @@ public class UserController {
     }
 
     @RequestMapping(value = "/deletealbum/{id}", method = RequestMethod.GET)
-    public String deleteAlbumFromCollection(@PathVariable long id){
+    public String deleteAlbumFromCollection(@PathVariable long id, HttpServletRequest request){
         userService.deleteAlbumFromCollection(loggedUser.getId(), id);
+        if ("true".equals(request.getParameter("back"))){
+            return "redirect:/user/all";
+        }
         return "redirect:/albums/all";
     }
 

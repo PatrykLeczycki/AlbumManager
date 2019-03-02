@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Edit album</title>
     <%@include file="../files.jsp"%>
 </head>
 <body>
@@ -44,7 +44,8 @@
     <%@include file="albumAddForm.jsp"%>
 </form:form>
 
-<%@include file="../modals.jsp"%>
+<%@include file="../modals/login.jsp"%>
+<%@include file="../modals/register.jsp"%>
 <%@include file="../footer.jsp"%>
 
 </body>

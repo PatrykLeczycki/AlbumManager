@@ -1,182 +1,80 @@
-<%--
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
-
-<!DOCTYPE html>
-<html lang="en">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
-    <meta charset="utf-8">
-
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-    <title>Bootstrap Simple Registration Form</title>
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style type="text/css">
-        body{
-            color: #fff;
-            background-image: url("/images/background-image.jpg");
-            font-family: 'Roboto', sans-serif;
-        }
-        .form-control{
-            height: 40px;
-            box-shadow: none;
-            color: #969fa4;
-        }
-        .form-control:focus{
-            border-color: #5cb85c;
-        }
-        .form-control, .btn{
-            border-radius: 3px;
-        }
-        .signup-form{
-            width: 400px;
-            margin: 0 auto;
-            padding: 30px 0;
-        }
-        .signup-form h2{
-            color: #636363;
-            margin: 0 0 15px;
-            position: relative;
-            text-align: center;
-        }
-        .signup-form h2:before, .signup-form h2:after{
-            content: "";
-            height: 2px;
-            width: 30%;
-            background: #d4d4d4;
-            position: absolute;
-            top: 50%;
-            z-index: 2;
-        }
-        .signup-form h2:before{
-            left: 0;
-        }
-        .signup-form h2:after{
-            right: 0;
-        }
-        .signup-form .hint-text{
-            color: #999;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        .signup-form form{
-            color: #999;
-            border-radius: 3px;
-            margin-bottom: 15px;
-            background: #f2f3f7;
-            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-            padding: 30px;
-        }
-        .signup-form .form-group{
-            margin-bottom: 20px;
-        }
-        .signup-form input[type="checkbox"]{
-            margin-top: 3px;
-        }
-        .signup-form .btn{
-            font-size: 16px;
-            font-weight: bold;
-            min-width: 140px;
-            outline: none !important;
-        }
-        .signup-form .row div:first-child{
-            padding-right: 10px;
-        }
-        .signup-form .row div:last-child{
-            padding-left: 10px;
-        }
-        .signup-form a{
-            color: #fff;
-            text-decoration: underline;
-        }
-        .signup-form a:hover{
-            text-decoration: none;
-        }
-        .signup-form form a{
-            color: #5cb85c;
-            text-decoration: none;
-        }
-        .signup-form form a:hover{
-            text-decoration: underline;
-        }
-    </style>
+    <title>Log in</title>
+    <%@include file="../files.jsp"%>
 </head>
 <body>
-&lt;%&ndash;<div class="signup-form" id="register">
-    <form action="/examples/actions/confirmation.php" method="post">
-        <h2>Register</h2>
-        <p class="hint-text">Create your account. It's free and only takes a minute.</p>
-        <div class="form-group">
+
+<c:choose>
+    <c:when test="${sessionScope.logged}">
+        <%@include file="../headerLogged.jsp"%>
+    </c:when>
+    <c:otherwise>
+        <%@include file="../header.jsp"%>
+    </c:otherwise>
+</c:choose>
+
+<div class="container" id="register-container">
+
+    <!-- Modal content-->
+    <div class="modal-content" id="register-content">
+        <div class="modal-header" style="padding:35px 50px;">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4><span class="glyphicon glyphicon-pencil"></span> Register</h4>
         </div>
-        <div class="form-group">
-            <input type="email" class="form-control" name="email" placeholder="Email" required="required">
+        <div class="modal-body" style="padding:40px 50px;">
+            <form action="/register" method="post">
+                <div class="form-group">
+                    <label for="email"><span class="glyphicon glyphicon-envelope"></span> E-mail</label>
+                    <c:if test="${sessionScope.emailpattern}">
+                        <br><span class="error">Wrong e-mail format</span>
+                    </c:if>
+                    <c:if test="${sessionScope.emailexists}">
+                        <br><span class="error">E-mail address is already in use</span>
+                    </c:if>
+                    <input type="text" name="email" class="form-control" id="email" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="login"><span class="glyphicon glyphicon-user"></span> Login</label>
+                    <c:if test="${sessionScope.loginexists}">
+                        <br><span class="error">Login is already in use</span>
+                    </c:if>
+                    <c:if test="${sessionScope.loginlength}">
+                        <br><span class="error">Login must have at least 5 characters</span>
+                    </c:if>
+                    <input type="text" class="form-control" name="login" id="login" placeholder="Enter login">
+                </div>
+                <div class="form-group">
+                    <label for="psw1"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+                    <c:if test="${sessionScope.passlength}">
+                        <br><span class="error">Password must have at least 8 characters</span>
+                    </c:if>
+                    <input type="password" class="form-control" name="password1" id="psw1" placeholder="Enter password">
+                </div>
+                <div class="form-group">
+                    <label for="psw2"><span class="glyphicon glyphicon-eye-open"></span> Confirm password</label>
+                    <%--TODO: atrybut chyba nie działa--%>
+                    <c:if test="${sessionScope.passwordsequal}">
+                        <br><span class="error">Passwords must be equal</span>
+                    </c:if>
+                    <input type="password" class="form-control" name="password2" id="psw2" placeholder="Confirm password">
+                </div>
+                <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-pencil"></span> Register</button>
+            </form>
         </div>
-        <div class="form-group">
-            <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+            <p>Already have an account? <a href="#myModal" data-toggle="modal" data-dismiss="modal">Sign in</a></p>
         </div>
-        <div class="form-group">
-            <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required">
-        </div>
-        <div class="form-group">
-            <label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-success btn-lg btn-block">Register Now</button>
-        </div>
-        <div class="text-center">Already have an account? <a href="/#myModal">Sign in</a></div>
-    </form>
+    </div>
+<h1>BLA BLA BLA BLA</h1>
+</div>
 
-</div>&ndash;%&gt;
-
-
-
-<form:form action="/register" method="post" modelAttribute="user">
-
-    <table cellpadding = "10">
-        <tr>
-            <td>Login</td>
-            <td>
-                <form:input path="email"/>
-            </td>
-            <td><form:errors path="email" cssClass="error" element="div"/></td>
-        </tr>
-        <tr>
-            <td>Login</td>
-            <td>
-                <form:input path="login"/>
-            </td>
-            <td><form:errors path="login" cssClass="error" element="div"/></td>
-        </tr>
-        <tr>
-            <td>Password</td>
-            <td><form:password path="password1"/></td>
-            <td><form:errors path="password1" cssClass="error" element="div"/></td>
-        </tr>
-        <tr>
-            <td>Password</td>
-            <td><form:password path="password2"/></td>
-            <td><form:errors path="password2" cssClass="error" element="div"/></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" value="add"></td>
-        </tr>
-    </table>
-
-</form:form>
-
-&lt;%&ndash;<script>
-    $(document).ready(function(){
-        $("#myBtn").click(function(){
-            $("#myModal").modal();
-        });
-    });
-</script>&ndash;%&gt;
+<%--<%@include file="../modals/login.jsp"%>
+<%@include file="../modals/register.jsp"%>--%>
+<%@include file="../footer.jsp"%>
 </body>
 </html>
---%>

@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Hello, world!</title>
+    <title>Albums</title>
     <%@include file="../files.jsp"%>
 </head>
 <body>
@@ -46,7 +46,8 @@
     </c:forEach>
     </tbody>
 
-<%@include file="../modals.jsp"%>
+    <%@include file="../modals/login.jsp"%>
+    <%@include file="../modals/register.jsp"%>
 <%@include file="../footer.jsp"%>
 </table>
 </body>

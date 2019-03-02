@@ -12,6 +12,37 @@ table.dataTable thead .sorting_desc_disabled:before {
     bottom: .5em;
 }
 
+#login-dialog .modal-dialog {
+    width: 500px;
+    margin: 30px auto;
+}
+
+#register-dialog .modal-dialog {
+    width: 500px;
+    margin: 30px auto;
+}
+
+.container .modal-content{
+    width: 500px;
+    margin: 0 auto;
+}
+
+#login-content .modal-content{
+    width: 500px;
+}
+
+#register-content .modal-content{
+    width: 500px;
+}
+
+#login-container .container {
+    width: 500px;
+}
+
+#register-container .container {
+    width: 400px;
+}
+
 .pagination>li {
     display: inline;
     padding:0px !important;
