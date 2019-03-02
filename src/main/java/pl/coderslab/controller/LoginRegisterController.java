@@ -4,19 +4,16 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.model.LoggedUser;
 import pl.coderslab.model.User;
 import pl.coderslab.service.UserService;
-
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Controller
-@SessionAttributes({"logged", "toLogin", "emailpattern", "emailexists", "passwordsequal", "loginexists", "loginlength", "passlength", "loginerror"})
+@SessionAttributes({"logged", "toLogin", "emailpattern", "emailexists", "passwordseq", "loginexists", "loginlength", "passlength", "logineqpass", "loginerror"})
 public class LoginRegisterController {
 
     @Autowired
@@ -41,25 +38,26 @@ public class LoginRegisterController {
 
         Matcher matcher = emailPattern.matcher(email);
 
-        if (matcher.matches() && userService.findUserByEmail(email) == null && password.equals(confirmPassword) && userService.findUserByLogin(login) == null && login.length() >= 5 && password.length() >= 8){
+        if (matcher.matches() && !login.equals(password) && userService.findUserByEmail(email) == null && password.equals(confirmPassword) && userService.findUserByLogin(login) == null && login.length() >= 5 && password.length() >= 8){
             User user = new User(login, password, email);
             userService.addUser(user);
             session.removeAttribute("emailpattern");
             session.removeAttribute("emailexists");
-            session.removeAttribute("passwordsequal");
+            session.removeAttribute("passwordseq");
             session.removeAttribute("loginexists");
             session.removeAttribute("loginlength");
             session.removeAttribute("passlength");
-
+            session.removeAttribute("logineqpass");
             return "redirect:/loginpanel";
         }
 
         model.addAttribute("emailpattern", !matcher.matches());
         model.addAttribute("emailexists", userService.findUserByEmail(email) != null);
-        model.addAttribute("passwordsequal", !password.equals(confirmPassword));
+        model.addAttribute("passwordseq", !password.equals(confirmPassword));
         model.addAttribute("loginexists", userService.findUserByLogin(login) != null);
         model.addAttribute("loginlength", login.length() < 5);
         model.addAttribute("passlength", password.length() < 8);
+        model.addAttribute("logineqpass", login.equals(password));
         return "users/register";    //TODO: tutaj pewnie będzie wyświetlenie nowego widoku
     }
 

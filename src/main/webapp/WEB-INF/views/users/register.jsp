@@ -52,12 +52,15 @@
                     <c:if test="${sessionScope.passlength}">
                         <br><span class="error">Password must have at least 8 characters</span>
                     </c:if>
+                    <c:if test="${sessionScope.logineqpass}">
+                        <br><span class="error">Login and password must differ</span>
+                    </c:if>
                     <input type="password" class="form-control" name="password1" id="psw1" placeholder="Enter password">
                 </div>
                 <div class="form-group">
                     <label for="psw2"><span class="glyphicon glyphicon-eye-open"></span> Confirm password</label>
                     <%--TODO: atrybut chyba nie działa--%>
-                    <c:if test="${sessionScope.passwordsequal}">
+                    <c:if test="${sessionScope.passwordseq}">
                         <br><span class="error">Passwords must be equal</span>
                     </c:if>
                     <input type="password" class="form-control" name="password2" id="psw2" placeholder="Confirm password">
