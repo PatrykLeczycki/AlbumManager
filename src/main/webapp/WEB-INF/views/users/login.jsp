@@ -17,11 +17,6 @@
     </c:otherwise>
 </c:choose>
 
-
-<c:if test="${blablabla}">
-    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-</c:if>
-
 <div class="container" id="login-container">
     <div class="modal-content" id="login-content">
         <div class="modal-header" style="padding:35px 50px;">

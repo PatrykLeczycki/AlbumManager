@@ -86,8 +86,8 @@
     </table>
 </form>--%>
 
-<%--<%@include file="../modals/login.jsp"%>--%>
-<%@include file="../modals/register.jsp"%>
+<%--<%@include file="../modals/login.jsp"%>
+<%@include file="../modals/register.jsp"%>--%>
 <%@include file="../footer.jsp"%>
 
 </body>

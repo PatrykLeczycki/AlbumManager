@@ -41,6 +41,7 @@ public class UserController {
     @PostMapping("/newpassword")
     public String newPassword(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, @RequestParam("newPasswordRepeat") String newPasswordRepeat, Model model){
 
+        System.out.println(oldPassword + " " + (loggedUser.getPassword()));
         if(!BCrypt.checkpw(oldPassword, loggedUser.getPassword())){
             model.addAttribute("oldwrong", "Old password doesn't match.");
             return "users/newPassword";
@@ -54,7 +55,7 @@ public class UserController {
         //TODO: dodać walidację
         User user = userService.findUserByLogin(loggedUser.getLogin());
         user.setPasswordHashed(newPassword);
-        userService.changePassword(user);
+        userService.addUser(user);
         model.addAttribute("newPassInfo", "Password has been changed.");
         return "redirect:/user/dashboard";
     }
@@ -63,6 +64,7 @@ public class UserController {
     public String dashboard(HttpSession session, Model model){
 
         model.addAttribute("dashboard", true);
+        System.out.println("dashboard = " + loggedUser.getPassword());
         return "users/dashboard";
     }
 

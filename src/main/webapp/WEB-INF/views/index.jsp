@@ -20,7 +20,7 @@
     </c:otherwise>
 </c:choose>
 
-<%@include file="modals.jsp"%>
+<%--<%@include file="modals.jsp"%>--%>
 
 <%@include file="footer.jsp"%>
 

@@ -63,18 +63,19 @@ public class LoginRegisterController {
     public String loginPanel(HttpSession session){
 
         if (loggedUser.getLogin() == null){
-//            session.removeAttribute("loginerror");
+            System.out.println("login get");
             return "users/login";
         }
-
+        System.out.println("login get 1");
         return "redirect:/user/dashboard";
     }
 
-    //TODO: zagnieździć weryfikację
+    //TODO: logowanie dziwnie działa (czasem podwójnie wchodzi do posta)
 
     @PostMapping("/login")
     public String loginPanel(@RequestParam("login") String login, @RequestParam("password") String password, HttpSession session, Model model){
 
+        System.out.println("login post");
         User userFromDb = userService.findUserByLogin(login);
 
         if(userFromDb == null || !BCrypt.checkpw(password, userFromDb.getPassword())){
@@ -82,11 +83,12 @@ public class LoginRegisterController {
             return "users/login";
         }
 
-        loggedUser = new LoggedUser(login, password);
+        loggedUser.setLogin(userFromDb.getLogin());
+        loggedUser.setPassword(userFromDb.getPassword());
         loggedUser.setId(userFromDb.getId());
         loggedUser.setEmail(userFromDb.getEmail());
         loggedUser.setAlbums(userFromDb.getAlbums());
-
+        System.out.println(login + " " + loggedUser.getPassword());
         model.addAttribute("logged", true);
         return "redirect:/user/dashboard";
     }
@@ -94,6 +96,7 @@ public class LoginRegisterController {
     @RequestMapping("/logout")
     public String logout(Model model){
         if(loggedUser.getLogin() != null){
+            // TODO: sprawdzić czy przypisywanie albumów jest konieczne
             userService.findUserByLogin(loggedUser.getLogin()).setAlbums(loggedUser.getAlbums());
             loggedUser.setId(0L);
             loggedUser.setLogin(null);
@@ -120,33 +123,22 @@ public class LoginRegisterController {
         Pattern emailPattern = Pattern.compile(emailPatternString);
         Matcher matcher = emailPattern.matcher(email);
 
-        if (!matcher.matches() || userService.findUserByEmail(email) == null || !userService.findUserByEmail(email).getLogin().equals(login) || newPassword.length() <= 8 || newPasswordRepeat.length() < 8 || !newPassword.equals(newPasswordRepeat)){
+        User user = userService.findUserByEmail(email);
+
+        if (!matcher.matches() || user == null || !user.getLogin().equals(login) || newPassword.length() <= 8 || newPasswordRepeat.length() < 8 || !newPassword.equals(newPasswordRepeat)){
             if (!matcher.matches())
-                model.addAttribute("wrongpattern", true);
-            else if (userService.findUserByEmail(email) == null || !userService.findUserByEmail(email).getLogin().equals(login))
+                model.addAttribute("wrongpattern", true);// wrong e-mail format
+            else if (user == null || !user.getLogin().equals(login)) //
                 model.addAttribute("wrongemailorlogin", true);
 
             if (newPassword.length() <= 8 || newPasswordRepeat.length() < 8)
                 model.addAttribute("passlength", true);
             else if (!newPassword.equals(newPasswordRepeat))
                 model.addAttribute("passnoteq", true);
-
         }
-
-        if(userService.findUserByLogin(login) == null){
-            model.addAttribute("errorInfo", "No user with given login exists.");
-            return "users/lostPassword";
-        }
-
-        if(!newPassword.equals(newPasswordRepeat)){
-            model.addAttribute("errorInfo", "Passwords don't match.");
-            return "users/lostPassword";
-        }
-
-        User user = userService.findUserByLogin(login);
 
         user.setPasswordHashed(newPassword);
-        userService.changePassword(user);
+        userService.addUser(user);
         model.addAttribute("newPassInfo", "Password has been changed.");
         return "redirect:/login";
     }

@@ -22,10 +22,6 @@ public class UserService {
         return userRepo.findUserByLogin(login);
     }
 
-    public void changePassword(User user){
-        userRepo.save(user);
-    }
-
     public void addAlbumToCollection(long user_id, long album_id){
         userRepo.addAlbumToCollection(user_id, album_id);
     }

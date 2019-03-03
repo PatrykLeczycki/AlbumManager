@@ -21,11 +21,6 @@ public class LoggedUser {
     public LoggedUser() {
     }
 
-    public LoggedUser(String login, String password) {
-        this.login = login;
-        setPassword(password);
-    }
-
     public Long getId() {
         return id;
     }
