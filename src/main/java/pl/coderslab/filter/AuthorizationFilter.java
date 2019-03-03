@@ -21,7 +21,10 @@ public class AuthorizationFilter implements Filter {
 
         if (loggedIn) chain.doFilter(request, response);
 
-        else response.sendRedirect("/login");
+        else {
+            System.out.println("filter");
+            response.sendRedirect("/login");
+        }
     }
 
     public void init(FilterConfig config) throws ServletException {

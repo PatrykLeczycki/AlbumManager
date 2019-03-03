@@ -11,8 +11,8 @@
         <ul class="nav navbar-nav navbar-right">
             <%--<li><a href="#myModalRegister" class="trigger-btn" data-toggle="modal" onclick="javascript: return false;" style="font-size: 20px"><span class="glyphicon glyphicon-pencil"></span> Sign Up</a></li>
             <li><a href="#myModal" class="trigger-btn" data-toggle="modal" name="login" onclick="javascript: return false;" style="font-size: 20px"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>--%>
-                <li><a href="/register" class="trigger-btn"><span class="glyphicon glyphicon-pencil"></span> Sign Up</a></li>
-                <li><a href="/login" class="trigger-btn"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li><a href="/register" class="trigger-btn" style="font-size: 20px"><span class="glyphicon glyphicon-pencil"></span> Sign Up</a></li>
+                <li><a href="/login" class="trigger-btn" style="font-size: 20px"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         </ul>
     </div>
 </nav>

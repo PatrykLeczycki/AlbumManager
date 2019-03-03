@@ -51,12 +51,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-                    <p>Already have an account? <a href="#myModal" data-toggle="modal" data-dismiss="modal">Sign in</a></p>
+                    <p>Already have an account? <a href="/login" data-toggle="modal" data-dismiss="modal">Sign in</a></p>
                 </div>
             </div>
 
         </div>
     </div>
 </div>
-
-<h1>TEST TEST TEST</h1>

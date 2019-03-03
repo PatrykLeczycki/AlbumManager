@@ -17,6 +17,11 @@
     </c:otherwise>
 </c:choose>
 
+
+<c:if test="${blablabla}">
+    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+</c:if>
+
 <div class="container" id="login-container">
     <div class="modal-content" id="login-content">
         <div class="modal-header" style="padding:35px 50px;">
@@ -27,7 +32,7 @@
             <form action="/login" method="post">
                 <div class="form-group">
                     <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
-                    <c:if test="${sessionScope.loginerror}">
+                    <c:if test="${loginerror}">
                         <br><span class="error">Incorrect login or password</span>
                     </c:if>
                     <input type="text" name="login" class="form-control" id="usrname" placeholder="Enter login">
@@ -42,7 +47,7 @@
         </div>
         <div class="modal-footer">
             <p>Not a member? <a href="/register" data-toggle="modal" data-dismiss="modal">Sign up</a></p>
-            <p>Forgot <a href="/lostpassword">Password?</a></p>
+            <p>Forgot <a href="/lostpassword">password?</a></p>
         </div>
     </div>
 </div>

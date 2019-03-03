@@ -39,7 +39,6 @@ public class UserService {
     }
 
     public List<Long> getAllUserAlbums(Long id){
-        System.out.println("service " + id);
         return userRepo.getAllUserAlbums(id);
     }
 }

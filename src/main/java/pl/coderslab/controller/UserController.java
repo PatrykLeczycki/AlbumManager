@@ -42,12 +42,12 @@ public class UserController {
     public String newPassword(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, @RequestParam("newPasswordRepeat") String newPasswordRepeat, Model model){
 
         if(!BCrypt.checkpw(oldPassword, loggedUser.getPassword())){
-            model.addAttribute("errorInfo", "Old password doesn't match.");
+            model.addAttribute("oldwrong", "Old password doesn't match.");
             return "users/newPassword";
         }
 
         if (!newPassword.equals(newPasswordRepeat)){
-            model.addAttribute("errorInfo", "Passwords don't match.");
+            model.addAttribute("passnoteq", "Passwords don't match.");
             return "users/newPassword";
         }
 
@@ -87,12 +87,6 @@ public class UserController {
         return "redirect:/albums/all";
     }
 
-    /*@ModelAttribute("albums")
-    public List<Album> allAlbums(){
-        System.out.println("controller1 " + albumService.getAllAlbums());
-        return albumService.getAllAlbums();
-    }*/
-
     @ModelAttribute("allalbums")
     public List<Album> allAlbumsTest(){
         return albumService.getAllAlbums();
@@ -100,7 +94,6 @@ public class UserController {
 
     @ModelAttribute("useralbumids")
     public List<Long> allUsersAlbums(){
-        System.out.println("controller2 " + userService.getAllUserAlbums(loggedUser.getId()).size());
         return userService.getAllUserAlbums(loggedUser.getId());
     }
 }

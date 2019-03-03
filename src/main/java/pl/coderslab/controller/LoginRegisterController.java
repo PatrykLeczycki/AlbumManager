@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Controller
-@SessionAttributes({"logged", "toLogin", "emailpattern", "emailexists", "passwordseq", "loginexists", "loginlength", "passlength", "logineqpass", "loginerror"})
+@SessionAttributes({"logged"})
 public class LoginRegisterController {
 
     @Autowired
@@ -22,10 +22,15 @@ public class LoginRegisterController {
     @Autowired
     private LoggedUser loggedUser;
 
-    //TODO: dorzucić oddzielny widok rejestracji
-
     @GetMapping("/register")
-    public String register(){
+    public String register(HttpSession session){
+        /*session.removeAttribute("emailpattern");
+        session.removeAttribute("emailexists");
+        session.removeAttribute("passwordseq");
+        session.removeAttribute("loginexists");
+        session.removeAttribute("loginlength");
+        session.removeAttribute("passlength");
+        session.removeAttribute("logineqpass");*/
         return "users/register";
     }
 
@@ -41,13 +46,6 @@ public class LoginRegisterController {
         if (matcher.matches() && !login.equals(password) && userService.findUserByEmail(email) == null && password.equals(confirmPassword) && userService.findUserByLogin(login) == null && login.length() >= 5 && password.length() >= 8){
             User user = new User(login, password, email);
             userService.addUser(user);
-            session.removeAttribute("emailpattern");
-            session.removeAttribute("emailexists");
-            session.removeAttribute("passwordseq");
-            session.removeAttribute("loginexists");
-            session.removeAttribute("loginlength");
-            session.removeAttribute("passlength");
-            session.removeAttribute("logineqpass");
             return "redirect:/loginpanel";
         }
 
@@ -62,10 +60,12 @@ public class LoginRegisterController {
     }
 
     @GetMapping("/login")
-    public String loginPanel(){
+    public String loginPanel(HttpSession session){
 
-        if (loggedUser.getLogin() == null)
+        if (loggedUser.getLogin() == null){
+//            session.removeAttribute("loginerror");
             return "users/login";
+        }
 
         return "redirect:/user/dashboard";
     }
@@ -77,21 +77,18 @@ public class LoginRegisterController {
 
         User userFromDb = userService.findUserByLogin(login);
 
-        if(userFromDb != null && BCrypt.checkpw(password, userFromDb.getPassword())){
-            System.out.println(login + " x " + userFromDb.getLogin());
-            loggedUser = new LoggedUser(login, password);
-            loggedUser.setId(userFromDb.getId());
-            loggedUser.setEmail(userFromDb.getEmail());
-            loggedUser.setAlbums(userFromDb.getAlbums());
-
-            session.removeAttribute("loginerror");
-            model.addAttribute("logged", true);
-            return "redirect:/user/dashboard";
+        if(userFromDb == null || !BCrypt.checkpw(password, userFromDb.getPassword())){
+            model.addAttribute("loginerror", true);
+            return "users/login";
         }
 
-        model.addAttribute("loginerror", true);
-        model.addAttribute("toLogin", true);
-        return "redirect:/login";
+        loggedUser = new LoggedUser(login, password);
+        loggedUser.setId(userFromDb.getId());
+        loggedUser.setEmail(userFromDb.getEmail());
+        loggedUser.setAlbums(userFromDb.getAlbums());
+
+        model.addAttribute("logged", true);
+        return "redirect:/user/dashboard";
     }
 
     @RequestMapping("/logout")
@@ -110,22 +107,40 @@ public class LoginRegisterController {
     @GetMapping("/lostpassword")
     public String lostPassword(){
         if (loggedUser.getLogin() == null)
-            return "/users/lostPassword";
+            return "users/lostPassword";
 
         return "redirect:/user/dashboard";
     }
 
-    @PostMapping("/lostpassword")
-    public String lostPassword(@RequestParam("login") String login, @RequestParam("newPassword") String newPassword, @RequestParam("newPasswordRepeat") String newPasswordRepeat, Model model){
+    @RequestMapping(value = "/lostpassword", method=RequestMethod.POST)
+    public String lostPassword(@RequestParam("email") String email, @RequestParam("login") String login, @RequestParam("newPassword") String newPassword, @RequestParam("newPasswordRepeat") String newPasswordRepeat, Model model){
 
-        if(userService.findUserByLogin(login).getLogin() == null){
+        String emailPatternString = "[_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.([a-zA-Z]{2,}){1}";
+
+        Pattern emailPattern = Pattern.compile(emailPatternString);
+        Matcher matcher = emailPattern.matcher(email);
+
+        if (!matcher.matches() || userService.findUserByEmail(email) == null || !userService.findUserByEmail(email).getLogin().equals(login) || newPassword.length() <= 8 || newPasswordRepeat.length() < 8 || !newPassword.equals(newPasswordRepeat)){
+            if (!matcher.matches())
+                model.addAttribute("wrongpattern", true);
+            else if (userService.findUserByEmail(email) == null || !userService.findUserByEmail(email).getLogin().equals(login))
+                model.addAttribute("wrongemailorlogin", true);
+
+            if (newPassword.length() <= 8 || newPasswordRepeat.length() < 8)
+                model.addAttribute("passlength", true);
+            else if (!newPassword.equals(newPasswordRepeat))
+                model.addAttribute("passnoteq", true);
+
+        }
+
+        if(userService.findUserByLogin(login) == null){
             model.addAttribute("errorInfo", "No user with given login exists.");
-            return "users/lostpassword";
+            return "users/lostPassword";
         }
 
         if(!newPassword.equals(newPasswordRepeat)){
             model.addAttribute("errorInfo", "Passwords don't match.");
-            return "users/lostpassword";
+            return "users/lostPassword";
         }
 
         User user = userService.findUserByLogin(login);
@@ -133,6 +148,6 @@ public class LoginRegisterController {
         user.setPasswordHashed(newPassword);
         userService.changePassword(user);
         model.addAttribute("newPassInfo", "Password has been changed.");
-        return "redirect:/loginpanel";
+        return "redirect:/login";
     }
 }
