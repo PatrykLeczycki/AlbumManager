@@ -7,7 +7,6 @@
 <head>
     <title>Title</title>
     <%@include file="files.jsp"%>
-
 </head>
 <body>
 
@@ -19,8 +18,6 @@
         <%@include file="header.jsp"%>
     </c:otherwise>
 </c:choose>
-
-<%--<%@include file="modals.jsp"%>--%>
 
 <%@include file="footer.jsp"%>
 
