@@ -12,7 +12,7 @@
                     <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
                 </div>
                 <div class="modal-body" style="padding:40px 50px;">
-                    <form role="form" method="post" action="/loginpanel">
+                    <form role="form" method="post" action="/login">
                         <div class="form-group">
                             <label for="usrname"><span class="glyphicon glyphicon-user"></span> Login</label>
                             <input type="text" name="login" class="form-control" id="usrname" placeholder="Enter login">
