@@ -1,11 +1,9 @@
 package pl.coderslab.controller;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.model.Album;
 import pl.coderslab.model.LoggedUser;
@@ -15,9 +13,6 @@ import pl.coderslab.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -41,7 +36,6 @@ public class UserController {
     @PostMapping("/newpassword")
     public String newPassword(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, @RequestParam("newPasswordRepeat") String newPasswordRepeat, Model model){
 
-        System.out.println(oldPassword + " " + (loggedUser.getPassword()));
         if(!BCrypt.checkpw(oldPassword, loggedUser.getPassword())){
             model.addAttribute("oldwrong", "Old password doesn't match.");
             return "users/newPassword";
@@ -64,7 +58,6 @@ public class UserController {
     public String dashboard(HttpSession session, Model model){
 
         model.addAttribute("dashboard", true);
-        System.out.println("dashboard = " + loggedUser.getPassword());
         return "users/dashboard";
     }
 
