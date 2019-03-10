@@ -80,8 +80,6 @@ public class AlbumController {
     private String deleteAlbum(@PathVariable long id, Model model, RedirectAttributes redirectAttributes){
 
         albumService.deleteAlbum(id);
-        //model.addAttribute("deletion", "Album has been deleted.");
-
         redirectAttributes.addFlashAttribute("deletion", "Album has been deleted.");
         return "redirect:/albums/all";
     }
