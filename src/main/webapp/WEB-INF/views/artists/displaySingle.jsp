@@ -3,6 +3,7 @@
     <td>${artist.pseudonym}</td>
     <td>${artist.name}</td>
     <td>${artist.surname}</td>
+    <td>${artist.birthDate}</td>
     <td>${artist.age}</td>
     <td>${artist.sex}</td>
     <td>${artist.nationality}</td>
