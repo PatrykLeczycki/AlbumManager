@@ -13,8 +13,6 @@ import java.util.List;
 @Table(name = "album")
 public class Album {
 
-    //TODO: dodać gatunek
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,12 +31,17 @@ public class Album {
 
     @Column(nullable = false)
     @NotNull
+    //TODO: dowiedzieć się czy pattern jest potrzebny
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate releaseDate;
 
     @Column(nullable = false)
     @NotNull
     private Format format;
+
+    @Column(nullable = false)
+    @NotNull
+    private String genre;
 
     public Long getId() {
         return id;
