@@ -1,10 +1,12 @@
 package pl.coderslab.model;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "artist")
@@ -25,11 +27,17 @@ public class Artist {
 
     //TODO: zmienić na datę
 
-    @Min(1)
+    @Column(nullable = false)
+    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birthDate;
+
     private Integer age;
 
+    @NotNull
     private String sex;
 
+    @NotNull
     private String nationality;
 
     public Long getId() {
@@ -64,8 +72,15 @@ public class Artist {
         this.surname = surname;
     }
 
-    public Integer getAge() {
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
 
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public Integer getAge() {
         return age;
     }
 
