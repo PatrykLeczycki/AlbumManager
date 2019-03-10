@@ -1,40 +1,39 @@
-<table border="1" style="text-align: center; margin: 0 auto; border-width: medium;" cellpadding = "10">
-    <tr>
-        <td>Pseudonym</td>
-        <td><form:input path="pseudonym"/></td>
-        <td><form:errors path="pseudonym" cssClass="error" element="div"/></td>
-    </tr>
-    <tr>
-        <td>Name</td>
-        <td><form:input path="name"/></td>
-        <td><form:errors path="name" cssClass="error" element="div"/></td>
-    </tr>
-    <tr>
-        <td>Surname</td>
-        <td><form:input path="surname"/></td>
-        <td><form:errors path="surname" cssClass="error" element="div"/></td>
-    </tr>
-    <tr>
-        <td>Age</td>
-        <td><form:input path="age" placeholder=""/></td>
-        <td><form:errors path="age" cssClass="error" element="div"/></td>
-    </tr>
-    <tr>
-        <td>Sex</td>
-        <td>
+<div class="modal-body" style="padding:40px 50px;">
+    <form:form method="post" action="/artists/add" modelAttribute="artist">
+        <div class="form-group">
+            <label><i class="fas fa-users"></i></span> Pseudonym</label><br>
+            <form:errors path="pseudonym" cssClass="error" element="div"/>
+            <form:input path="pseudonym"/>
+        </div>
+        <div class="form-group">
+            <label><span class="glyphicon glyphicon-pencil"></span></span> Name</label><br>
+            <form:errors path="name" cssClass="error" element="div"/>
+            <form:input path="name"/>
+        </div>
+        <div class="form-group">
+            <label><i class="fas fa-signature"></i></span> Surname</label><br>
+            <form:errors path="surname" cssClass="error" element="div"/>
+            <form:input path="surname"/>
+        </div>
+        <div class="form-group">
+            <label><span class="glyphicon glyphicon-calendar"></span> Birth date</label><br>
+            <form:errors path="birthDate" cssClass="error" element="div"/>
+            <form:input type="date" path="birthDate"/>
+        </div>
+        <div class="form-group">
+            <label><i class="fas fa-venus-mars"></i> Sex</label><br>
             Male: <form:radiobutton path="sex" value="Male"/><br>
             Female: <form:radiobutton path="sex" value="Female"/>
-        </td>
-        <td><form:errors path="sex" cssClass="error" element="div"/></td>
-    </tr>
-    <tr>
-        <td>Country</td>
-        <td><form:select path="nationality" items="${countries}"/></td>
-        <td><form:errors path="nationality" cssClass="error" element="div"/></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td><input type="submit" value="add"></td>
-        <td></td>
-    </tr>
-</table>
+            <form:errors path="sex" cssClass="error" element="div"/>
+        </div>
+        <div class="form-group">
+            <label><span class="glyphicon glyphicon-globe"></span> Nationality</label><br>
+            <td><form:select path="nationality" items="${countries}"/></td>
+            <form:errors path="nationality" cssClass="error" element="div"/>
+        </div>
+        <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-cd"></span> Add artist</button>
+    </form:form>
+</div>
+<div class="modal-footer">
+    <p><a href="/artists/all" style="padding: auto">Back to all artists</a></p>
+</div>
