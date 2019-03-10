@@ -26,13 +26,14 @@
 <table border="1" style="text-align: center; margin: 0 auto; border-width: medium;" cellpadding = "10">
     <thead>
     <tr>
-        <th colspan="9">Artist list</th>
+        <th colspan="10">Artist list</th>
     </tr>
     <tr>
         <th>ID</th>
         <th>Pseudonym</th>
         <th>Name</th>
         <th>Surname</th>
+        <th>Birth date</th>
         <th>Age</th>
         <th>Sex</th>
         <th>Nationality</th>
