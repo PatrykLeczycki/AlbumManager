@@ -24,13 +24,6 @@ public class LoginRegisterController {
 
     @GetMapping("/register")
     public String register(HttpSession session){
-        /*session.removeAttribute("emailpattern");
-        session.removeAttribute("emailexists");
-        session.removeAttribute("passwordseq");
-        session.removeAttribute("loginexists");
-        session.removeAttribute("loginlength");
-        session.removeAttribute("passlength");
-        session.removeAttribute("logineqpass");*/
         return "users/register";
     }
 
@@ -44,9 +37,10 @@ public class LoginRegisterController {
         Matcher matcher = emailPattern.matcher(email);
 
         if (matcher.matches() && !login.equals(password) && userService.findUserByEmail(email) == null && password.equals(confirmPassword) && userService.findUserByLogin(login) == null && login.length() >= 5 && password.length() >= 8){
+
             User user = new User(login, password, email);
             userService.addUser(user);
-            return "redirect:/loginpanel";
+            return "redirect:/login";
         }
 
         model.addAttribute("emailpattern", !matcher.matches());
@@ -56,17 +50,15 @@ public class LoginRegisterController {
         model.addAttribute("loginlength", login.length() < 5);
         model.addAttribute("passlength", password.length() < 8);
         model.addAttribute("logineqpass", login.equals(password));
-        return "users/register";    //TODO: tutaj pewnie będzie wyświetlenie nowego widoku
+        return "users/register";
     }
 
     @GetMapping("/login")
     public String loginPanel(HttpSession session){
 
-        if (loggedUser.getLogin() == null){
-            System.out.println("login get");
+        if (loggedUser.getLogin() == null)
             return "users/login";
-        }
-        System.out.println("login get 1");
+
         return "redirect:/user/dashboard";
     }
 
@@ -75,7 +67,6 @@ public class LoginRegisterController {
     @PostMapping("/login")
     public String loginPanel(@RequestParam("login") String login, @RequestParam("password") String password, HttpSession session, Model model){
 
-        System.out.println("login post");
         User userFromDb = userService.findUserByLogin(login);
 
         if(userFromDb == null || !BCrypt.checkpw(password, userFromDb.getPassword())){
@@ -88,8 +79,9 @@ public class LoginRegisterController {
         loggedUser.setId(userFromDb.getId());
         loggedUser.setEmail(userFromDb.getEmail());
         loggedUser.setAlbums(userFromDb.getAlbums());
-        System.out.println(login + " " + loggedUser.getPassword());
+
         model.addAttribute("logged", true);
+        model.addAttribute("login", loggedUser.getLogin());
         return "redirect:/user/dashboard";
     }
 
@@ -122,12 +114,11 @@ public class LoginRegisterController {
 
         Pattern emailPattern = Pattern.compile(emailPatternString);
         Matcher matcher = emailPattern.matcher(email);
-
         User user = userService.findUserByEmail(email);
 
         if (!matcher.matches() || user == null || !user.getLogin().equals(login) || newPassword.length() <= 8 || newPasswordRepeat.length() < 8 || !newPassword.equals(newPasswordRepeat)){
             if (!matcher.matches())
-                model.addAttribute("wrongpattern", true);// wrong e-mail format
+                model.addAttribute("wrongpattern", true);
             else if (user == null || !user.getLogin().equals(login)) //
                 model.addAttribute("wrongemailorlogin", true);
 
