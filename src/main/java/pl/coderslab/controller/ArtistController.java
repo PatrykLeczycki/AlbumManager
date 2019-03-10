@@ -10,10 +10,11 @@ import pl.coderslab.model.LoggedUser;
 import pl.coderslab.service.ArtistService;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Controller
 @RequestMapping("/artists")
@@ -32,7 +33,7 @@ public class ArtistController {
         return "artists/add";
     }
 
-    // TODO: sprawdzić debuggerem czemu trzeba odświeżyć, żeby zobaczyć świeżo dodany item
+    // TODO: sprawdzić debuggerem, czemu trzeba odświeżyć, żeby zobaczyć świeżo dodany item
 
     @PostMapping("/add")
     private String addArtist(@Valid Artist artist, BindingResult result){
@@ -40,6 +41,7 @@ public class ArtistController {
         if (result.hasErrors())
             return "artists/add";
 
+        artist.setAge(Period.between(artist.getBirthDate(), LocalDate.now()).getYears());
         artistService.addArtist(artist);
         return "redirect:/artists/all";
     }
@@ -71,9 +73,6 @@ public class ArtistController {
         return "redirect:/artists/all";
     }
 
-
-
-
     @ModelAttribute("countries")
     public List<String> countries(){
 
@@ -82,12 +81,10 @@ public class ArtistController {
 
         List<String> names = new ArrayList<>();
 
-        for (String countryCode : locales){
+        for (String countryCode : locales)
             names.add(new Locale("", countryCode).getDisplayCountry());
-        }
 
         Collections.sort(names);
-
         return names;
     }
 
