@@ -19,30 +19,15 @@
 </c:choose>
 
 
-<table border="1" style="text-align: center; margin: 0 auto; border-width: medium;" cellpadding = "10">
-    <thead>
-    <th>ID</th>
-    <th>Pseudonym</th>
-    <th>Name</th>
-    <th>Surname</th>
-    <th>Age</th>
-    <th>Sex</th>
-    <th>Nationality</th>
-    <th colspan = "2">Actions</th>
-    </thead>
+<div class="container" id="register-container">
+    <div class="modal-content" id="register-content">
+        <div class="modal-header" style="padding:35px 50px;">
+            <h4><span class="glyphicon glyphicon-cd"></span> Edit artist</h4>
+        </div>
+        <%@include file="artistAddForm.jsp"%>
+    </div>
+</div>
 
-    <tbody>
-    <%@include file="displaySingle.jsp"%>
-    </tbody>
-</table>
-
-<form:form method="post" action="/artists/edit" modelAttribute="artist">
-    <form:hidden path="id"/>
-    <%@include file="artistAddForm.jsp"%>
-</form:form>
-
-<%--<%@include file="../modals/login.jsp"%>--%>
-<%--<%@include file="../modals/register.jsp"%>--%>
 <%@include file="../footer.jsp"%>
 
 </body>
