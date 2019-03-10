@@ -6,8 +6,8 @@ import java.io.IOException;
 
 @WebFilter("/*")
 public class EncodingFilter implements Filter {
-    public void destroy() {
-    }
+
+    public void destroy() {}
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -16,8 +16,6 @@ public class EncodingFilter implements Filter {
         chain.doFilter(req, resp);
     }
 
-    public void init(FilterConfig config) throws ServletException {
-
-    }
+    public void init(FilterConfig config) throws ServletException {}
 
 }
