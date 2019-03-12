@@ -15,6 +15,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
+    private boolean activated;
+
     @Column(nullable = false, unique = true)
     @Size(min = 5, max = 20)
     private String login;
@@ -22,6 +25,8 @@ public class User {
     @Column(nullable = false)
     @Size(min = 8)
     private String password;
+
+    //TODO: unique = true
 
     @Email(regexp = "[_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.([a-zA-Z]{2,}){1}")
     private String email;
@@ -33,6 +38,7 @@ public class User {
         this.login = login;
         this.setPasswordHashed(password);
         this.email = email;
+        this.activated = false;
     }
 
     public User(String login, String password) {
@@ -49,6 +55,14 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
     }
 
     public String getLogin() {
