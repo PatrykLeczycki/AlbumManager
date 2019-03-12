@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
+@SessionAttributes({"dashboard"})
 @RequestMapping("/user")
 public class UserController {
 
