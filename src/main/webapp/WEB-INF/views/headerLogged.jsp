@@ -32,7 +32,7 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-            <c:if test="${dashboard == false}">
+            <c:if test="${not empty dashboard}">
                 <li><a href="/user/dashboard" style="font-size: 20px"><span>Dashboard</span></a></li>
             </c:if>
             <%--TODO: spróbować dać settings tylko w dashboardzie--%>
