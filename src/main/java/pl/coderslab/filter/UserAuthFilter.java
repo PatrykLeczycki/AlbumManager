@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebFilter("/user/*")
-public class AuthorizationFilter implements Filter {
+public class UserAuthFilter implements Filter {
     public void destroy() {
     }
 
@@ -17,7 +17,7 @@ public class AuthorizationFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) resp;
         HttpSession session = request.getSession(false);
 
-        boolean loggedIn = (session != null) && (session.getAttribute("logged") != null) && (boolean) session.getAttribute("logged");
+        boolean loggedIn = (session != null) && (session.getAttribute("user") != null) && (boolean) session.getAttribute("user");
 
         if (loggedIn) chain.doFilter(request, response);
 
