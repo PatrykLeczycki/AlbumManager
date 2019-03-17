@@ -10,14 +10,8 @@
 </head>
 <body>
 
-<c:choose>
-    <c:when test="${sessionScope.logged}">
-        <%@include file="headerLogged.jsp"%>
-    </c:when>
-    <c:otherwise>
-        <%@include file="header.jsp"%>
-    </c:otherwise>
-</c:choose>
+
+<%@include file="header.jsp"%>
 
 <%@include file="footer.jsp"%>
 
