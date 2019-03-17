@@ -86,7 +86,7 @@
                     "orderable": false
                 }
             ],
-            "order": [[2, "desc"]]
+            "order": []
         });
     });
 </script>
