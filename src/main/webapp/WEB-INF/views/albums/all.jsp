@@ -1,11 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: patryk
-  Date: 24.02.19
-  Time: 11:23
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -34,9 +27,15 @@
                     <th>Label</th>
                     <th>Release date</th>
                     <th>Format</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                    <th>Your collection</th>
+                    <c:if test="${sessionScope.admin}">
+                        <th>Edit</th>
+                        <th>Delete</th>
+                        <th>Your collection</th>
+                    </c:if>
+                    <c:if test="${sessionScope.user}">
+                        <th>Your collection</th>
+                    </c:if>
+
                 </tr>
                 </thead>
 
@@ -50,48 +49,16 @@
     </div>
 </div>
 
-<%--<table border="1" style="text-align: center; margin: 0 auto; border-width: medium;" cellpadding = "10">
-
-    <thead>
-    <tr>
-        <th colspan="9">Album list</th>
-    </tr>
-    <tr>
-        <th>ID</th>
-        <th>Artists</th>
-        <th>Title</th>
-        <th>Label</th>
-        <th>Release date</th>
-        <th>Format</th>
-        <th colspan = "3">Actions</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <c:forEach items="${albums}" var="album">
-        <%@include file="displaySingle.jsp"%>
-    </c:forEach>
-    </tbody>
-</table>--%>
-
-
 <%@include file="../footer.jsp"%>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(".table").DataTable({
-            "ordering": true,
-            "searching": true,
-            "paging": true,
-            "columnDefs": [
-                {
-                    "targets": [-1,-2, -3],
-                    "searchable": false,
-                    "orderable": false
-                }
-            ],
-            "order": []
-        });
-    });
-</script>
-</body>
+<c:choose>
+    <c:when test="${sessionScope.admin}">
+<script type="text/javascript" src="../../../js/sortNineCols.js"></script>
+    </c:when>
+    <c:when test="${sessionScope.user}">
+<script type="text/javascript" src="../../../js/sortSevenCols.js"></script>
+    </c:when>
+    <c:otherwise>
+<script type="text/javascript" src="../../../js/sortSixCols.js"></script>
+    </c:otherwise>
+</c:choose>
 </html>
