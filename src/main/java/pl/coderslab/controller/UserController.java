@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.coderslab.model.Album;
 import pl.coderslab.model.LoggedUser;
 import pl.coderslab.model.User;
@@ -63,7 +64,7 @@ public class UserController {
 
     @GetMapping("/albums")
     private String allUserAlbums(Model model){
-        model.addAttribute("albums", userService.getAllUserAlbums(loggedUser.getId()));
+        /*model.addAttribute("albums", userService.getAllUserAlbums(loggedUser.getId()));*/
         return "users/allalbums";
     }
 
@@ -74,10 +75,11 @@ public class UserController {
     }
 
     @RequestMapping(value = "/deletealbum/{id}", method = RequestMethod.GET)
-    public String deleteAlbumFromCollection(@PathVariable long id, HttpServletRequest request){
-        userService.deleteAlbumFromCollection(loggedUser.getId(), id);
+    private String deleteAlbum(@PathVariable long id, HttpServletRequest request,  RedirectAttributes redirectAttributes){
+
+        albumService.deleteAlbum(id);
         if ("true".equals(request.getParameter("back"))){
-            return "redirect:/user/all";
+            return "redirect:/user/albums";
         }
         return "redirect:/albums/all";
     }
