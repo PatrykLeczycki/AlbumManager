@@ -109,7 +109,7 @@ public class LoginRegisterController {
     @GetMapping("/lostpassword")
     public String lostPassword(){
         if (loggedUser.getLogin() == null)
-            return "users/lostPassword";
+            return "lostpassword";
 
         return "redirect:/user/dashboard";
     }
@@ -123,16 +123,15 @@ public class LoginRegisterController {
         Matcher matcher = emailPattern.matcher(email);
         User user = userService.findUserByEmail(email);
 
-        if (!matcher.matches() || user == null || !user.getLogin().equals(login) || newPassword.length() <= 8 || newPasswordRepeat.length() < 8 || !newPassword.equals(newPasswordRepeat)){
-            if (!matcher.matches())
-                model.addAttribute("wrongpattern", true);
-            else if (user == null || !user.getLogin().equals(login)) //
+        if (!matcher.matches() || user == null || !user.getLogin().equals(login) || newPassword.length() < 8 || newPasswordRepeat.length() < 8 || !newPassword.equals(newPasswordRepeat)){
+            if (user == null || !user.getLogin().equals(login)) //
                 model.addAttribute("wrongemailorlogin", true);
 
-            if (newPassword.length() <= 8 || newPasswordRepeat.length() < 8)
+            if (newPassword.length() < 8 || newPasswordRepeat.length() < 8)
                 model.addAttribute("passlength", true);
             else if (!newPassword.equals(newPasswordRepeat))
                 model.addAttribute("passnoteq", true);
+            return "lostpassword";
         }
 
         user.setPasswordHashed(newPassword);
