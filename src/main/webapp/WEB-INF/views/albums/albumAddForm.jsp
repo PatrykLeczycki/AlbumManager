@@ -27,6 +27,17 @@
             <form:errors path="releaseDate" cssClass="error" element="div"/>
             <form:input type="date" path="releaseDate"/>
         </div>
+        <%--TODO: dodać opcję dodaj/wybierz z istniejącą--%>
+        <%--<div class="form-group">
+            <label><span class="glyphicon glyphicon-cd"></span></span> Genre</label><br>
+            <form:errors path="genre" cssClass="error" element="div"/>
+            <form:select path="genre" items="${formats}"/>
+        </div>--%>
+        <div class="form-group">
+            <label><span class="glyphicon glyphicon-list-alt"></span></span> Genre</label><br>
+            <form:errors path="genre" cssClass="error" element="div"/>
+            <form:input path="genre"/>
+        </div>
         <div class="form-group">
             <label><span class="glyphicon glyphicon-cd"></span></span> Format</label><br>
             <form:errors path="format" cssClass="error" element="div"/>
