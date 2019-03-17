@@ -1,5 +1,5 @@
 <div class="modal-body" style="padding:40px 50px;">
-    <form:form method="post" action="/albums/edit" modelAttribute="album">
+    <form:form method="post" action="/admin/editalbum" modelAttribute="album">
         <form:hidden path="id"/>
         <div class="form-group">
             <label><i class="fas fa-users"></i>Artists</label>
