@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: patryk
-  Date: 28.02.19
-  Time: 15:49
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -38,8 +31,6 @@
     </tbody>
 </table>
 
-<%--<%@include file="../modals/login.jsp"%>
-<%@include file="../modals/register.jsp"%>--%>
 <%@include file="../footer.jsp"%>
 
 </body>
