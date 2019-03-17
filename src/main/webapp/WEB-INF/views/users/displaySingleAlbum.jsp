@@ -15,5 +15,5 @@
     <td>${album.label.name}</td>
     <td>${album.releaseDate}</td>
     <td>${album.format}</td>
-    <td><a href="/user/deletealbum/${album.id}?back=true" onclick="return confirm('Are you sure you want to remove this album from your collection?');">Remove from collection</a></td>
+    <td><a href="/user/deletealbum/${album.id}?back=true" onclick="return confirm('Are you sure you want to remove this album from your collection?');"><span class="glyphicon glyphicon-minus-sign"/></a></td>
 </c:if>
