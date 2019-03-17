@@ -4,9 +4,9 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 @Table(name = "artist")
@@ -25,14 +25,10 @@ public class Artist {
     @NotBlank
     private String surname;
 
-    //TODO: zmienić na datę
-
     @Column(nullable = false)
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
-
-    private Integer age;
 
     @NotNull
     private String sex;
@@ -81,11 +77,7 @@ public class Artist {
     }
 
     public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
+        return Period.between(birthDate, LocalDate.now()).getYears();
     }
 
     public String getSex() {
