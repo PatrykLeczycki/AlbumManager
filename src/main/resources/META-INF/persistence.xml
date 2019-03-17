@@ -5,7 +5,7 @@
              version="2.1">
     <persistence-unit name="albumManagerPersistenceUnit">
 
-       <!-- <properties>
+        <properties>
             <property name="javax.persistence.jdbc.url"
                       value="jdbc:mysql://localhost:3306/albumManager" />
             <property name="javax.persistence.jdbc.user" value="root" />
@@ -20,9 +20,12 @@
             <property name="hibernate.connection.characterEncoding" value="utf8" />
             <property name="hibernate.connection.CharSet" value="utf8" />
 
-        </properties>-->
+            <property name="javax.persistence.sql-load-script-source"
+                      value="META-INF/sql/data.sql" />
 
-        <properties>
+        </properties>
+
+        <!--<properties>
             <property name="javax.persistence.jdbc.url"
                       value="jdbc:mysql://77.55.213.198:8080/albumManager" />
             <property name="javax.persistence.jdbc.user" value="root" />
@@ -38,7 +41,7 @@
             <property name="hibernate.connection.CharSet" value="utf8" />
 
         </properties>
-
+-->
     </persistence-unit>
 
 
