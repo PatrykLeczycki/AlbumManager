@@ -47,7 +47,6 @@ public class UserController {
             return "users/newPassword";
         }
 
-        //TODO: dodać walidację
         User user = userService.findUserByLogin(loggedUser.getLogin());
         user.setPasswordHashed(newPassword);
         userService.addUser(user);
@@ -62,7 +61,7 @@ public class UserController {
         return "users/dashboard";
     }
 
-    @GetMapping("/all")
+    @GetMapping("/albums")
     private String allUserAlbums(Model model){
         model.addAttribute("albums", userService.getAllUserAlbums(loggedUser.getId()));
         return "users/allalbums";
