@@ -13,3 +13,10 @@ insert into artist values (null, "1982-12-24", "Piotr", "Poland", "Ten Typ Mes",
 insert into artist values (null, "1995-08-15", "Keith", "United States", "Chief Keef", "M", "Cozart");
 insert into artist values (null, "1989-05-24", "Gerald", "United States", "G-Eazy", "M", "Gillum");
 insert into artist values (null, "1986-10-24", "Aubrey", "Canada", "Drake", "M", "Graham");
+
+insert into album values (null, 0, "Rap", "2012-02-20", "Etenszyn: Drimz Kamyn Tru", 1);
+
+insert into album values (null, 0, "Rap", "2019-02-15", "Wojtek Sokół", 1);
+
+insert into album_artist values (1, 8);
+insert into album_artist values (2, 1);
