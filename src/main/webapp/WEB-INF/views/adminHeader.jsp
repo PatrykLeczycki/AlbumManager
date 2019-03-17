@@ -9,7 +9,7 @@
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/albums/all" style="font-size: 20px">All albums</a></li>
-                    <li><a href="/user/all" style="font-size: 20px">Your albums</a></li>
+                    <li><a href="/admin/albums" style="font-size: 20px">Your albums</a></li>
                     <li><a href="/albums/add" style="font-size: 20px">Add album</a></li>
                 </ul>
             </li>
