@@ -15,14 +15,7 @@
 </head>
 <body>
 
-<c:choose>
-    <c:when test="${sessionScope.user}">
-        <%@include file="../userHeader.jsp"%>
-    </c:when>
-    <c:otherwise>
-        <%@include file="../unloggedHeader.jsp"%>
-    </c:otherwise>
-</c:choose>
+<%@include file="../header.jsp"%>
 
 <div class="container">
     <div class="row" style="background-color: #dbe4f0">
@@ -47,28 +40,6 @@
         </div>
     </div>
 </div>
-
-
-
-<%--<table border="1" style="text-align: center; margin: 0 auto; border-width: medium;" cellpadding = "10">
-    <thead>
-    <tr>
-        <th colspan="5">Label list</th>
-    </tr>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Country</th>
-        <th colspan = "2">Actions</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <c:forEach items="${labels}" var="label">
-        <%@include file="displaySingle.jsp"%>
-    </c:forEach>
-    </tbody>
-</table>--%>
 
 <%@include file="../footer.jsp"%>
 
