@@ -1,8 +1,7 @@
 
-
 <c:set var="contains" value="false"/>
-<c:forEach items="${useralbumids}" var="useralbumid">
-    <c:if test="${useralbumid eq album.id}">
+<c:forEach items="${adminalbumids}" var="adminalbumid">
+    <c:if test="${adminalbumid eq album.id}">
         <c:set var="contains" value="true"/>
     </c:if>
 </c:forEach>
@@ -15,5 +14,7 @@
     <td>${album.label.name}</td>
     <td>${album.releaseDate}</td>
     <td>${album.format}</td>
-    <td><a href="/user/deletealbum/${album.id}?back=true" onclick="return confirm('Are you sure you want to remove this album from your collection?');">Remove from collection</a></td>
+    <td><a href="/admin/editalbum/${album.id}"><span class="glyphicon glyphicon-edit"/></a></td>
+    <td><a href="/admin/deletealbum/${album.id}" onclick="return confirm('Are you sure you want to delete this album?');"><span class="glyphicon glyphicon-trash"/></a></td>
+    <td><a href="/admin/collectiondeletealbum/${album.id}?back=true" onclick="return confirm('Are you sure you want to remove this album from your collection?');"><span class="glyphicon glyphicon-minus-sign"/></a></td>
 </c:if>
