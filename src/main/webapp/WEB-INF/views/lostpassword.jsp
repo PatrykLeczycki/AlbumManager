@@ -3,11 +3,11 @@
 <html>
 <head>
     <title>Lost password</title>
-    <%@include file="../files.jsp"%>
+    <%@include file="files.jsp"%>
 </head>
 <body>
 
-<%@include file="../header.jsp"%>
+<%@include file="header.jsp"%>
 
 <div class="container" id="register-container">
 
@@ -24,6 +24,9 @@
                    <%-- <c:if test="${sessionScope.emailpattern}">
                         <br><span class="error">Wrong e-mail format</span>
                     </c:if>--%>
+                    <c:if test="${wrongemailorlogin}">
+                        <br><span class="error">Incorrect email or login</span>
+                    </c:if>
                     <input type="text" name="email" class="form-control" id="email" placeholder="Enter email">
                 </div>
                 <div class="form-group">
@@ -32,10 +35,16 @@
                 </div>
                 <div class="form-group">
                     <label for="newPassword"><span class="glyphicon glyphicon-eye-open"></span> New password</label>
+                    <c:if test="${passlength}">
+                        <br><span class="error">Password must have at least 8 characters</span>
+                    </c:if>
                     <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="Enter password">
                 </div>
                 <div class="form-group">
                     <label for="newPasswordRepeat"><span class="glyphicon glyphicon-eye-open"></span> Confirm new password</label>
+                    <c:if test="${passnoteq}">
+                        <br><span class="error">Passwords must be equal</span>
+                    </c:if>
                     <input type="password" class="form-control" name="newPasswordRepeat" id="newPasswordRepeat" placeholder="Confirm password">
                 </div>
                 <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-pencil"></span> Retrieve password</button>
@@ -81,7 +90,7 @@
 
 <%--<%@include file="../modals/login.jsp"%>
 <%@include file="../modals/register.jsp"%>--%>
-<%@include file="../footer.jsp"%>
+<%@include file="footer.jsp"%>
 
 </body>
 </html>
