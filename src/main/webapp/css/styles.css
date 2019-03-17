@@ -95,17 +95,17 @@ iframe
     box-shadow:none !important;
 }
 
-table:not(.outter-main-table){
+/*table:not(.outter-main-table){
     text-align: center;
     background-color: #dbe4f0;
     font-family: initial;
-}
+}*/
 
 td, th, tr {
     padding: 10px;
     text-align: center;
 }
-.table{
+/*.table{
     display: inline-block;
     border-width: 5px;
     border-style: solid;
@@ -114,8 +114,8 @@ td, th, tr {
     color: #13263a;
     background-color: #dbe4f0;
 
-}
-
+}*/
+/*
 .table-list{
     display: inline-block;
     border-width: 5px;
@@ -123,15 +123,17 @@ td, th, tr {
     border-color: #13263a;
     color: #13263a;
     background-color: #dbe4f0;
-}
+}*/
 
 body:not(.header){
     background-image: url("/images/background-image.jpg");
 }
+/*
 
 .list-table{
     background-color: #dbe4f0;
 }
+*/
 
 #footer {
     position: absolute;
@@ -256,4 +258,8 @@ body{
 .error{
     color: red;
     font-weight: bold;
+}
+
+th .sorting {
+    text-align: center;
 }
