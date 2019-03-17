@@ -36,6 +36,7 @@
                     <th>Format</th>
                     <th>Edit</th>
                     <th>Delete</th>
+                    <th>Your collection</th>
                 </tr>
                 </thead>
 
@@ -83,12 +84,12 @@
             "paging": true,
             "columnDefs": [
                 {
-                    "targets": [-1,-2],
+                    "targets": [-1,-2, -3],
                     "searchable": false,
                     "orderable": false
                 }
             ],
-            "order": [[2, "desc"]]
+            "order": []
         });
     });
 </script>
