@@ -13,14 +13,7 @@
     <%@include file="../files.jsp"%>
 </head>
 <body>
-<c:choose>
-    <c:when test="${sessionScope.logged}">
-        <%@include file="../headerLogged.jsp"%>
-    </c:when>
-    <c:otherwise>
-        <%@include file="../header.jsp"%>
-    </c:otherwise>
-</c:choose>
+<%@include file="../header.jsp"%>
 
 <table border="1" style="text-align: center; border-width: medium; margin: 0 auto" cellpadding = "10">
     <thead>
