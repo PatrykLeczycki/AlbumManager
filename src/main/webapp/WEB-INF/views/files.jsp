@@ -16,21 +16,3 @@
         crossorigin="anonymous"></script>
 <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="js/dataTables.bootstrap.min.js"></script>
-<%--
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(".table").DataTable({
-            "ordering": true,
-            "searching": true,
-            "paging": true,
-            "columnDefs": [
-                {
-                    "targets": 0,
-                    "searchable": false,
-                    "visible": true
-                }
-            ],
-            "order": [[2, "desc"]]
-        });
-    });
-</script>--%>
