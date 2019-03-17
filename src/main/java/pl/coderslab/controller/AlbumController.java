@@ -61,29 +61,6 @@ public class AlbumController {
         return "albums/all";
     }
 
-    @GetMapping("/edit/{id}")
-    private String editAlbum(@PathVariable long id, Model model){
-        model.addAttribute("album", albumService.getAlbumById(id));
-        return "albums/edit";
-    }
-
-    @PostMapping("/edit")
-    private String editAlbum(@Valid Album album, BindingResult result){
-        if (result.hasErrors())
-            return "albums/edit";
-
-        albumService.addAlbum(album);
-        return "redirect:/albums/all";
-    }
-
-    @GetMapping("/delete/{id}")
-    private String deleteAlbum(@PathVariable long id, Model model, RedirectAttributes redirectAttributes){
-
-        albumService.deleteAlbum(id);
-        redirectAttributes.addFlashAttribute("deletion", "Album has been deleted.");
-        return "redirect:/albums/all";
-    }
-
     @ModelAttribute("labels")
     public List<Label> getLabels(){
         return labelService.getAllLabels();
