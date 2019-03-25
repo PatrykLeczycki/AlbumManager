@@ -17,7 +17,7 @@
         </div>
         <div class="modal-body" style="padding:40px 50px;">
 
-            <form action="/login" method="post">
+            <form action="${pageContext.request.contextPath}/login" method="post">
                 <div class="form-group">
                     <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
                     <c:if test="${loginerror}">
@@ -34,8 +34,8 @@
 
         </div>
         <div class="modal-footer">
-            <p>Not a member? <a href="/register" data-toggle="modal" data-dismiss="modal">Sign up</a></p>
-            <p>Forgot <a href="/lostpassword">password?</a></p>
+            <p>Not a member? <a href="${pageContext.request.contextPath}/register" data-toggle="modal" data-dismiss="modal">Sign up</a></p>
+            <p>Forgot <a href="${pageContext.request.contextPath}/lostpassword">password?</a></p>
         </div>
     </div>
 </div>
