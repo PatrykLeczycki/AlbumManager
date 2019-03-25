@@ -5,8 +5,8 @@
 <head>
     <title>Labels</title>
     <%@include file="../files.jsp"%>
-    <script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/dataTables.bootstrap.min.js"></script>
     <style>
         th{
             text-align: center;
