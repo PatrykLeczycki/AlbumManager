@@ -19,7 +19,6 @@ public class LoggedUser {
     private List<Album> albums;
 
     public LoggedUser() {
-        System.out.println("test");
     }
 
     public Long getId() {
