@@ -4,8 +4,8 @@
 <head>
     <title>Artists</title>
     <%@include file="../files.jsp"%>
-    <script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/dataTables.bootstrap.min.js"></script>
     <style>
         th{
             text-align: center;
@@ -44,32 +44,6 @@
         </div>
     </div>
 </div>
-
-
-<%--<table border="1" style="text-align: center; margin: 0 auto; border-width: medium;" cellpadding = "10">
-    <thead>
-    <tr>
-        <th colspan="10">Artist list</th>
-    </tr>
-    <tr>
-        <th>ID</th>
-        <th>Pseudonym</th>
-        <th>Name</th>
-        <th>Surname</th>
-        <th>Birth date</th>
-        <th>Age</th>
-        <th>Sex</th>
-        <th>Nationality</th>
-        <th colspan = "2">Actions</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <c:forEach items="${artists}" var="artist">
-        <%@include file="displaySingle.jsp"%>
-    </c:forEach>
-    </tbody>
-</table>--%>
 
 <%@include file="../footer.jsp"%>
 
