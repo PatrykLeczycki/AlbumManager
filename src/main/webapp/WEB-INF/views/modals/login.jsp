@@ -1,3 +1,4 @@
+<%--
 <div class="container" id="login-container">
     <!-- Trigger the modal with a button -->
 
@@ -28,7 +29,7 @@
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
                     <p>Not a member? <a href="#myModalRegister" data-toggle="modal" data-dismiss="modal">Sign up</a></p>
-                    <p>Forgot <a href="/lostpassword">Password?</a></p>
+                    <p>Forgot <a href="${pageContext.request.contextPath}/lostpassword">Password?</a></p>
                 </div>
             </div>
         </div>
@@ -56,3 +57,4 @@
         });
     });
 </script>
+--%>
