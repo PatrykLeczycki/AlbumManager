@@ -35,5 +35,5 @@
     </form:form>
 </div>
 <div class="modal-footer">
-    <p><a href="/artists/all" style="padding: auto">Back to all artists</a></p>
+    <p><a href="${pageContext.request.contextPath}/artists/all" style="padding: auto">Back to all artists</a></p>
 </div>
