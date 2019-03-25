@@ -36,4 +36,8 @@ public class UserService {
     public List<Long> getAllUserAlbums(Long id){
         return userRepo.getAllUserAlbums(id);
     }
+
+    public List<User> getAllUsers(){
+        return userRepo.findAll();
+    }
 }

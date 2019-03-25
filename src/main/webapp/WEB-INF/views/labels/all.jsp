@@ -1,54 +1,65 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: patryk
-  Date: 23.02.19
-  Time: 15:56
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Labels</title>
     <%@include file="../files.jsp"%>
+    <script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <style>
+        th{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
-<c:choose>
-    <c:when test="${sessionScope.logged}">
-        <%@include file="../headerLogged.jsp"%>
-    </c:when>
-    <c:otherwise>
-        <%@include file="../header.jsp"%>
-    </c:otherwise>
-</c:choose>
+<%@include file="../header.jsp"%>
 
+<div class="container">
+    <div class="row" style="background-color: #dbe4f0">
+        <div>
+            <table class="table table-bordered table-hovered" border="1" style="background-color: white">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
 
-<table border="1" style="text-align: center; margin: 0 auto; border-width: medium;" cellpadding = "10">
-    <thead>
-    <tr>
-        <th colspan="5">Label list</th>
-    </tr>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Country</th>
-        <th colspan = "2">Actions</th>
-    </tr>
-    </thead>
+                <tbody>
+                <c:forEach items="${labels}" var="label">
+                    <%@include file="displaySingle.jsp"%>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-    <tbody>
-    <c:forEach items="${labels}" var="label">
-        <%@include file="displaySingle.jsp"%>
-    </c:forEach>
-    </tbody>
-</table>
-
-<%--<%@include file="../modals/login.jsp"%>
-<%@include file="../modals/register.jsp"%>--%>
 <%@include file="../footer.jsp"%>
 
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".table").DataTable({
+            "ordering": true,
+            "searching": true,
+            "paging": true,
+            "columnDefs": [
+                {
+                    "targets": [-1,-2],
+                    "searchable": false,
+                    "orderable": false
+                }
+            ],
+            "order": []
+        });
+    });
+</script>
 
 </body>
 </html>

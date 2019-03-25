@@ -9,7 +9,7 @@
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="/albums/all" style="font-size: 20px">All albums</a></li>
-                    <li><a href="/user/all" style="font-size: 20px">Your albums</a></li>
+                    <li><a href="/admin/albums" style="font-size: 20px">Your albums</a></li>
                     <li><a href="/albums/add" style="font-size: 20px">Add album</a></li>
                 </ul>
             </li>
@@ -29,11 +29,12 @@
                     <li><a href="/labels/add" style="font-size: 20px">Add label</a></li>
                 </ul>
             </li>
+            <li><a href="/admin/users" style="font-size: 20px">Users</a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
             <c:if test="${not empty dashboard}">
-                <li><a href="/user/dashboard" style="font-size: 20px"><span>Dashboard</span></a></li>
+                <li><a href="/admin/dashboard" style="font-size: 20px"><span>Dashboard</span></a></li>
             </c:if>
             <%--TODO: spróbować dać settings tylko w dashboardzie--%>
             <li class="dropdown">

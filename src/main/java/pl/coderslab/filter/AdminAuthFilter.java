@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter("/user/*")
-public class AuthorizationFilter implements Filter {
+@WebFilter("/admin/*")
+public class AdminAuthFilter implements Filter {
     public void destroy() {
     }
 
@@ -17,13 +17,12 @@ public class AuthorizationFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) resp;
         HttpSession session = request.getSession(false);
 
-        boolean loggedIn = (session != null) && (session.getAttribute("logged") != null) && (boolean) session.getAttribute("logged");
+        boolean loggedIn = (session != null) && (session.getAttribute("admin") != null) && (boolean) session.getAttribute("admin");
 
         if (loggedIn) chain.doFilter(request, response);
 
         else response.sendRedirect("/login");
     }
-
     public void init(FilterConfig config) throws ServletException {
 
     }

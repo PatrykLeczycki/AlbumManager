@@ -41,7 +41,6 @@ public class ArtistController {
         if (result.hasErrors())
             return "artists/add";
 
-        artist.setAge(Period.between(artist.getBirthDate(), LocalDate.now()).getYears());
         artistService.addArtist(artist);
         return "redirect:/artists/all";
     }

@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>Dashboard</title>
-   <%@include file="../files.jsp"%>
+    <%@include file="../files.jsp"%>
 </head>
 <body>
 

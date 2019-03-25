@@ -1,53 +1,65 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: patryk
-  Date: 28.02.19
-  Time: 15:49
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Your albums</title>
     <%@include file="../files.jsp"%>
+    <script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/js/dataTables.bootstrap.min.js"></script>
+    <style>
+        th{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-<c:choose>
-    <c:when test="${sessionScope.logged}">
-        <%@include file="../headerLogged.jsp"%>
-    </c:when>
-    <c:otherwise>
-        <%@include file="../header.jsp"%>
-    </c:otherwise>
-</c:choose>
+<%@include file="../header.jsp"%>
 
-<table border="1" style="text-align: center; border-width: medium; margin: 0 auto" cellpadding = "10">
-    <thead>
-    <tr>
-        <th colspan="7">Your album list</th>
-    </tr>
-    <tr>
-        <th>ID</th>
-        <th>Artists</th>
-        <th>Title</th>
-        <th>Label</th>
-        <th>Release date</th>
-        <th>Format</th>
-        <th>Action</th>
-    </tr>
-    </thead>
+<div class="container">
+    <div class="row" style="background-color: #dbe4f0">
+        <div>
+            <table class="table table-bordered table-hovered" border="1" style="background-color: white">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Artists</th>
+                        <th>Title</th>
+                        <th>Label</th>
+                        <th>Release date</th>
+                        <th>Format</th>
+                        <th>Collection</th>
+                    </tr>
+                </thead>
 
-    <tbody>
-    <c:forEach items="${allalbums}" var="album">
-        <%@include file="displaySingleAlbum.jsp"%>
-    </c:forEach>
-    </tbody>
-</table>
+                <tbody>
+                <c:forEach items="${allalbums}" var="album">
+                    <%@include file="displaySingleAlbum.jsp"%>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-<%--<%@include file="../modals/login.jsp"%>
-<%@include file="../modals/register.jsp"%>--%>
 <%@include file="../footer.jsp"%>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".table").DataTable({
+            "ordering": true,
+            "searching": true,
+            "paging": true,
+            "columnDefs": [
+                {
+                    "targets": [-1],
+                    "searchable": false,
+                    "orderable": false
+                }
+            ],
+            "order": []
+        });
+    });
+</script>
 
 </body>
 </html>

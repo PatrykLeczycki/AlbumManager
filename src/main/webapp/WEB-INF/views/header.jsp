@@ -1,18 +1,25 @@
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/" style="font-size: 30px">Album Manager</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li><a href="/albums/all" style="font-size: 20px">Albums</a></li>
-            <li><a href="/artists/all" style="font-size: 20px">Artists</a></li>
-            <li><a href="/labels/all" style="font-size: 20px">Labels</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <%--<li><a href="#myModalRegister" class="trigger-btn" data-toggle="modal" onclick="javascript: return false;" style="font-size: 20px"><span class="glyphicon glyphicon-pencil"></span> Sign Up</a></li>
-            <li><a href="#myModal" class="trigger-btn" data-toggle="modal" name="login" onclick="javascript: return false;" style="font-size: 20px"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>--%>
-                <li><a href="/register" class="trigger-btn" style="font-size: 20px"><span class="glyphicon glyphicon-pencil"></span> Sign Up</a></li>
-                <li><a href="/login" class="trigger-btn" style="font-size: 20px"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        </ul>
-    </div>
-</nav>
+<c:choose>
+    <c:when test="${sessionScope.admin}">
+        <%@include file="adminHeader.jsp"%>
+        <%--<div class="container" id="register-container">
+            <div class="modal-content" id="register-content1">
+                <div class="modal-header" style="padding:35px 50px;">
+                    <h4><i class="fas fa-hand-paper"></i></span> Welcome, ${login}</h4>
+                </div>
+            </div>
+        </div>--%>
+    </c:when>
+    <c:when test="${sessionScope.user}">
+        <%@include file="userHeader.jsp"%>
+        <%--<div class="container" id="register-container">
+            <div class="modal-content" id="register-content">
+                <div class="modal-header" style="padding:35px 50px;">
+                    <h4><i class="fas fa-hand-paper"></i></span> Welcome, ${login}</h4>
+                </div>
+            </div>
+        </div>--%>
+    </c:when>
+    <c:otherwise>
+        <%@include file="unloggedHeader.jsp"%>
+    </c:otherwise>
+</c:choose>

@@ -16,7 +16,7 @@ public class User {
     private Long id;
 
     @Column
-    private boolean activated;
+    private boolean admin;
 
     @Column(nullable = false, unique = true)
     @Size(min = 5, max = 20)
@@ -38,7 +38,7 @@ public class User {
         this.login = login;
         this.setPasswordHashed(password);
         this.email = email;
-        this.activated = false;
+        this.admin = false;
     }
 
     public User(String login, String password) {
@@ -57,12 +57,12 @@ public class User {
         this.id = id;
     }
 
-    public boolean isActivated() {
-        return activated;
+    public boolean isAdmin() {
+        return admin;
     }
 
-    public void setActivated(boolean activated) {
-        this.activated = activated;
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
     public String getLogin() {

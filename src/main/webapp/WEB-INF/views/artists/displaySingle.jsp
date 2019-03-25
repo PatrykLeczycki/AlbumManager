@@ -1,5 +1,4 @@
 <tr>
-    <td>${artist.id}</td>
     <td>${artist.pseudonym}</td>
     <td>${artist.name}</td>
     <td>${artist.surname}</td>
