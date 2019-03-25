@@ -1,3 +1,4 @@
+<%--
 <div class="container" id="register-container">
     <!-- Modal -->
     <div class="modal fade" id="myModalRegister" role="dialog">
@@ -57,4 +58,4 @@
 
         </div>
     </div>
-</div>
+</div>--%>
