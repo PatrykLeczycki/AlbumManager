@@ -52,13 +52,13 @@
 <%@include file="../footer.jsp"%>
 <c:choose>
     <c:when test="${sessionScope.admin}">
-<script type="text/javascript" src="../../../js/sortNineCols.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/sortNineCols.js"></script>
     </c:when>
     <c:when test="${sessionScope.user}">
-<script type="text/javascript" src="../../../js/sortSevenCols.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/sortSevenCols.js"></script>
     </c:when>
     <c:otherwise>
-<script type="text/javascript" src="../../../js/sortSixCols.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/sortSixCols.js"></script>
     </c:otherwise>
 </c:choose>
 </html>
