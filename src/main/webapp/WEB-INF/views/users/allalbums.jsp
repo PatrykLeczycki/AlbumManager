@@ -43,23 +43,17 @@
 
 <%@include file="../footer.jsp"%>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(".table").DataTable({
-            "ordering": true,
-            "searching": true,
-            "paging": true,
-            "columnDefs": [
-                {
-                    "targets": [-1],
-                    "searchable": false,
-                    "orderable": false
-                }
-            ],
-            "order": []
-        });
-    });
-</script>
+<c:choose>
+    <c:when test="${sessionScope.admin}">
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/sortNineCols.js"></script>
+    </c:when>
+    <c:when test="${sessionScope.user}">
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/sortSevenCols.js"></script>
+    </c:when>
+    <c:otherwise>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/sortSixCols.js"></script>
+    </c:otherwise>
+</c:choose>
 
 </body>
 </html>
