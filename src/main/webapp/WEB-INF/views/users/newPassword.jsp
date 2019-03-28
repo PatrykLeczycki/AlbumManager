@@ -25,7 +25,7 @@
             <h4><span class="glyphicon glyphicon-pencil"></span> Change password</h4>
         </div>
         <div class="modal-body" style="padding:40px 50px;">
-            <form action="/user/newpassword" method="post">
+            <form action="${pageContext.request.contextPath}/user/newpassword" method="post">
                 <div class="form-group">
                     <label for="oldPassword"><span class="glyphicon glyphicon-eye-open"></span> Old password</label>
                     <%-- <c:if test="${sessionScope.emailpattern}">
@@ -46,7 +46,7 @@
         </div>
         <div class="modal-footer">
             <%--            <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>--%>
-            <p><a href="/user/dashboard" style="padding: auto">Back to dashboard</a></p>
+            <p><a href="${pageContext.request.contextPath}/user/dashboard" style="padding: auto">Back to dashboard</a></p>
         </div>
     </div>
 </div>

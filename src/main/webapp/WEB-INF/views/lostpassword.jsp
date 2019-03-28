@@ -18,7 +18,7 @@
             <h4><span class="glyphicon glyphicon-pencil"></span> Retrieve password</h4>
         </div>
         <div class="modal-body" style="padding:40px 50px;">
-            <form action="/lostpassword" method="post">
+            <form action="${pageContext.request.contextPath}/lostpassword" method="post">
                 <div class="form-group">
                     <label for="email"><span class="glyphicon glyphicon-envelope"></span> E-mail</label>
                    <%-- <c:if test="${sessionScope.emailpattern}">
@@ -52,44 +52,11 @@
         </div>
         <div class="modal-footer">
             <%--            <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>--%>
-            <p><a href="/login" data-toggle="modal" data-dismiss="modal">Back to login panel</a></p>
+            <p><a href="${pageContext.request.contextPath}/login" data-toggle="modal" data-dismiss="modal">Back to login panel</a></p>
         </div>
     </div>
 </div>
 
-<%--<form action="/user/lostpassword" method="post">
-
-    <table border="1" style="text-align: center; border-width: medium; margin: 0 auto" cellpadding = "10">
-        <tr>
-            <td>E-mail</td>
-            <td><input name="email" type="text"/></td>
-            <td></td>
-        </tr>
-
-        <tr>
-            <td>Login</td>
-            <td><input name="login" type="text"/></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>New password</td>
-            <td><input name="newPassword" type="password"/><br/></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Confirm new password</td>
-            <td><input name="newPasswordRepeat" type="password"/><br/></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="submit" value="Submit"></td>
-        </tr>
-    </table>
-</form>--%>
-
-<%--<%@include file="../modals/login.jsp"%>
-<%@include file="../modals/register.jsp"%>--%>
 <%@include file="footer.jsp"%>
 
 </body>

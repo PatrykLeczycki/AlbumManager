@@ -12,14 +12,12 @@
 
 <div class="container" id="register-container">
 
-    <!-- Modal content-->
     <div class="modal-content" id="register-content">
         <div class="modal-header" style="padding:35px 50px;">
-            <%--<button type="button" class="close" data-dismiss="modal">&times;</button>--%>
             <h4><span class="glyphicon glyphicon-pencil"></span> Register</h4>
         </div>
         <div class="modal-body" style="padding:40px 50px;">
-            <form action="/register" method="post">
+            <form action="${pageContext.request.contextPath}/register" method="post">
                 <div class="form-group">
                     <label for="email"><span class="glyphicon glyphicon-envelope"></span> E-mail</label>
                     <c:if test="${emailpattern}">
@@ -62,14 +60,11 @@
             </form>
         </div>
         <div class="modal-footer">
-<%--            <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>--%>
-            <p>Already have an account? <a href="/login" data-toggle="modal" data-dismiss="modal">Sign in</a></p>
+            <p>Already have an account? <a href="${pageContext.request.contextPath}/login" data-toggle="modal" data-dismiss="modal">Sign in</a></p>
         </div>
     </div>
 </div>
 
-<%--<%@include file="../modals/login.jsp"%>
-<%@include file="../modals/register.jsp"%>--%>
 <%@include file="../footer.jsp"%>
 </body>
 </html>

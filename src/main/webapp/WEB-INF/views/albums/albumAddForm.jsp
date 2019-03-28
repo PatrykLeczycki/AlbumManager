@@ -48,5 +48,5 @@
 </div>
 <div class="modal-footer">
     <%--            <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>--%>
-    <p><a href="/albums/all" style="padding: auto">Back to albums</a></p>
+    <p><a href="${pageContext.request.contextPath}/albums/all" style="padding: auto">Back to albums</a></p>
 </div>
