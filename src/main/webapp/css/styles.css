@@ -126,7 +126,7 @@ td, th, tr {
 }*/
 
 body:not(.header){
-    background-image: url("/images/background-image.jpg");
+    background-image: url("../images/background-image.jpg");
 }
 /*
 
