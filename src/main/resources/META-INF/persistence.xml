@@ -24,6 +24,11 @@
                       value="META-INF/sql/data.sql" />
             <property name="hibernate.show_sql" value="true" />
 
+            <property
+                    name="hibernate.hbm2ddl.import_files_sql_extractor"
+                    value="org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor"
+            />
+
             <property name="hibernate.c3p0.min_size" value="5" />
             <property name="hibernate.c3p0.max_size" value="20" />
             <property name="hibernate.c3p0.timeout" value="300" />
