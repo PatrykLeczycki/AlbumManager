@@ -1,5 +1,8 @@
 package pl.coderslab.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -9,6 +12,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "login"))
+@Getter
+@Setter
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -31,9 +37,13 @@ public class User {
     @Email(regexp = "[_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.([a-zA-Z]{2,}){1}")
     private String email;
 
-    public User() {
-    }
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    private List<Album> albums;
 
+
+    /*public User() {
+    }
+*/
     public User(String login, String password, String email) {
         this.login = login;
         this.setPasswordHashed(password);
@@ -46,10 +56,7 @@ public class User {
         this.setPassword(password);
     }
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    private List<Album> albums;
-
-    public Long getId() {
+    /*public Long getId() {
         return id;
     }
 
@@ -95,7 +102,7 @@ public class User {
 
     public void setAlbums(List<Album> albumList) {
         this.albums = albumList;
-    }
+    }*/
 
     public void setPasswordHashed(String password){
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
