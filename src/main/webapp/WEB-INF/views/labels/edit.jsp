@@ -15,7 +15,14 @@
         <div class="modal-header" style="padding:35px 50px;">
             <h4><span class="glyphicon glyphicon-cd"></span> Edit label</h4>
         </div>
-        <%@include file="labelAddForm.jsp"%>
+        <div class="modal-body" style="padding:40px 50px;">
+            <form:form method="post" action="/admin/editlabel" modelAttribute="label">
+                <%@include file="labelAddForm.jsp"%>
+            </form:form>
+        </div>
+        <div class="modal-footer">
+            <p><a href="${pageContext.request.contextPath}/labels/all" style="padding: auto">Back to labels</a></p>
+        </div>
     </div>
 </div>
 
