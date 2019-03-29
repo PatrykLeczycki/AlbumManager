@@ -1,11 +1,16 @@
 package pl.coderslab.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
 @Table(name = "label")
+@Getter
+@Setter
 public class Label {
 
     @Id
@@ -20,7 +25,7 @@ public class Label {
     @NotNull
     private String country;
 
-    public Long getId() {
+    /*public Long getId() {
         return id;
     }
 
@@ -42,7 +47,7 @@ public class Label {
 
     public void setCountry(String country) {
         this.country = country;
-    }
+    }*/
 
     @OneToMany(mappedBy = "label", cascade = CascadeType.ALL)
     private List<Album> albums;
