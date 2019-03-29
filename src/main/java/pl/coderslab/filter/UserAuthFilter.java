@@ -20,8 +20,10 @@ public class UserAuthFilter implements Filter {
         boolean loggedIn = (session != null) && (session.getAttribute("user") != null) && (boolean) session.getAttribute("user");
 
         if (loggedIn) chain.doFilter(request, response);
-
-        else response.sendRedirect("/login");
+        else {
+            String path = ((HttpServletRequest) req).getContextPath() + "/login";
+            response.sendRedirect(path);
+        }
     }
 
     public void init(FilterConfig config) throws ServletException {
