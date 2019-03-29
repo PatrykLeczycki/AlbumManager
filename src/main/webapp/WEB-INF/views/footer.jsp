@@ -1,5 +1,7 @@
 <%@page contentType="text/html;charset=UTF-8"%>
 
+<%--TODO: dać scroll bar--%>
+
 <!-- Footer -->
 <footer class="page-footer font-small unique-color-dark" style="background-color: black; color: white;" id="footer">
 
