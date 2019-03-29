@@ -39,22 +39,6 @@ public class AlbumController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/add")
-    private String addAlbum(Model model){
-        model.addAttribute("album", new Album());
-        return "albums/add";
-    }
-
-    @PostMapping("/add")
-    private String addAlbum(@Valid Album album, BindingResult result){
-        //TODO: dać tłumaczenia błędów
-        if (result.hasErrors())
-            return "albums/add";
-
-        albumService.addAlbum(album);
-        return "redirect:/albums/all";
-    }
-
     @GetMapping("/all")
     private String allAlbums(Model model){
         model.addAttribute("albums", albumService.getAllAlbums());
