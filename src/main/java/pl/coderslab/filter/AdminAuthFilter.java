@@ -20,8 +20,11 @@ public class AdminAuthFilter implements Filter {
         boolean loggedIn = (session != null) && (session.getAttribute("admin") != null) && (boolean) session.getAttribute("admin");
 
         if (loggedIn) chain.doFilter(request, response);
+        else {
+            String path = ((HttpServletRequest) req).getContextPath() + "/login";
+            response.sendRedirect(path);
+        }
 
-        else response.sendRedirect("/login");
     }
     public void init(FilterConfig config) throws ServletException {
 
