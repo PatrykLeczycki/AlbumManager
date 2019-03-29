@@ -1,6 +1,6 @@
 <tr>
     <c:if test="${sessionScope.admin}">
-        <td>${label.id}</td>
+        <td>${album.id}</td>
     </c:if>
     <td>${album.getArtistsToString()}</td>
     <td>${album.title}</td>
