@@ -23,11 +23,15 @@
             <table class="table table-bordered table-hovered" border="1" style="background-color: white">
                 <thead>
                 <tr>
-                    <th>ID</th>
+                    <c:if test="${sessionScope.admin}">
+                        <th>ID</th>
+                    </c:if>
                     <th>Name</th>
                     <th>Country</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <c:if test="${sessionScope.admin}">
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </c:if>
                 </tr>
                 </thead>
 
