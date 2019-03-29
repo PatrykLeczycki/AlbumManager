@@ -48,9 +48,25 @@ public class AdminController {
         return "admins/dashboard";
     }
 
+    @GetMapping("/users")
+    public String all(Model model){
+        model.addAttribute("users", userService.getAllUsers());
+        //TODO: gryzie się z panelem powitalnym
+        return "admins/allUsers";
+    }
+
+    ///////////////////////////////////////////////////////////////
+    // ADMIN'S ALBUMS
+
     @GetMapping("/albums")
     private String allUserAlbums(Model model){
         return "admins/allalbums";
+    }
+
+    @RequestMapping(value = "/collectionaddalbum/{id}", method = RequestMethod.GET)
+    public String addAlbumToCollection(@PathVariable long id){
+        userService.addAlbumToCollection(loggedUser.getId(), id);
+        return "redirect:/albums/all";
     }
 
     @RequestMapping(value = "/collectiondeletealbum/{id}", method = RequestMethod.GET)
@@ -61,6 +77,9 @@ public class AdminController {
         }
         return "redirect:/albums/all";
     }
+
+    ///////////////////////////////////////////////////////////////
+    // ALBUMS ACTIONS
 
     @GetMapping("/editalbum/{id}")
     private String editAlbum(@PathVariable long id, Model model){
@@ -77,12 +96,6 @@ public class AdminController {
         return "redirect:/albums/all";
     }
 
-    @RequestMapping(value = "/collectionaddalbum/{id}", method = RequestMethod.GET)
-    public String addAlbumToCollection(@PathVariable long id){
-        userService.addAlbumToCollection(loggedUser.getId(), id);
-        return "redirect:/albums/all";
-    }
-
     @RequestMapping(value = "/deletealbum/{id}", method = RequestMethod.GET)
     private String deleteAlbum(@PathVariable long id, HttpServletRequest request,  RedirectAttributes redirectAttributes){
 
@@ -90,12 +103,32 @@ public class AdminController {
         return "redirect:/albums/all";
     }
 
-    @GetMapping("/users")
-    public String all(Model model){
-        model.addAttribute("users", userService.getAllUsers());
-        //TODO: gryzie się z panelem powitalnym
-        return "admins/allUsers";
+    ///////////////////////////////////////////////////////////////
+
+    // ARTISTS ACTIONS
+
+    @GetMapping("/editartist/{id}")
+    private String editArtist(@PathVariable long id, Model model){
+        model.addAttribute("artist", artistService.getArtistById(id));
+        return "artists/edit";
     }
+
+    @PostMapping("/editartist")
+    private String editArtist(@Valid Artist artist, BindingResult result){
+        if (result.hasErrors())
+            return "artists/edit";
+
+        artistService.addArtist(artist);
+        return "redirect:/artists/all";
+    }
+
+    @GetMapping("/deleteartist/{id}")
+    private String deleteArtist(@PathVariable long id){
+        artistService.deleteArtist(id);
+        return "redirect:/artists/all";
+    }
+
+    ///////////////////////////////////////////////////////////////
 
     @ModelAttribute("labels")
     public List<Label> getLabels(){
