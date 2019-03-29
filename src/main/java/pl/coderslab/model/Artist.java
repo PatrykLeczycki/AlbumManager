@@ -1,5 +1,7 @@
 package pl.coderslab.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,6 +12,8 @@ import java.time.Period;
 
 @Entity
 @Table(name = "artist")
+@Getter
+@Setter
 public class Artist {
 
     @Id
@@ -36,7 +40,7 @@ public class Artist {
     @NotNull
     private String nationality;
 
-    public Long getId() {
+    /*public Long getId() {
         return id;
     }
 
@@ -76,10 +80,6 @@ public class Artist {
         this.birthDate = birthDate;
     }
 
-    public Integer getAge() {
-        return Period.between(birthDate, LocalDate.now()).getYears();
-    }
-
     public String getSex() {
         return sex;
     }
@@ -94,5 +94,9 @@ public class Artist {
 
     public void setNationality(String nationality) {
         this.nationality = nationality;
+    }*/
+
+    public Integer getAge() {
+        return Period.between(birthDate, LocalDate.now()).getYears();
     }
 }
