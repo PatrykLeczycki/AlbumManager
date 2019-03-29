@@ -21,7 +21,9 @@
             <table class="table table-bordered table-hovered" border="1" style="background-color: white">
                 <thead>
                 <tr>
-                    <th>ID</th>
+                    <c:if test="${sessionScope.admin}">
+                        <th>ID</th>
+                    </c:if>
                     <th>Artists</th>
                     <th>Title</th>
                     <th>Label</th>
