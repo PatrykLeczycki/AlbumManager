@@ -17,7 +17,6 @@
         <div class="modal-header" style="padding:35px 50px;">
             <h4><span class="glyphicon glyphicon-cd"></span> Edit album</h4>
         </div>
-        <%--TODO: oddzielić edit od add--%>
 
         <div class="modal-body" style="padding:40px 50px;">
             <form:form method="post" action="/admin/editalbum" modelAttribute="album">
