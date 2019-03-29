@@ -8,12 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import pl.coderslab.model.Label;
 import pl.coderslab.model.LoggedUser;
 import pl.coderslab.service.LabelService;
-
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
+import static pl.coderslab.utils.Functions.getCountries;
 
 @Controller
 @RequestMapping("/labels")
@@ -73,15 +70,6 @@ public class LabelController {
     @ModelAttribute("countries")
     public List<String> countries(){
 
-        Locale.setDefault(new Locale("en"));
-        String[] locales = Locale.getISOCountries();
-
-        List<String> names = new ArrayList<>();
-
-        for (String countryCode : locales)
-            names.add(new Locale("", countryCode).getDisplayCountry());
-
-        Collections.sort(names);
-        return names;
+        return getCountries();
     }
 }
