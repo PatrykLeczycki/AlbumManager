@@ -32,8 +32,7 @@ public class User {
     @Size(min = 8)
     private String password;
 
-    //TODO: unique = true
-
+    @Column(unique = true)
     @Email(regexp = "[_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.([a-zA-Z]{2,}){1}")
     private String email;
 
