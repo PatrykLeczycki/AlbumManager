@@ -4,16 +4,20 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.coderslab.model.Album;
+import pl.coderslab.model.Artist;
 import pl.coderslab.model.LoggedUser;
 import pl.coderslab.model.User;
 import pl.coderslab.service.AlbumService;
+import pl.coderslab.service.ArtistService;
 import pl.coderslab.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -26,6 +30,9 @@ public class UserController {
 
     @Autowired
     private AlbumService albumService;
+
+    @Autowired
+    private ArtistService artistService;
 
     @Autowired
     private LoggedUser loggedUser;
@@ -82,6 +89,24 @@ public class UserController {
             return "redirect:/user/albums";
         }
         return "redirect:/albums/all";
+    }
+
+    @GetMapping("/addartist")
+    private String addArtist(Model model){
+        model.addAttribute("artist", new Artist());
+        return "artists/add";
+    }
+
+    // TODO: sprawdzić debuggerem, czemu trzeba odświeżyć, żeby zobaczyć świeżo dodany item
+
+    @PostMapping("/addartist")
+    private String addArtist(@Valid Artist artist, BindingResult result){
+        //TODO: dać tłumaczenia błędów
+        if (result.hasErrors())
+            return "artists/add";
+
+        artistService.addArtist(artist);
+        return "redirect:/artists/all";
     }
 
     @ModelAttribute("allalbums")
