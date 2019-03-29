@@ -81,6 +81,22 @@ public class AdminController {
     ///////////////////////////////////////////////////////////////
     // ALBUMS ACTIONS
 
+    @GetMapping("/addalbum")
+    private String addAlbum(Model model){
+        model.addAttribute("album", new Album());
+        return "albums/add";
+    }
+
+    @PostMapping("/addalbum")
+    private String addAlbum(@Valid Album album, BindingResult result){
+        //TODO: dać tłumaczenia błędów
+        if (result.hasErrors())
+            return "albums/add";
+
+        albumService.addAlbum(album);
+        return "redirect:/albums/all";
+    }
+
     @GetMapping("/editalbum/{id}")
     private String editAlbum(@PathVariable long id, Model model){
         model.addAttribute("album", albumService.getAlbumById(id));
@@ -107,6 +123,24 @@ public class AdminController {
 
     // ARTISTS ACTIONS
 
+    @GetMapping("/addartist")
+    private String addArtist(Model model){
+        model.addAttribute("artist", new Artist());
+        return "artists/add";
+    }
+
+    // TODO: sprawdzić debuggerem, czemu trzeba odświeżyć, żeby zobaczyć świeżo dodany item
+
+    @PostMapping("/addartist")
+    private String addArtist(@Valid Artist artist, BindingResult result){
+        //TODO: dać tłumaczenia błędów
+        if (result.hasErrors())
+            return "artists/add";
+
+        artistService.addArtist(artist);
+        return "redirect:/artists/all";
+    }
+
     @GetMapping("/editartist/{id}")
     private String editArtist(@PathVariable long id, Model model){
         model.addAttribute("artist", artistService.getArtistById(id));
@@ -126,6 +160,48 @@ public class AdminController {
     private String deleteArtist(@PathVariable long id){
         artistService.deleteArtist(id);
         return "redirect:/artists/all";
+    }
+
+    ///////////////////////////////////////////////////////////////
+
+    // LABEL ACTIONS
+
+    @GetMapping("/addlabel")
+    public String addLabel(Model model){
+        model.addAttribute("label", new Label());
+        return "labels/add";
+    }
+
+    @PostMapping("/addlabel")
+    public String addLabel(@Valid Label label, BindingResult result){
+
+        //TODO: dać tłumaczenia błędów
+        if (result.hasErrors())
+            return "labels/add";
+
+        labelService.addLabel(label);
+        return "redirect:/labels/all";
+    }
+
+    @GetMapping("/editlabel/{id}")
+    public String editLabel(@PathVariable long id, Model model){
+        model.addAttribute("label", labelService.getLabelById(id));
+        return "labels/edit";
+    }
+
+    @PostMapping("/editlabel")
+    public String editLabel(@Valid Label label, BindingResult result){
+        if (result.hasErrors())
+            return "labels/edit";
+
+        labelService.addLabel(label);
+        return "redirect:/labels/all";
+    }
+
+    @GetMapping("/deletelabel/{id}")
+    public String deleteLabel(@PathVariable long id){
+        labelService.deleteLabel(id);
+        return "redirect:/labels/all";
     }
 
     ///////////////////////////////////////////////////////////////
