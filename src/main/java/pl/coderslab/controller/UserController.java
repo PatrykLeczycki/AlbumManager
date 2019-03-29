@@ -7,12 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import pl.coderslab.model.Album;
-import pl.coderslab.model.Artist;
-import pl.coderslab.model.LoggedUser;
-import pl.coderslab.model.User;
+import pl.coderslab.model.*;
 import pl.coderslab.service.AlbumService;
 import pl.coderslab.service.ArtistService;
+import pl.coderslab.service.LabelService;
 import pl.coderslab.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +31,9 @@ public class UserController {
 
     @Autowired
     private ArtistService artistService;
+
+    @Autowired
+    private LabelService labelService;
 
     @Autowired
     private LoggedUser loggedUser;
@@ -75,13 +76,13 @@ public class UserController {
         return "users/allalbums";
     }
 
-    @RequestMapping(value = "/addalbum/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/addalbumtocollection/{id}", method = RequestMethod.GET)
     public String addAlbumToCollection(@PathVariable long id){
         userService.addAlbumToCollection(loggedUser.getId(), id);
         return "redirect:/albums/all";
     }
 
-    @RequestMapping(value = "/deletealbum/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/deletealbumfromcollection/{id}", method = RequestMethod.GET)
     private String deleteAlbum(@PathVariable long id, HttpServletRequest request,  RedirectAttributes redirectAttributes){
 
         albumService.deleteAlbum(id);
@@ -90,6 +91,23 @@ public class UserController {
         }
         return "redirect:/albums/all";
     }
+
+    @GetMapping("/addalbum")
+    private String addAlbum(Model model){
+        model.addAttribute("album", new Album());
+        return "albums/add";
+    }
+
+    @PostMapping("/addalbum")
+    private String addAlbum(@Valid Album album, BindingResult result){
+        //TODO: dać tłumaczenia błędów
+        if (result.hasErrors())
+            return "albums/add";
+
+        albumService.addAlbum(album);
+        return "redirect:/albums/all";
+    }
+
 
     @GetMapping("/addartist")
     private String addArtist(Model model){
@@ -107,6 +125,23 @@ public class UserController {
 
         artistService.addArtist(artist);
         return "redirect:/artists/all";
+    }
+
+    @GetMapping("/addlabel")
+    public String addLabel(Model model){
+        model.addAttribute("label", new Label());
+        return "labels/add";
+    }
+
+    @PostMapping("/addlabel")
+    public String addLabel(@Valid Label label, BindingResult result){
+
+        //TODO: dać tłumaczenia błędów
+        if (result.hasErrors())
+            return "labels/add";
+
+        labelService.addLabel(label);
+        return "redirect:/labels/all";
     }
 
     @ModelAttribute("allalbums")
