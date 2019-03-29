@@ -1,5 +1,7 @@
 package pl.coderslab.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,6 +13,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "album")
+@Getter
+@Setter
 public class Album {
 
     @Id
@@ -27,6 +31,7 @@ public class Album {
 
     @ManyToOne
     @NotNull
+
     private Label label;
 
     @Column(nullable = false)
@@ -43,7 +48,7 @@ public class Album {
     @NotNull
     private String genre;
 
-    public Long getId() {
+    /*public Long getId() {
         return id;
     }
 
@@ -97,7 +102,7 @@ public class Album {
 
     public void setArtists(List<Artist> artists) {
         this.artists = artists;
-    }
+    }*/
 
     public String getArtistsToString(){
         StringBuilder artists = new StringBuilder();
