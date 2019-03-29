@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS albumManager character set UTF8 collate utf8_bin;
+
+
 insert into label values (null, "Poland", "Prosto");
 insert into label values (null, "Poland", "SBM Label");
 
@@ -20,3 +23,7 @@ insert into album values (null, 0, "Rap", "2019-02-15", "Wojtek Sokół", 1);
 
 insert into album_artist values (1, 8);
 insert into album_artist values (2, 1);
+
+insert into user values (null, 1, "patryk.leczycki1@gmail.com", "Pinky", "$2a$10$5zl.4gm/CdR0l3v4Qv6Er.lk01q.1DXGXzLdAsDb6h3Dv8xF.uQRG");
+insert into user values (null, 0, "email@email.com", "user1", "$2a$10$ZfOnsqjlibAnZ1d3BP26V.qR.m.P/zADl54bbF5IO1F9bhyeidnqK");
+insert into user values (null, 0, "matrix9596@gmail.com", "YourFatherDrunk", "$2a$10$sgJIPaeihpn2oyPEpPQcvO8Fn3A2xcI5hZrviLLQPs9Co.EIP7G2O");
