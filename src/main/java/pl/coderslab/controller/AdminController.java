@@ -63,13 +63,13 @@ public class AdminController {
         return "admins/allalbums";
     }
 
-    @RequestMapping(value = "/collectionaddalbum/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/addalbumtocollection/{id}", method = RequestMethod.GET)
     public String addAlbumToCollection(@PathVariable long id){
         userService.addAlbumToCollection(loggedUser.getId(), id);
         return "redirect:/albums/all";
     }
 
-    @RequestMapping(value = "/collectiondeletealbum/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/deletealbumfromcollection/{id}", method = RequestMethod.GET)
     public String deleteAlbumFromCollection(@PathVariable long id, HttpServletRequest request){
         userService.deleteAlbumFromCollection(loggedUser.getId(), id);
         if ("true".equals(request.getParameter("back"))){
