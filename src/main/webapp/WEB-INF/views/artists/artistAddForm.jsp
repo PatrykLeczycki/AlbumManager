@@ -6,7 +6,7 @@
     <form:input path="pseudonym"/>
 </div>
 <div class="form-group">
-    <label><span class="glyphicon glyphicon-pencil"></span> Name</label><br>
+    <label><i class="fas fa-signature"></i>  Name</label><br>
     <form:errors path="name" cssClass="error" element="div"/>
     <form:input path="name"/>
 </div>
