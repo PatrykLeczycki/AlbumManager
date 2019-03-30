@@ -47,7 +47,7 @@
 
 
             <!-- Grid column -->
-            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <div class="col-md-3 col-lg-3 col-xl-2 mx-auto mb-4">
 
                 <!-- Links -->
                 <h3 class="text-uppercase font-weight-bold">LINKS</h3>
@@ -72,7 +72,7 @@
             <!-- Grid column -->
 
             <!-- Grid column -->
-            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <div class="col-md-4 col-lg-4 col-xl-3 mx-auto mb-md-0 mb-4">
 
                 <!-- Links -->
                 <h3 class="text-uppercase font-weight-bold">Contact</h3>
