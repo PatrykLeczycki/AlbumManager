@@ -24,6 +24,7 @@
                     <th>ID</th>
                     <th>Login</th>
                     <th>E-mail</th>
+                    <th>Admin role</th>
                 </tr>
                 </thead>
 
