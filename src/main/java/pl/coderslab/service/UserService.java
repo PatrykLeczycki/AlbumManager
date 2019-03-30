@@ -17,6 +17,10 @@ public class UserService {
         userRepo.save(user);
     }
 
+    public User findUserById(Long id){
+        return userRepo.findOne(id);
+    }
+
     public User findUserByLogin(String login){
         return userRepo.findUserByLogin(login);
     }
