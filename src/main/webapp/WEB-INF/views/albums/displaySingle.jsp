@@ -25,12 +25,12 @@
 
                 <c:if test="${sessionScope.admin}">
                     <td>
-                        <a href="${pageContext.request.contextPath}/admin/deletealbumfromcollection/${album.id}" onclick="return confirm('Are you sure you want to remove this album from your collection?');"><span class="glyphicon glyphicon-minus-sign"/></a>
+                        <a href="${pageContext.request.contextPath}/admin/deletealbumfromcollection/${album.id}" onclick="return confirm('Are you sure you want to remove this album from your collection?');"><span class="glyphicon glyphicon-minus"/></a>
                     </td>
                 </c:if>
                 <c:if test="${sessionScope.user}">
                     <td>
-                        <a href="${pageContext.request.contextPath}/user/deletealbumfromcollection/${album.id}" onclick="return confirm('Are you sure you want to remove this album from your collection?');"><span class="glyphicon glyphicon-minus-sign"/></a>
+                        <a href="${pageContext.request.contextPath}/user/deletealbumfromcollection/${album.id}" onclick="return confirm('Are you sure you want to remove this album from your collection?');"><span class="glyphicon glyphicon-minus"/></a>
                     </td>
                 </c:if>
 
@@ -40,12 +40,12 @@
 
                 <c:if test="${sessionScope.admin}">
                     <td>
-                        <a href="${pageContext.request.contextPath}/admin/addalbumtocollection/${album.id}" onclick="return confirm('Are you sure you want to add this album to your collection?');"><span class="glyphicon glyphicon-plus-sign"/></a>
+                        <a href="${pageContext.request.contextPath}/admin/addalbumtocollection/${album.id}" onclick="return confirm('Are you sure you want to add this album to your collection?');"><span class="glyphicon glyphicon-plus"/></a>
                     </td>
                 </c:if>
                 <c:if test="${sessionScope.user}">
                     <td>
-                        <a href="${pageContext.request.contextPath}/user/addalbumtocollection/${album.id}" onclick="return confirm('Are you sure you want to add this album to your collection?');"><span class="glyphicon glyphicon-plus-sign"/></a>
+                        <a href="${pageContext.request.contextPath}/user/addalbumtocollection/${album.id}" onclick="return confirm('Are you sure you want to add this album to your collection?');"><span class="glyphicon glyphicon-plus"/></a>
                     </td>
                 </c:if>
 
