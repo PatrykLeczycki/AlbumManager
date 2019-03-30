@@ -39,10 +39,6 @@ public class User {
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private List<Album> albums;
 
-
-    /*public User() {
-    }
-*/
     public User(String login, String password, String email) {
         this.login = login;
         this.setPasswordHashed(password);
@@ -54,54 +50,6 @@ public class User {
         this.login = login;
         this.setPassword(password);
     }
-
-    /*public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public boolean isAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public List<Album> getAlbums() {
-        return albums;
-    }
-
-    public void setAlbums(List<Album> albumList) {
-        this.albums = albumList;
-    }*/
 
     public void setPasswordHashed(String password){
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
