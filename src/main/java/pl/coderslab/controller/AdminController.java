@@ -6,10 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import pl.coderslab.model.Album;
-import pl.coderslab.model.Artist;
-import pl.coderslab.model.Label;
-import pl.coderslab.model.LoggedUser;
+import pl.coderslab.model.*;
 import pl.coderslab.model.enums.Format;
 import pl.coderslab.service.AlbumService;
 import pl.coderslab.service.ArtistService;
@@ -51,10 +48,24 @@ public class AdminController {
     @GetMapping("/users")
     public String all(Model model){
         model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("loggedUserId", loggedUser.getId());
         //TODO: gryzie się z panelem powitalnym
         return "admins/allUsers";
     }
 
+    @RequestMapping(value = "/changerole/{id}", method = RequestMethod.GET)
+    public String changeUserRole(@PathVariable long id){
+
+        User user = userService.findUserById(id);
+
+        if(user.isAdmin())
+            user.setAdmin(false);
+        else user.setAdmin(true);
+
+        userService.addUser(user);
+
+        return "redirect:/admin/users";
+    }
     ///////////////////////////////////////////////////////////////
     // ADMIN'S ALBUMS
 
@@ -230,13 +241,11 @@ public class AdminController {
 
     @ModelAttribute("allalbums")
     public List<Album> allAlbumsTest1(){
-        System.out.println("all albums " + albumService.getAllAlbums().size());
         return albumService.getAllAlbums();
     }
 
     @ModelAttribute("adminalbumids")
     public List<Long> allAdminAlbums(){
-        System.out.println("all admin albums " + userService.getAllUserAlbums(loggedUser.getId()).size());
         return userService.getAllUserAlbums(loggedUser.getId());
     }
 }
