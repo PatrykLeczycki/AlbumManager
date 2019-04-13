@@ -139,15 +139,6 @@ body:not(.header){
 }
 */
 
-#footer {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 1rem;
-    background-color: black;
-    text-align: center;
-}
 
 .modal-login {
     width: 350px;
@@ -257,6 +248,18 @@ body:not(.header){
 body{
     background-image: url("/images/background-image.jpg");
     font-family: 'Varela Round', sans-serif;
+    margin-bottom: 250px;
+}
+
+#footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    height: 250px;
+    background-color: black;
+    text-align: center;
 }
 
 .error{
