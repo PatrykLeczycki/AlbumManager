@@ -3,7 +3,7 @@ package pl.coderslab.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.coderslab.model.Artist;
-import pl.coderslab.repository.ArtistRepo;
+import pl.coderslab.repository.ArtistRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,21 +12,21 @@ import java.util.Optional;
 public class ArtistService {
 
     @Autowired
-    private ArtistRepo artistRepo;
+    private ArtistRepository artistRepository;
 
     public void addArtist(Artist artist){
-        artistRepo.save(artist);
+        artistRepository.save(artist);
     }
 
     public List<Artist> getAllArtists(){
-        return artistRepo.findAll();
+        return artistRepository.findAll();
     }
 
     public Optional<Artist> getArtistById(long id){
-        return artistRepo.findById(id);
+        return artistRepository.findById(id);
     }
 
     public void deleteArtist(long id){
-        artistRepo.deleteById(id);
+        artistRepository.deleteById(id);
     }
 }
