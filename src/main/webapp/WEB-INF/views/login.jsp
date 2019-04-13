@@ -8,38 +8,45 @@
 </head>
 <body>
 
-<%@include file="sections/header/header.jsp"%>
+<div id="outer-container">
+    <%@include file="sections/header/header.jsp"%>
 
-<div class="container" id="login-container">
-    <div class="modal-content" id="login-content">
-        <div class="modal-header" style="padding:35px 50px;">
-            <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
-        </div>
-        <div class="modal-body" style="padding:40px 50px;">
+    <div id="body">
 
-            <form action="${pageContext.request.contextPath}/perform_login" method="post">
-                <div class="form-group">
-                    <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
-                    <c:if test="${param.error}">
-                        <br><span class="error">Incorrect login or password</span>
-                    </c:if>
-                    <input type="text" name="username" class="form-control" id="usrname" placeholder="Enter username">
+        <div class="container" id="login-container">
+            <div class="modal-content" id="login-content">
+                <div class="modal-header" style="padding:35px 50px;">
+                    <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
                 </div>
-                <div class="form-group">
-                    <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-                    <input type="password" name="password" class="form-control" id="psw" placeholder="Enter password">
-                </div>
-                <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
-            </form>
+                <div class="modal-body" style="padding:40px 50px;">
 
+                    <form action="${pageContext.request.contextPath}/perform_login" method="post">
+                        <div class="form-group">
+                            <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
+                            <c:if test="${param.error}">
+                                <br><span class="error">Incorrect login or password</span>
+                            </c:if>
+                            <input type="text" name="username" class="form-control" id="usrname" placeholder="Enter username">
+                        </div>
+                        <div class="form-group">
+                            <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+                            <input type="password" name="password" class="form-control" id="psw" placeholder="Enter password">
+                        </div>
+                        <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <p>Not a member? <a href="${pageContext.request.contextPath}/register" data-toggle="modal" data-dismiss="modal">Sign up</a></p>
+                    <p>Forgot <a href="${pageContext.request.contextPath}/lostpassword">password?</a></p>
+                </div>
+            </div>
         </div>
-        <div class="modal-footer">
-            <p>Not a member? <a href="${pageContext.request.contextPath}/register" data-toggle="modal" data-dismiss="modal">Sign up</a></p>
-            <p>Forgot <a href="${pageContext.request.contextPath}/lostpassword">password?</a></p>
-        </div>
+
     </div>
+    <%@include file="sections/footer.jsp"%>
 </div>
 
-<%@include file="sections/footer.jsp"%>
+
 </body>
 </html>

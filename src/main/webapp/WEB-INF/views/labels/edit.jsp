@@ -8,26 +8,29 @@
 </head>
 <body>
 
-<%@include file="../sections/header/header.jsp"%>
+<div id="outer-container">
+    <%@include file="../sections/header/header.jsp"%>
 
-<div class="container" id="register-container">
-    <div class="modal-content" id="register-content">
-        <div class="modal-header" style="padding:35px 50px;">
-            <h4><span class="glyphicon glyphicon-cd"></span> Edit label</h4>
+    <div id="body">
+        <div class="container" id="register-container">
+            <div class="modal-content" id="register-content">
+                <div class="modal-header" style="padding:35px 50px;">
+                    <h4><span class="glyphicon glyphicon-cd"></span> Edit label</h4>
+                </div>
+                <div class="modal-body" style="padding:40px 50px;">
+                    <form:form method="post" action="/admin/editlabel" modelAttribute="label">
+                        <%@include file="labelAddForm.jsp"%>
+                    </form:form>
+                </div>
+                <div class="modal-footer">
+                    <p><a href="${pageContext.request.contextPath}/labels/all" style="padding: auto">Back to labels</a></p>
+                </div>
+            </div>
         </div>
-        <div class="modal-body" style="padding:40px 50px;">
-            <form:form method="post" action="/admin/editlabel" modelAttribute="label">
-                <%@include file="labelAddForm.jsp"%>
-            </form:form>
-        </div>
-        <div class="modal-footer">
-            <p><a href="${pageContext.request.contextPath}/labels/all" style="padding: auto">Back to labels</a></p>
-        </div>
+
     </div>
+    <%@include file="../sections/footer.jsp"%>
 </div>
-
-<%@include file="../sections/footer.jsp"%>
-
 
 </body>
 </html>

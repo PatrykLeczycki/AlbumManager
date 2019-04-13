@@ -15,37 +15,41 @@
 </head>
 <body>
 
-<%@include file="../sections/header/header.jsp"%>
+<div id="outer-container">
+    <%@include file="../sections/header/header.jsp"%>
 
-<div class="container">
-    <div class="row" style="background-color: #dbe4f0">
-        <div>
-            <table class="table table-bordered table-hovered" border="1" style="background-color: white">
-                <thead>
-                <tr>
-                    <sec:authorize access="hasRole('USER') && hasRole('ADMIN')">
-                        <th>ID</th>
-                    </sec:authorize>
-                    <th>Name</th>
-                    <th>Country</th>
-                    <sec:authorize access="hasRole('USER') && hasRole('ADMIN')">
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </sec:authorize>
-                </tr>
-                </thead>
+    <div id="body">
+        <div class="container">
+            <div class="row" style="background-color: #dbe4f0">
+                <div>
+                    <table class="table table-bordered table-hovered" border="1" style="background-color: white">
+                        <thead>
+                        <tr>
+                            <sec:authorize access="hasRole('USER') && hasRole('ADMIN')">
+                                <th>ID</th>
+                            </sec:authorize>
+                            <th>Name</th>
+                            <th>Country</th>
+                            <sec:authorize access="hasRole('USER') && hasRole('ADMIN')">
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </sec:authorize>
+                        </tr>
+                        </thead>
 
-                <tbody>
-                <c:forEach items="${labels}" var="label">
-                    <%@include file="displaySingle.jsp"%>
-                </c:forEach>
-                </tbody>
-            </table>
+                        <tbody>
+                        <c:forEach items="${labels}" var="label">
+                            <%@include file="displaySingle.jsp"%>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
-<%@include file="../sections/footer.jsp"%>
+    </div>
+    <%@include file="../sections/footer.jsp"%>
+</div>
 
 <%@include file="../utils/sort.jsp"%>
 

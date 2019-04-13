@@ -13,39 +13,45 @@
     </style>
 </head>
 <body>
-<%@include file="../sections/header/header.jsp"%>
 
-<div class="container">
-    <div class="row" style="background-color: #dbe4f0">
-        <div>
-            <table class="table table-bordered table-hovered" border="1" style="background-color: white">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Artists</th>
-                        <th>Title</th>
-                        <th>Label</th>
-                        <th>Release date</th>
-                        <th>Format</th>
-                        <sec:authorize access="hasRole('USER') && hasRole('ADMIN')">
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </sec:authorize>
-                        <th>Collection</th>
-                    </tr>
-                </thead>
+<div id="outer-container">
+    <%@include file="../sections/header/header.jsp"%>
 
-                <tbody>
-                <c:forEach items="${allalbums}" var="album">
-                    <%@include file="displaySingleAlbum.jsp"%>
-                </c:forEach>
-                </tbody>
-            </table>
+    <div id="body">
+        <div class="container">
+            <div class="row" style="background-color: #dbe4f0">
+                <div>
+                    <table class="table table-bordered table-hovered" border="1" style="background-color: white">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Artists</th>
+                            <th>Title</th>
+                            <th>Label</th>
+                            <th>Release date</th>
+                            <th>Format</th>
+                            <sec:authorize access="hasRole('USER') && hasRole('ADMIN')">
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </sec:authorize>
+                            <th>Collection</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <c:forEach items="${allalbums}" var="album">
+                            <%@include file="displaySingleAlbum.jsp"%>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
+
     </div>
+    <%@include file="../sections/footer.jsp"%>
 </div>
 
-<%@include file="../sections/footer.jsp"%>
 <%@include file="../utils/sort.jsp"%>
 
 </body>

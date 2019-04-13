@@ -10,10 +10,14 @@
 </head>
 <body>
 
+<div id="outer-container">
+    <%@include file="sections/header/header.jsp"%>
 
-<%@include file="sections/header/header.jsp"%>
+    <div id="body">
+    </div>
 
-<%@include file="sections/footer.jsp"%>
+    <%@include file="sections/footer.jsp"%>
+</div>
 
 </body>
 </html>
