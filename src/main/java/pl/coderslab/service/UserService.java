@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import pl.coderslab.dto.UserDto;
 import pl.coderslab.model.User;
 import pl.coderslab.repository.RoleRepository;
-import pl.coderslab.repository.UserRepo;
+import pl.coderslab.repository.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,39 +15,39 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final UserRepo userRepo;
+    private final UserRepository userRepository;
 
     private final BCryptPasswordEncoder passwordEncoder;
 
     private final RoleRepository roleRepository;
 
     public void addUser(User user){
-        userRepo.save(user);
+        userRepository.save(user);
     }
 
     public Optional<User> findUserById(Long id){
-        return userRepo.findById(id);
+        return userRepository.findById(id);
     }
 
     public User findUserByUsername(String username){
-        return userRepo.findUserByUsername(username);
+        return userRepository.findUserByUsername(username);
     }
 
     public void addAlbumToCollection(long user_id, long album_id){
-        userRepo.addAlbumToCollection(user_id, album_id);
+        userRepository.addAlbumToCollection(user_id, album_id);
     }
 
     public void deleteAlbumFromCollection(long user_id, long album_id){
-        userRepo.deleteAlbumFromCollection(user_id, album_id);
+        userRepository.deleteAlbumFromCollection(user_id, album_id);
     }
 
     public User findUserByEmail(String email){
-        return userRepo.findUserByEmail(email);
+        return userRepository.findUserByEmail(email);
     }
 
 
     public List<User> getAllUsers(){
-        return userRepo.findAll();
+        return userRepository.findAll();
     }
 
     public void registerUser(UserDto userDto) {
@@ -59,6 +59,6 @@ public class UserService {
         user.setEnabled(userDto.getEnabled());
         user.getRoleSet().add(roleRepository.findByName("ROLE_USER"));
 
-        userRepo.save(user);
+        userRepository.save(user);
     }
 }
