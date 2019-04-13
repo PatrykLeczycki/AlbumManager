@@ -13,7 +13,6 @@ import pl.coderslab.dto.UserDto;
 import pl.coderslab.model.User;
 import pl.coderslab.service.UserService;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Objects;
 
@@ -27,10 +26,9 @@ public class LoginRegisterController {
     private BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/register")
-    public String showRegistrationForm(Model model) {
+    public String register(Model model) {
 
-        UserDto userDto = new UserDto();
-        model.addAttribute("userDto", userDto);
+        model.addAttribute("userDto", new UserDto());
         return "register";
     }
 
