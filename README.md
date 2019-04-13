@@ -23,7 +23,10 @@ GroupId - pl.coderslab
 ArtifactId - AlbumManager
 Additionally, there's MySQL database and Tomcat needed.
 
-Deployed version (to be continued): patrykleczycki.pl
+Deployed version (to be continued): 
+
+* http://77.55.213.198:8080/AlbumManager-1.0-SNAPSHOT/
+* patrykleczycki.pl
 
 ## Features
 
