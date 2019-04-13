@@ -14,6 +14,7 @@ public class MyUserDetails extends User implements UserDetails {
     this.setPassword(user.getPassword());
     this.setRoleSet(user.getRoleSet());
     this.setUsername(user.getUsername());
+    this.setEmail(user.getEmail());
   }
 
   @Override
