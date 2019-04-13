@@ -19,7 +19,11 @@ Spring, Hibernate, Maven, HTML, MySQL, Bootstrap
 ## Setup
 
 To get access to the application, clone repository and open it as a Maven project.
-Deployment in Tomcat in progress.
+GroupId - pl.coderslab
+ArtifactId - AlbumManager
+Additionally, there's MySQL database and Tomcat needed.
+
+Deployed version (to be continued): patrykleczycki.pl
 
 ## Features
 
