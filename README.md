@@ -14,7 +14,7 @@ AlbumManager is a web application that can be used to manage album collection.
 
 ## Technologies
 
-Spring, Hibernate, Maven, HTML, MySQL, Bootstrap
+Spring (+ Spring Security), Hibernate, Maven, HTML, MySQL, Bootstrap
 
 ## Setup
 
@@ -30,12 +30,11 @@ Deployed version (to be continued):
 
 ## Features
 
-* User management (registration - jBCrypt, login panel, admin panel)
+* User management (Spring Security: registration panel - passwords hashed with jBCrypt, login panel, permissions depending on user role)
 * Entities - album, artist, label
 * User can add entities objects and create and edit own album collection
-* Admin can add, edit and remove entities objects and create and edit own album collection
+* Admin has the same permissions as an user, additionally he can modify other users' permissions
 
 ## To-do
-* Admin functionalities extension (granting/dismissing admin role)
 * Sending authentication token on e-mail address during registration/recovering password
 * Add image upload functionality to enable adding cover to album
