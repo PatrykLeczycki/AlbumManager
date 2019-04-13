@@ -10,15 +10,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
-import pl.coderslab.service.MyUserDetailService;
+import pl.coderslab.service.MyUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final MyUserDetailService userDetailService;
+    private final MyUserDetailsService userDetailService;
 
-    public SecurityConfig(MyUserDetailService userDetailService) {
+    public SecurityConfig(MyUserDetailsService userDetailService) {
         this.userDetailService = userDetailService;
     }
 
