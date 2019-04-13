@@ -3,7 +3,7 @@ package pl.coderslab.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.coderslab.model.Album;
-import pl.coderslab.repository.AlbumRepo;
+import pl.coderslab.repository.AlbumRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,30 +12,30 @@ import java.util.Optional;
 public class AlbumService {
 
     @Autowired
-    private AlbumRepo albumRepo;
+    private AlbumRepository albumRepository;
 
     public void addAlbum(Album album){
-        albumRepo.save(album);
+        albumRepository.save(album);
     }
 
     public List<Album> getAllAlbums(){
-        return albumRepo.findAll();
+        return albumRepository.findAll();
     }
 
     public List<Long> getAlbumIdsByUserId(Long id){
-        return albumRepo.getAlbumIdsByUserId(id);
+        return albumRepository.getAlbumIdsByUserId(id);
     }
 
     public List<Long> getAllAlbumIds(){
-        return albumRepo.getAllAlbumIds();
+        return albumRepository.getAllAlbumIds();
     }
 
     public Optional<Album> getAlbumById(long id){
-        return albumRepo.findById(id);
+        return albumRepository.findById(id);
     }
 
     public void deleteAlbum(long id){
-        albumRepo.deleteById(id);
+        albumRepository.deleteById(id);
     }
 
 
