@@ -5,11 +5,11 @@
 <html>
 <head>
     <title>Edit artist</title>
-    <%@include file="../files.jsp"%>
+    <%@include file="../utils/files.jsp"%>
 </head>
 <body>
 
-<%@include file="../header.jsp"%>
+<%@include file="../sections/header/header.jsp"%>
 
 <div class="container" id="register-container">
     <div class="modal-content" id="register-content">
@@ -30,7 +30,7 @@
     </div>
 </div>
 
-<%@include file="../footer.jsp"%>
+<%@include file="../sections/footer.jsp"%>
 
 </body>
 </html>

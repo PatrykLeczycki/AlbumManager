@@ -23,6 +23,7 @@ public class Album {
 
     @NotEmpty
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinTable(name = "album_artist", joinColumns = @JoinColumn(name = "album_id"), inverseJoinColumns = @JoinColumn(name = "artist_id"))
     private List<Artist> artists;
 
     @Column(nullable = false)

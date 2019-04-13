@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Users</title>
-    <%@include file="../files.jsp"%>
+    <%@include file="../utils/files.jsp"%>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/dataTables.bootstrap.min.js"></script>
     <style>
@@ -14,15 +14,26 @@
 </head>
 <body>
 
-<%@include file="../header.jsp"%>
+<%@include file="../sections/header/header.jsp"%>
+<c:if test="${ownRole}">
+    <div class="container" id="register-container">
+        <div class="modal-content" id="register-content">
+            <div class="modal-header" style="padding: 0;">
+                <p class="modal-body" style="text-align: center; background-color: white; ">${ownRole}<span class="error"></span></p>
+            </div>
+        </div>
+    </div>
+    <br>
+</c:if>
 <div class="container">
     <div class="row" style="background-color: #dbe4f0">
         <div>
+
             <table class="table table-bordered table-hovered" border="1" style="background-color: white">
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Login</th>
+                    <th>Username</th>
                     <th>E-mail</th>
                     <th>Admin role</th>
                 </tr>
@@ -38,19 +49,9 @@
     </div>
 </div>
 
-<%@include file="../footer.jsp"%>
+<%@include file="../sections/footer.jsp"%>
 
-<c:choose>
-    <c:when test="${sessionScope.admin}">
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/sortNineCols.js"></script>
-    </c:when>
-    <c:when test="${sessionScope.user}">
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/sortSevenCols.js"></script>
-    </c:when>
-    <c:otherwise>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/sortSixCols.js"></script>
-    </c:otherwise>
-</c:choose>
+<%@include file="../utils/sort.jsp"%>
 
 </body>
 </html>

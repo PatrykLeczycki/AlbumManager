@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface UserRepo extends JpaRepository<User, Long> {
 
-    User findUserByLogin(String login);
+    User findUserByUsername(String username);
 
     User findUserByEmail(String email);
 
@@ -24,10 +24,10 @@ public interface UserRepo extends JpaRepository<User, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "delete from user_album where user_album.User_id = :tempuser AND user_album.albums_id = :album", nativeQuery = true)
+    @Query(value = "delete from user_album where user_album.User_id = :tempuser AND user_album.album_id = :album", nativeQuery = true)
     void deleteAlbumFromCollection(@Param("tempuser") long user_id, @Param("album") long album_id);
 
-    @Query(value = "select albums_id from user_album where User_id = :user_id", nativeQuery = true)
+    @Query(value = "select album_id from user_album where User_id = :user_id", nativeQuery = true)
     List<Long> getAllUserAlbums(@Param("user_id") Long id);
 
 }

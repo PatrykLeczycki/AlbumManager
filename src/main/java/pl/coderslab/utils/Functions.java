@@ -1,5 +1,7 @@
 package pl.coderslab.utils;
 
+import pl.coderslab.model.enums.Format;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,6 +20,17 @@ public class Functions {
 
         Collections.sort(names);
         return names;
+    }
+
+    public static List<String> getFormats() {
+        Format[] formats = Format.values();
+        List<String> formatList = new ArrayList<>();
+
+        for (Format f : formats){
+            formatList.add(f.name());
+        }
+
+        return formatList;
     }
 
 }

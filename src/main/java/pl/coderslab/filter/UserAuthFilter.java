@@ -1,3 +1,4 @@
+/*
 package pl.coderslab.filter;
 
 import javax.servlet.*;
@@ -31,3 +32,4 @@ public class UserAuthFilter implements Filter {
     }
 
 }
+*/

@@ -5,6 +5,8 @@ import org.springframework.core.convert.converter.Converter;
 import pl.coderslab.model.Label;
 import pl.coderslab.service.LabelService;
 
+import java.util.Optional;
+
 public class LabelConverter implements Converter<String, Label> {
 
     @Autowired
@@ -12,6 +14,8 @@ public class LabelConverter implements Converter<String, Label> {
 
     @Override
     public Label convert(String s) {
-        return labelService.getLabelById(Long.parseLong(s));
+        Optional<Label> optionalLabel = labelService.getLabelById(Long.parseLong(s));
+
+        return optionalLabel.orElse(null);
     }
 }

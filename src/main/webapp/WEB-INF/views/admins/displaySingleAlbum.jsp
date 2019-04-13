@@ -16,5 +16,5 @@
     <td>${album.format}</td>
     <td><a href="${pageContext.request.contextPath}/admin/editalbum/${album.id}"><span class="glyphicon glyphicon-edit"/></a></td>
     <td><a href="${pageContext.request.contextPath}/admin/deletealbum/${album.id}" onclick="return confirm('Are you sure you want to delete this album?');"><span class="glyphicon glyphicon-trash"/></a></td>
-    <td><a href="${pageContext.request.contextPath}/admin/collectiondeletealbum/${album.id}?back=true" onclick="return confirm('Are you sure you want to remove this album from your collection?');"><span class="glyphicon glyphicon-minus-sign"/></a></td>
+    <td><a href="${pageContext.request.contextPath}/user/deletealbumfromcollection/${album.id}?back=true" onclick="return confirm('Are you sure you want to remove this album from your collection?');"><span class="glyphicon glyphicon-minus-sign"/></a></td>
 </c:if>

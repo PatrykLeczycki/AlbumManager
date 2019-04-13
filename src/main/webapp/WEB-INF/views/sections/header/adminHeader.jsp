@@ -9,8 +9,8 @@
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="${pageContext.request.contextPath}/albums/all" style="font-size: 20px">All albums</a></li>
-                    <li><a href="${pageContext.request.contextPath}/admin/albums" style="font-size: 20px">Your albums</a></li>
-                    <li><a href="${pageContext.request.contextPath}/admin/addalbum" style="font-size: 20px">Add album</a></li>
+                    <li><a href="${pageContext.request.contextPath}/user/albums" style="font-size: 20px">Your albums</a></li>
+                    <li><a href="${pageContext.request.contextPath}/user/addalbum" style="font-size: 20px">Add album</a></li>
                 </ul>
             </li>
             <li class="dropdown">
@@ -18,7 +18,7 @@
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="${pageContext.request.contextPath}/artists/all" style="font-size: 20px">All artists</a></li>
-                    <li><a href="${pageContext.request.contextPath}/admin/addartist" style="font-size: 20px">Add artist</a></li>
+                    <li><a href="${pageContext.request.contextPath}/user/addartist" style="font-size: 20px">Add artist</a></li>
                 </ul>
             </li>
             <li class="dropdown">
@@ -26,7 +26,7 @@
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="${pageContext.request.contextPath}/labels/all" style="font-size: 20px">All labels</a></li>
-                    <li><a href="${pageContext.request.contextPath}/admin/addlabel" style="font-size: 20px">Add label</a></li>
+                    <li><a href="${pageContext.request.contextPath}/user/addlabel" style="font-size: 20px">Add label</a></li>
                 </ul>
             </li>
             <li><a href="${pageContext.request.contextPath}/admin/users" style="font-size: 20px">Users</a></li>
@@ -34,7 +34,7 @@
 
         <ul class="nav navbar-nav navbar-right">
             <c:if test="${not empty dashboard}">
-                <li><a href="${pageContext.request.contextPath}/admin/dashboard" style="font-size: 20px"><span>Dashboard</span></a></li>
+                <li><a href="${pageContext.request.contextPath}/user/dashboard" style="font-size: 20px"><span>Dashboard</span></a></li>
             </c:if>
             <%--TODO: spróbować dać settings tylko w dashboardzie--%>
             <li class="dropdown">

@@ -78,9 +78,9 @@
                 <h3 class="text-uppercase font-weight-bold">Contact</h3>
                 <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px; border-top-color: #6351ce">
                 <p>
-                    <i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
+                    <i class="fas fa-home mr-3"></i> Earth, Europe, Poland, Warsaw</p>
                 <p>
-                    <i class="fas fa-envelope mr-3"></i> info@example.com</p>
+                    <i class="fas fa-envelope mr-3"></i> patryk.leczycki1@gmail.com</p>
                 <p>
                     <i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
                 <p>

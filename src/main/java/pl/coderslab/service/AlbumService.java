@@ -3,10 +3,10 @@ package pl.coderslab.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.coderslab.model.Album;
-import pl.coderslab.model.User;
 import pl.coderslab.repository.AlbumRepo;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class AlbumService {
@@ -30,12 +30,12 @@ public class AlbumService {
         return albumRepo.getAllAlbumIds();
     }
 
-    public Album getAlbumById(long id){
-        return albumRepo.findOne(id);
+    public Optional<Album> getAlbumById(long id){
+        return albumRepo.findById(id);
     }
 
     public void deleteAlbum(long id){
-        albumRepo.delete(id);
+        albumRepo.deleteById(id);
     }
 
 

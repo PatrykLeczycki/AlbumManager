@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface AlbumRepo extends JpaRepository<Album, Long> {
 
-    @Query(value = "select user_album.albums_id from user_album where User_id = :tempid", nativeQuery = true)
+    @Query(value = "select user_album.album_id from user_album where User_id = :tempid", nativeQuery = true)
     List<Long> getAlbumIdsByUserId(@Param("tempid") Long id);
 
-    @Query(value = "select user_album.albums_id from user_album", nativeQuery = true)
+    @Query(value = "select user_album.album_id from user_album", nativeQuery = true)
     List<Long> getAllAlbumIds();
 }

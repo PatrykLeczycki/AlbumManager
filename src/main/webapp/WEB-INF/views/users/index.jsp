@@ -6,14 +6,14 @@
 <html>
 <head>
     <title>Title</title>
-    <%@include file="files.jsp"%>
+    <%@include file="../utils/files.jsp"%>
 </head>
 <body>
 
 
-<%@include file="header.jsp"%>
+<%@include file="../sections/header/header.jsp"%>
 
-<%@include file="footer.jsp"%>
+<%@include file="../sections/footer.jsp"%>
 
 </body>
 </html>

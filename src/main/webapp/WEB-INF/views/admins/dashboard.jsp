@@ -5,15 +5,15 @@
 <html>
 <head>
     <title>Dashboard</title>
-    <%@include file="../files.jsp"%>
+    <%@include file="../utils/files.jsp"%>
 </head>
 <body>
 
 <%--TODO: usunąć z dashboarda guzik dashboard--%>
 
-<%@include file="../header.jsp"%>
+<%@include file="../sections/header/header.jsp"%>
 
-<%@include file="../footer.jsp"%>
+<%@include file="../sections/footer.jsp"%>
 
 
 </body>

@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Your albums</title>
-    <%@include file="../files.jsp"%>
+    <%@include file="../utils/files.jsp"%>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/dataTables.bootstrap.min.js"></script>
     <style>
@@ -13,7 +13,7 @@
     </style>
 </head>
 <body>
-<%@include file="../header.jsp"%>
+<%@include file="../sections/header/header.jsp"%>
 
 <div class="container">
     <div class="row" style="background-color: #dbe4f0">
@@ -27,6 +27,10 @@
                         <th>Label</th>
                         <th>Release date</th>
                         <th>Format</th>
+                        <sec:authorize access="hasRole('USER') && hasRole('ADMIN')">
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </sec:authorize>
                         <th>Collection</th>
                     </tr>
                 </thead>
@@ -41,19 +45,8 @@
     </div>
 </div>
 
-<%@include file="../footer.jsp"%>
-
-<c:choose>
-    <c:when test="${sessionScope.admin}">
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/sortNineCols.js"></script>
-    </c:when>
-    <c:when test="${sessionScope.user}">
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/sortSevenCols.js"></script>
-    </c:when>
-    <c:otherwise>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/sortSixCols.js"></script>
-    </c:otherwise>
-</c:choose>
+<%@include file="../sections/footer.jsp"%>
+<%@include file="../utils/sort.jsp"%>
 
 </body>
 </html>

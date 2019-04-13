@@ -1,3 +1,4 @@
+/*
 package pl.coderslab.model;
 
 import lombok.Getter;
@@ -19,9 +20,10 @@ import java.util.List;
 public class LoggedUser {
 
     private Long id;
-    private String login;
+    private String username;
     private String password;
     private String email;
     private boolean admin;
     private List<Album> albums;
 }
+*/

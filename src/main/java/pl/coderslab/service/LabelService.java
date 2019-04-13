@@ -6,6 +6,7 @@ import pl.coderslab.model.Label;
 import pl.coderslab.repository.LabelRepo;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class LabelService {
@@ -21,11 +22,11 @@ public class LabelService {
         return labelRepo.findAll();
     }
 
-    public Label getLabelById(long id){
-        return labelRepo.findOne(id);
+    public Optional<Label> getLabelById(long id){
+        return labelRepo.findById(id);
     }
 
     public void deleteLabel(long id){
-        labelRepo.delete(id);
+        labelRepo.deleteById(id);
     }
 }

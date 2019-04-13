@@ -6,6 +6,7 @@ import pl.coderslab.model.Artist;
 import pl.coderslab.repository.ArtistRepo;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class ArtistService {
@@ -21,11 +22,11 @@ public class ArtistService {
         return artistRepo.findAll();
     }
 
-    public Artist getArtistById(long id){
-        return artistRepo.findOne(id);
+    public Optional<Artist> getArtistById(long id){
+        return artistRepo.findById(id);
     }
 
     public void deleteArtist(long id){
-        artistRepo.delete(id);
+        artistRepo.deleteById(id);
     }
 }

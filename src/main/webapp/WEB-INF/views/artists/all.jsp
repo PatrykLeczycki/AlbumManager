@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Artists</title>
-    <%@include file="../files.jsp"%>
+    <%@include file="../utils/files.jsp"%>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/dataTables.bootstrap.min.js"></script>
     <style>
@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<%@include file="../header.jsp"%>
+<%@include file="../sections/header/header.jsp"%>
 
 
 <div class="container">
@@ -23,9 +23,9 @@
             <table class="table table-bordered table-hovered" border="1" style="background-color: white">
                 <thead>
                 <tr>
-                    <c:if test="${sessionScope.admin}">
+                    <sec:authorize access="hasRole('USER') && hasRole('ADMIN')">
                         <th>ID</th>
-                    </c:if>
+                    </sec:authorize>
                     <th>Pseudonym</th>
                     <th>Name</th>
                     <th>Surname</th>
@@ -33,10 +33,10 @@
                     <th>Age</th>
                     <th>Sex</th>
                     <th>Nationality</th>
-                    <c:if test="${sessionScope.admin}">
+                    <sec:authorize access="hasRole('USER') && hasRole('ADMIN')">
                         <th>Edit</th>
                         <th>Delete</th>
-                    </c:if>
+                    </sec:authorize>
                 </tr>
                 </thead>
 
@@ -50,18 +50,8 @@
     </div>
 </div>
 
-<%@include file="../footer.jsp"%>
+<%@include file="../sections/footer.jsp"%>
 
-<c:choose>
-    <c:when test="${sessionScope.admin}">
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/sortNineCols.js"></script>
-    </c:when>
-    <c:when test="${sessionScope.user}">
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/sortSevenCols.js"></script>
-    </c:when>
-    <c:otherwise>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/sortSixCols.js"></script>
-    </c:otherwise>
-</c:choose>
+<%@include file="../utils/sort.jsp"%>
 </body>
 </html>

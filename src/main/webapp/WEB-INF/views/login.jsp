@@ -4,11 +4,11 @@
 <html>
 <head>
     <title>Log in</title>
-    <%@include file="../files.jsp"%>
+    <%@include file="utils/files.jsp"%>
 </head>
 <body>
 
-<%@include file="../header.jsp"%>
+<%@include file="sections/header/header.jsp"%>
 
 <div class="container" id="login-container">
     <div class="modal-content" id="login-content">
@@ -17,13 +17,13 @@
         </div>
         <div class="modal-body" style="padding:40px 50px;">
 
-            <form action="${pageContext.request.contextPath}/login" method="post">
+            <form action="${pageContext.request.contextPath}/perform_login" method="post">
                 <div class="form-group">
                     <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
-                    <c:if test="${loginerror}">
+                    <c:if test="${param.error}">
                         <br><span class="error">Incorrect login or password</span>
                     </c:if>
-                    <input type="text" name="login" class="form-control" id="usrname" placeholder="Enter login">
+                    <input type="text" name="username" class="form-control" id="usrname" placeholder="Enter username">
                 </div>
                 <div class="form-group">
                     <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
@@ -39,16 +39,7 @@
         </div>
     </div>
 </div>
-<%--<script>
-    $(document).ready(function(){
-        $("#myBtn").click(function(){
-            $("#myModal").modal();
-        });
-    });
-</script>--%>
 
-<%--<%@include file="../modals/login.jsp"%>--%>
-<%--<%@include file="../modals/register.jsp"%>--%>
-<%@include file="../footer.jsp"%>
+<%@include file="sections/footer.jsp"%>
 </body>
 </html>

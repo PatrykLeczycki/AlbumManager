@@ -3,10 +3,10 @@
 <html>
 <head>
     <title>Your albums</title>
-    <%@include file="../files.jsp"%>
+    <%@include file="../utils/files.jsp"%>
 </head>
 <body>
-<%@include file="../header.jsp"%>
+<%@include file="../sections/header/header.jsp"%>
 
 <div class="container">
     <div class="row" style="background-color: #dbe4f0">
@@ -36,7 +36,7 @@
     </div>
 </div>
 
-<%@include file="../footer.jsp"%>
+<%@include file="../sections/footer.jsp"%>
 
 </body>
 </html>

@@ -5,19 +5,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.coderslab.model.*;
-import pl.coderslab.model.enums.Format;
+import pl.coderslab.repository.RoleRepository;
 import pl.coderslab.service.AlbumService;
 import pl.coderslab.service.ArtistService;
 import pl.coderslab.service.LabelService;
 import pl.coderslab.service.UserService;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.ArrayList;
+import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
+
+import static pl.coderslab.utils.Functions.getCountries;
+import static pl.coderslab.utils.Functions.getFormats;
 
 @Controller
 @RequestMapping("/admin")
@@ -36,77 +37,41 @@ public class AdminController {
     private LabelService labelService;
 
     @Autowired
-    private LoggedUser loggedUser;
-
-    @RequestMapping("/dashboard")
-    public String dashboard(HttpSession session, Model model){
-
-        model.addAttribute("dashboard", true);
-        return "admins/dashboard";
-    }
+    private RoleRepository roleRepository;
 
     @GetMapping("/users")
-    public String all(Model model){
+    public String all(Model model, Principal principal){
+
         model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("loggedUserId", loggedUser.getId());
+        model.addAttribute("loggedUser", principal.getName());
+
         //TODO: gryzie się z panelem powitalnym
         return "admins/allUsers";
     }
 
     @RequestMapping(value = "/changerole/{id}", method = RequestMethod.GET)
-    public String changeUserRole(@PathVariable long id){
+    public String changeUserRole(@PathVariable long id, HttpServletRequest request, Principal principal){
 
-        User user = userService.findUserById(id);
+        Optional<User> optionalUser = userService.findUserById(id);
 
-        if(user.isAdmin())
-            user.setAdmin(false);
-        else user.setAdmin(true);
+        if (optionalUser.isPresent()){
+            User user = optionalUser.get();
 
-        userService.addUser(user);
+            if(!user.getUsername().equals(principal.getName())){
+                if(user.getRoleSet().contains(roleRepository.findByName("ROLE_ADMIN")))
+                    user.getRoleSet().remove(roleRepository.findByName("ROLE_ADMIN"));
+                else user.getRoleSet().add(roleRepository.findByName("ROLE_ADMIN"));
+                userService.addUser(user);
+            } else request.setAttribute("ownRole", "You can't change your own role.");
+        }
+
+        // TODO: dać obsługę nieistniejącego usera
 
         return "redirect:/admin/users";
-    }
-    ///////////////////////////////////////////////////////////////
-    // ADMIN'S ALBUMS
-
-    @GetMapping("/albums")
-    private String allUserAlbums(Model model){
-        return "admins/allalbums";
-    }
-
-    @RequestMapping(value = "/addalbumtocollection/{id}", method = RequestMethod.GET)
-    public String addAlbumToCollection(@PathVariable long id){
-        userService.addAlbumToCollection(loggedUser.getId(), id);
-        return "redirect:/albums/all";
-    }
-
-    @RequestMapping(value = "/deletealbumfromcollection/{id}", method = RequestMethod.GET)
-    public String deleteAlbumFromCollection(@PathVariable long id, HttpServletRequest request){
-        userService.deleteAlbumFromCollection(loggedUser.getId(), id);
-        if ("true".equals(request.getParameter("back"))){
-            return "redirect:/admin/albums";
-        }
-        return "redirect:/albums/all";
     }
 
     ///////////////////////////////////////////////////////////////
     // ALBUMS ACTIONS
-
-    @GetMapping("/addalbum")
-    private String addAlbum(Model model){
-        model.addAttribute("album", new Album());
-        return "albums/add";
-    }
-
-    @PostMapping("/addalbum")
-    private String addAlbum(@Valid Album album, BindingResult result){
-        //TODO: dać tłumaczenia błędów
-        if (result.hasErrors())
-            return "albums/add";
-
-        albumService.addAlbum(album);
-        return "redirect:/albums/all";
-    }
 
     @GetMapping("/editalbum/{id}")
     private String editAlbum(@PathVariable long id, Model model){
@@ -124,7 +89,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/deletealbum/{id}", method = RequestMethod.GET)
-    private String deleteAlbum(@PathVariable long id, HttpServletRequest request,  RedirectAttributes redirectAttributes){
+    private String deleteAlbum(@PathVariable long id){
 
         albumService.deleteAlbum(id);
         return "redirect:/albums/all";
@@ -133,24 +98,6 @@ public class AdminController {
     ///////////////////////////////////////////////////////////////
 
     // ARTISTS ACTIONS
-
-    @GetMapping("/addartist")
-    private String addArtist(Model model){
-        model.addAttribute("artist", new Artist());
-        return "artists/add";
-    }
-
-    // TODO: sprawdzić debuggerem, czemu trzeba odświeżyć, żeby zobaczyć świeżo dodany item
-
-    @PostMapping("/addartist")
-    private String addArtist(@Valid Artist artist, BindingResult result){
-        //TODO: dać tłumaczenia błędów
-        if (result.hasErrors())
-            return "artists/add";
-
-        artistService.addArtist(artist);
-        return "redirect:/artists/all";
-    }
 
     @GetMapping("/editartist/{id}")
     private String editArtist(@PathVariable long id, Model model){
@@ -176,23 +123,6 @@ public class AdminController {
     ///////////////////////////////////////////////////////////////
 
     // LABEL ACTIONS
-
-    @GetMapping("/addlabel")
-    public String addLabel(Model model){
-        model.addAttribute("label", new Label());
-        return "labels/add";
-    }
-
-    @PostMapping("/addlabel")
-    public String addLabel(@Valid Label label, BindingResult result){
-
-        //TODO: dać tłumaczenia błędów
-        if (result.hasErrors())
-            return "labels/add";
-
-        labelService.addLabel(label);
-        return "redirect:/labels/all";
-    }
 
     @GetMapping("/editlabel/{id}")
     public String editLabel(@PathVariable long id, Model model){
@@ -228,24 +158,12 @@ public class AdminController {
     }
 
     @ModelAttribute("formats")
-    public List<String> getFormats(){
-        Format[] formats = Format.values();
-        List<String> formatList = new ArrayList<>();
-
-        for (Format f : formats){
-            formatList.add(f.name());
-        }
-
-        return formatList;
+    public List<String> formats(){
+        return getFormats();
     }
 
-    @ModelAttribute("allalbums")
-    public List<Album> allAlbumsTest1(){
-        return albumService.getAllAlbums();
-    }
-
-    @ModelAttribute("adminalbumids")
-    public List<Long> allAdminAlbums(){
-        return userService.getAllUserAlbums(loggedUser.getId());
+    @ModelAttribute("countries")
+    public List<String> countries() {
+        return getCountries();
     }
 }

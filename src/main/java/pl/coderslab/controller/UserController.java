@@ -1,22 +1,27 @@
 package pl.coderslab.controller;
 
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.coderslab.model.*;
 import pl.coderslab.service.AlbumService;
 import pl.coderslab.service.ArtistService;
 import pl.coderslab.service.LabelService;
 import pl.coderslab.service.UserService;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
+
+import static pl.coderslab.utils.Functions.getCountries;
+import static pl.coderslab.utils.Functions.getFormats;
 
 @Controller
 @SessionAttributes({"dashboard"})
@@ -36,7 +41,7 @@ public class UserController {
     private LabelService labelService;
 
     @Autowired
-    private LoggedUser loggedUser;
+    private BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/newpassword")
     public String newPassword(){
@@ -44,9 +49,11 @@ public class UserController {
     }
 
     @PostMapping("/newpassword")
-    public String newPassword(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, @RequestParam("newPasswordRepeat") String newPasswordRepeat, Model model){
+    public String newPassword(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, @RequestParam("newPasswordRepeat") String newPasswordRepeat, Model model, Principal principal){
 
-        if(!BCrypt.checkpw(oldPassword, loggedUser.getPassword())){
+        User loggedUser = userService.findUserByUsername(principal.getName());
+
+        if (!passwordEncoder.matches(oldPassword, loggedUser.getPassword())){
             model.addAttribute("oldwrong", "Old password doesn't match.");
             return "users/newPassword";
         }
@@ -56,39 +63,43 @@ public class UserController {
             return "users/newPassword";
         }
 
-        User user = userService.findUserByLogin(loggedUser.getLogin());
-        user.setPasswordHashed(newPassword);
+        User user = userService.findUserByUsername(loggedUser.getUsername());
+        user.setPassword(passwordEncoder.encode(newPassword));
         userService.addUser(user);
         model.addAttribute("newPassInfo", "Password has been changed.");
         return "redirect:/user/dashboard";
     }
 
     @RequestMapping("/dashboard")
-    public String dashboard(HttpSession session, Model model){
+    public String dashboard(HttpSession session, Model model, Principal principal){
 
         model.addAttribute("dashboard", true);
         return "users/dashboard";
     }
 
     @GetMapping("/albums")
-    private String allUserAlbums(Model model){
-        /*model.addAttribute("albums", userService.getAllUserAlbums(loggedUser.getId()));*/
+    private String allUserAlbums(){
         return "users/allalbums";
     }
 
     @RequestMapping(value = "/addalbumtocollection/{id}", method = RequestMethod.GET)
-    public String addAlbumToCollection(@PathVariable long id){
+    public String addAlbumToCollection(@PathVariable long id, Principal principal){
+
+        User loggedUser = userService.findUserByUsername(principal.getName());
+
         userService.addAlbumToCollection(loggedUser.getId(), id);
         return "redirect:/albums/all";
     }
 
     @RequestMapping(value = "/deletealbumfromcollection/{id}", method = RequestMethod.GET)
-    private String deleteAlbum(@PathVariable long id, HttpServletRequest request,  RedirectAttributes redirectAttributes){
+    private String deleteAlbumFromCollection(@PathVariable long id, HttpServletRequest request, Principal principal){
 
-        albumService.deleteAlbum(id);
-        if ("true".equals(request.getParameter("back"))){
+        Long userId = userService.findUserByUsername(principal.getName()).getId();
+        userService.deleteAlbumFromCollection(userId, id);
+
+        if ("true".equals(request.getParameter("back")))
             return "redirect:/user/albums";
-        }
+
         return "redirect:/albums/all";
     }
 
@@ -107,7 +118,6 @@ public class UserController {
         albumService.addAlbum(album);
         return "redirect:/albums/all";
     }
-
 
     @GetMapping("/addartist")
     private String addArtist(Model model){
@@ -144,13 +154,41 @@ public class UserController {
         return "redirect:/labels/all";
     }
 
+    @ModelAttribute("labels")
+    public List<Label> getLabels(){
+        return labelService.getAllLabels();
+    }
+
+    @ModelAttribute("artists")
+    public List<Artist> getArtists(){
+        return artistService.getAllArtists();
+    }
+
+    @ModelAttribute("formats")
+    public List<String> formats(){
+        return getFormats();
+    }
+
+    @ModelAttribute("countries")
+    public List<String> countries() {
+        return getCountries();
+    }
+
     @ModelAttribute("allalbums")
     public List<Album> allAlbumsTest(){
         return albumService.getAllAlbums();
     }
 
     @ModelAttribute("useralbumids")
-    public List<Long> allUsersAlbums(){
-        return userService.getAllUserAlbums(loggedUser.getId());
+    public List<Long> allUsersAlbumsIds(Principal principal){
+
+        /*Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (auth instanceof AnonymousAuthenticationToken)
+            return null;*/
+
+        Long id = userService.findUserByUsername(principal.getName()).getId();
+
+        return albumService.getAlbumIdsByUserId(id);
     }
 }

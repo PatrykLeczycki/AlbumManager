@@ -5,6 +5,8 @@ import org.springframework.core.convert.converter.Converter;
 import pl.coderslab.model.Artist;
 import pl.coderslab.service.ArtistService;
 
+import java.util.Optional;
+
 public class ArtistConverter implements Converter<String, Artist> {
 
     @Autowired
@@ -12,6 +14,9 @@ public class ArtistConverter implements Converter<String, Artist> {
 
     @Override
     public Artist convert(String s) {
-            return artistService.getArtistById(Long.parseLong(s));
+
+        Optional<Artist> optionalArtist = artistService.getArtistById(Long.parseLong(s));
+        return optionalArtist.orElse(null);
+
     }
 }

@@ -2,10 +2,10 @@ package pl.coderslab.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.Period;
@@ -24,6 +24,7 @@ public class Artist {
     private String pseudonym;
 
     @NotBlank
+    @Column()
     private String name;
 
     @NotBlank
