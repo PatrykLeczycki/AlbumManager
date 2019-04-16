@@ -24,7 +24,8 @@
                         <div class="form-group">
                             <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
                             <c:if test="${param.error}">
-                                <br><span class="error">Incorrect login or password</span>
+                                <%--<br><span class="error">Incorrect login or password</span>--%>
+                                ${sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message}
                             </c:if>
                             <input type="text" name="username" class="form-control" id="usrname" placeholder="Enter username">
                         </div>
