@@ -119,6 +119,22 @@ public class UserService {
     }
 
 
+    /*
+
+    <html lang="en">
+<head>
+    <title>Title</title>
+</head>
+<body>
+<div style="background-color: #f9c910; text-align: center"><h1>Album Manager</h1></div>
+<p style="text-align: center">You have received this e-mail because your e-mail address was given during password retrieval process. To retrieve your password click here:</p>
+<p style="text-align: center"><a style="color: #2c7021; text-decoration: none; font-size: 30px" href="http://77.55.213.198:8080/AlbumManager-1.0-SNAPSHOT/" target="_blank">Retrieve password</a></p>
+<p style="margin-top: 50px; text-align: center">If you didn't lost your password, ignore this e-mail and make sure your data is safe.</p>
+</body>
+</html>
+
+     */
+
     /*public void sendPassRecoveryEmail(String receiverEmail) {
 
         String link = addPassRecoveryToken(receiverEmail);
