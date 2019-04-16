@@ -9,7 +9,7 @@ import pl.coderslab.model.User;
 
 import java.util.List;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepo extends JpaRepository<User, Long> {
 
     User findUserByUsername(String username);
 

@@ -10,7 +10,7 @@ public class MyUserDetails extends User implements UserDetails {
 
   //Zamieniam usera na obiekt UserDetails
   public MyUserDetails(User user) {
-    this.setEnabled(user.getEnabled());
+    this.setEnabled(user.isEnabled());
     this.setPassword(user.getPassword());
     this.setRoleSet(user.getRoleSet());
     this.setUsername(user.getUsername());
@@ -36,11 +36,6 @@ public class MyUserDetails extends User implements UserDetails {
 
   @Override
   public boolean isCredentialsNonExpired() {
-    return true;
-  }
-
-  @Override
-  public boolean isEnabled() {
     return true;
   }
 

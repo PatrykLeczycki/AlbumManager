@@ -1,5 +1,6 @@
 package pl.coderslab.controller;
 
+import org.dom4j.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,8 +14,11 @@ import pl.coderslab.dto.UserDto;
 import pl.coderslab.model.User;
 import pl.coderslab.service.UserService;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.Objects;
+import java.util.Optional;
 
 @Controller
 public class LoginRegisterController {
@@ -33,7 +37,7 @@ public class LoginRegisterController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute("userDto") @Valid UserDto userDto, BindingResult result, Model model) {
+    public String register(@ModelAttribute("userDto") @Valid UserDto userDto, BindingResult result, Model model) throws MessagingException, IOException, DocumentException {
 
         if (!result.hasErrors() && !userDto.getUsername().equals(userDto.getPassword()) &&
                 userService.findUserByEmail(userDto.getEmail()) == null &&
@@ -41,7 +45,7 @@ public class LoginRegisterController {
                 userService.findUserByUsername(userDto.getUsername()) == null &&
                 userDto.getUsername().length() >= 5 && userDto.getPassword().length() >= 8) {
 
-            userDto.setEnabled(true);
+            userDto.setEnabled(false);
             userService.registerUser(userDto);
             return "redirect:/login";
         }
@@ -51,6 +55,23 @@ public class LoginRegisterController {
         model.addAttribute("usernameexists", userService.findUserByUsername(userDto.getUsername()) != null);
         model.addAttribute("usernameeqpass", userDto.getUsername().equals(userDto.getPassword()));
         return "register";
+    }
+
+    @RequestMapping(value = "/register/{id}/{token}", method = RequestMethod.GET)
+    public String register(@PathVariable long id, @PathVariable String token){
+        Optional<User> optionalUser = userService.findUserById(id);
+
+        if (optionalUser.isPresent()){
+            User user = optionalUser.get();
+            String userToken = user.getRegistrationToken();
+            if (userToken.equals(token)){
+                user.setRegistrationToken(null);
+                user.setEnabled(true);
+                userService.addUser(user);
+            }
+        }
+
+        return "redirect:/login";
     }
 
     @GetMapping("/login")

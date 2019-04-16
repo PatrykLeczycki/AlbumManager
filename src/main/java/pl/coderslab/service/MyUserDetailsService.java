@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.coderslab.model.MyUserDetails;
 import pl.coderslab.model.User;
-import pl.coderslab.repository.UserRepository;
+import pl.coderslab.repository.UserRepo;
 
 import java.util.Objects;
 
@@ -15,11 +15,11 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class MyUserDetailsService implements UserDetailsService {
 
-  private final UserRepository userRepository;
+  private final UserRepo userRepo;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = userRepository.findUserByUsername(username);
+    User user = userRepo.findUserByUsername(username);
     if (Objects.isNull(user) ) {
       throw new UsernameNotFoundException(username);
     }

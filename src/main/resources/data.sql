@@ -1,71 +1,3 @@
-
-
-/*drop table if exists user_role;
-drop table if exists user;
-drop table if exists role;
-
--- Create table
-create table role
-(
-    id   BIGINT      not null auto_increment,
-    name VARCHAR(30) not null
-);
-
---
-alter table role
-    add constraint APP_ROLE_PK primary key (id);
-
-alter table role
-    add constraint APP_ROLE_UK unique (name);
-
--- Create table
-create table user
-(
-    id       BIGINT       not null auto_increment,
-    email VARCHAR(36)  not null,
-    login VARCHAR(36)  not null,
-    password VARCHAR(128) not null,
-    enabled  BIT          not null
-);
---
-alter table user
-    add constraint APP_USER_PK primary key (id);
-
-alter table user
-    add constraint APP_USER_UK unique (login);
-
--- Create table
-create table user_role
-(
-    user_id BIGINT not null,
-    role_id BIGINT not null
-);
---
-alter table USER_ROLE
-    add constraint USER_ROLE_UK unique (user_id, role_id);
-
-alter table USER_ROLE
-    add constraint USER_ROLE_FK1 foreign key (user_id)
-        references user (id);
-
-alter table USER_ROLE
-    add constraint USER_ROLE_FK2 foreign key (role_id)
-        references role (id);
-
--- Used by Spring Remember Me API.
-CREATE TABLE Persistent_Logins
-(
-
-    username  varchar(64) not null,
-    series    varchar(64) not null,
-    token     varchar(64) not null,
-    last_used timestamp   not null,
-    PRIMARY KEY (series)
-
-);
-*/
-
-
 insert into label values (null, "Poland", "Prosto");
 insert into label values (null, "Poland", "SBM Label");
 
@@ -89,17 +21,9 @@ insert into album values (null, 0, "Rap", "2019-02-15", "Wojtek Sokół", 1);
 insert into album_artist values (1, 8);
 insert into album_artist values (2, 1);
 
-insert into user values (null, "patryk.leczycki1@gmail.com", 1, "$2a$10$5zl.4gm/CdR0l3v4Qv6Er.lk01q.1DXGXzLdAsDb6h3Dv8xF.uQRG", "Pinky");
-insert into user values (null, "email@email.com", 1, "$2a$10$ZfOnsqjlibAnZ1d3BP26V.qR.m.P/zADl54bbF5IO1F9bhyeidnqK", "user1");
-insert into user values (null, "matrix9596@gmail.com", 1, "$2a$10$sgJIPaeihpn2oyPEpPQcvO8Fn3A2xcI5hZrviLLQPs9Co.EIP7G2O", "YourFatherDrunk");
-
-
-
-/*insert into user (username, password, enabled)
-values ('dbuser1', '$2a$10$PrI5Gk9L.tSZiW9FXhTS8O8Mz9E97k2FZbFvGFFaSsiTUIl.TCrFu', 1);
-
-insert into user (username, password, enabled)
-values ('dbadmin1', '$2a$10$PrI5Gk9L.tSZiW9FXhTS8O8Mz9E97k2FZbFvGFFaSsiTUIl.TCrFu', 1);*/
+insert into user(id, email, username, password, enabled, registration_token, pass_recovery_token) values (null, "patryk.leczycki1@gmail.com", "Pinky","$2a$10$5zl.4gm/CdR0l3v4Qv6Er.lk01q.1DXGXzLdAsDb6h3Dv8xF.uQRG", 1, null, null);
+insert into user(id, email, username, password, enabled, registration_token, pass_recovery_token) values (null, "email@email.com", "user1", "$2a$10$ZfOnsqjlibAnZ1d3BP26V.qR.m.P/zADl54bbF5IO1F9bhyeidnqK", 1, null, null);
+insert into user(id, email, username, password, enabled, registration_token, pass_recovery_token) values (null, "matrix9596@gmail.com", "YourFatherDrunk", "$2a$10$sgJIPaeihpn2oyPEpPQcvO8Fn3A2xcI5hZrviLLQPs9Co.EIP7G2O", 1, null, null);
 
 
 insert into role (name)

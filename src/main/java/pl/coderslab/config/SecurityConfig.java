@@ -3,6 +3,8 @@ package pl.coderslab.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,10 +18,10 @@ import pl.coderslab.service.MyUserDetailsService;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final MyUserDetailsService userDetailService;
+    private final MyUserDetailsService userDetailsService;
 
     public SecurityConfig(MyUserDetailsService userDetailService) {
-        this.userDetailService = userDetailService;
+        this.userDetailsService = userDetailService;
     }
 
     @Bean
@@ -27,24 +29,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    /*@Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }*/
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder());
+        auth.authenticationProvider(myAuthenticationProvider());
+    }
+
+    @Autowired
+    public AuthenticationProvider myAuthenticationProvider(){
+        DaoAuthenticationProvider impl = new DaoAuthenticationProvider();
+        impl.setUserDetailsService(userDetailsService);
+        impl.setPasswordEncoder(passwordEncoder());
+        impl.setHideUserNotFoundExceptions(false);
+        return impl;
     }
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        /*http.authorizeRequests()
-                .antMatchers("/", "/login", "/perform_login", "/logout", "/perform_logout")
-                .permitAll();*/
 
         http.authorizeRequests()
                 .antMatchers("/user/*").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
 
         http.authorizeRequests()
                 .antMatchers("/admin/*").access("hasRole('ROLE_ADMIN')");
-
-       /* http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");*/
 
         http.authorizeRequests().and()
                 .formLogin()
@@ -55,14 +66,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/");
-
-        /*http.authorizeRequests().and() //
-                .rememberMe().tokenRepository(this.persistentTokenRepository()) //
-                .tokenValiditySeconds(24 * 60 * 60); // 24h*/
-
-        /*http.authorizeRequests()
-                .antMatchers("/console/**")
-                .permitAll();*/
 
         http.csrf().disable();
         http.headers().frameOptions().disable();
