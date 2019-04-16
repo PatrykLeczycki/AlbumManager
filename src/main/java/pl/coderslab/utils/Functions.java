@@ -2,10 +2,9 @@ package pl.coderslab.utils;
 
 import pl.coderslab.model.enums.Format;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
 
 public class Functions {
 
@@ -31,6 +30,22 @@ public class Functions {
         }
 
         return formatList;
+    }
+
+    public static String[] getData(){
+        File file = new File("/usr/local/bin/albummanager/data.txt");
+
+        //File file = new File("/password/data.txt");
+        String[] data = new String[2];
+
+        try (Scanner scan = new Scanner(file)) {
+            //read lines from file
+            data[0] = scan.nextLine();
+            data[1] = scan.nextLine();
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        return data;
     }
 
 }
