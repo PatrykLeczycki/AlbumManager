@@ -26,15 +26,18 @@ Additionally, there's MySQL database and Tomcat needed.
 Deployed version (to be continued): 
 
 * http://77.55.213.198:8080/AlbumManager-1.0-SNAPSHOT/
-* patrykleczycki.pl
+* patrykleczycki.pl (early version)
 
 ## Features
 
-* User management (Spring Security: registration panel - passwords hashed with jBCrypt, login panel, permissions depending on user role)
+* User management (Spring Security: registration panel - passwords hashed with jBCrypt, verification with token, login panel, permissions depending on user role)
 * Entities - album, artist, label
 * User can add entities objects and create and edit own album collection
 * Admin has the same permissions as an user, additionally he can modify other users' permissions
 
 ## To-do
-* Sending authentication token on e-mail address during registration/recovering password
+
 * Add image upload functionality to enable adding cover to album
+* Add tracklist and music band features
+* Add OAuth2 authentication
+* Correct Spring Security login error messages
