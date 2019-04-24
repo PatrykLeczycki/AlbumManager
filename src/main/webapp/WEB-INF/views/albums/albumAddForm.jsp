@@ -18,11 +18,12 @@
     <label for="radio-band">Band</label><input type="radio" name="author" id="radio-band">--%>
 </div>
 
+<br>
+
 <div class="form-group">
-    <label><i class="fas fa-users" style="display: none"></i>Artists</label>
+    <label><i class="fas fa-users"></i>Artists</label>
     <form:errors path="artists" cssClass="error" element="div"/><br>
-    <form:select path="artists">
-        <form:option value="0" label="Choose artists" disabled="true"/>
+    <form:select path="artists" multiple="true" class="multi-select-demo">
         <form:options itemValue="id" itemLabel="pseudonym" items="${artists}"/>
     </form:select>
 </div>
@@ -34,7 +35,7 @@
 <div class="form-group">
     <label><i class="fas fa-signature"></i></span> Label</label><br>
     <form:errors path="label" cssClass="error" element="div"/>
-    <form:select path="label">
+    <form:select path="label" class="multi-select-demo">
         <form:option value="0" label="Choose label"/>
         <form:options itemValue="id" itemLabel="name" items="${labels}"/>
     </form:select>
@@ -58,9 +59,17 @@
 <div class="form-group">
     <label><span class="glyphicon glyphicon-cd"></span> Format</label><br>
     <form:errors path="format" cssClass="error" element="div"/>
-    <form:select path="format" items="${formats}"/>
+    <form:select path="format" items="${formats}" class="multi-select-demo"/>
 </div>
 <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-cd"></span> Edit album</button>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $('.multi-select-demo').multiselect();
+    });
+
+</script>
 
 <script type="text/javascript">
 $("#guzik1").on("click", function(){
