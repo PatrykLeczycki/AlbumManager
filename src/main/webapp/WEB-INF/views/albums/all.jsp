@@ -56,5 +56,5 @@
     <%@include file="../sections/footer.jsp"%>
 </div>
 
-<%@include file="../utils/sort.jsp"%>
+<%@include file="../utils/sortAlbums.jsp"%>
 </html>

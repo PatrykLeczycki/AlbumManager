@@ -56,6 +56,6 @@
 </div>
 
 
-<%@include file="../utils/sort.jsp"%>
+<%@include file="../utils/sortOther.jsp"%>
 </body>
 </html>

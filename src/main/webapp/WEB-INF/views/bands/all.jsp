@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Users</title>
+    <title>Bands</title>
     <%@include file="../utils/files.jsp"%>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/dataTables.bootstrap.min.js"></script>
@@ -14,38 +14,30 @@
 </head>
 <body>
 
-
 <div id="outer-container">
     <%@include file="../sections/header/header.jsp"%>
 
     <div id="body">
-        <c:if test="${ownRole}">
-            <div class="container" id="register-container">
-                <div class="modal-content" id="register-content">
-                    <div class="modal-header" style="padding: 0;">
-                        <p class="modal-body" style="text-align: center; background-color: white; ">${ownRole}<span class="error"></span></p>
-                    </div>
-                </div>
-            </div>
-            <br>
-        </c:if>
         <div class="container">
             <div class="row" style="background-color: #dbe4f0">
                 <div>
-
                     <table class="table table-bordered table-hovered" border="1" style="background-color: white">
                         <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Username</th>
-                            <th>E-mail</th>
-                            <th>Admin role</th>
+                            <sec:authorize access="hasRole('USER') && hasRole('ADMIN')">
+                                <th>ID</th>
+                            </sec:authorize>
+                            <th>Name</th>
+                            <th>Members</th>
+                            <sec:authorize access="hasRole('USER') && hasRole('ADMIN')">
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </sec:authorize>
                         </tr>
                         </thead>
-
                         <tbody>
-                        <c:forEach items="${users}" var="user">
-                            <%@include file="../users/displaySingle.jsp"%>
+                        <c:forEach items="${bands}" var="band">
+                            <%@include file="displaySingle.jsp"%>
                         </c:forEach>
                         </tbody>
                     </table>
@@ -58,7 +50,6 @@
 </div>
 
 
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/sorts/sortAllButLastOne.js"></script>
-
+<%@include file="../utils/sortOther.jsp"%>
 </body>
 </html>
