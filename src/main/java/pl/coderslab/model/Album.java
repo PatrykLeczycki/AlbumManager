@@ -20,10 +20,13 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotNull
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "album_artist", joinColumns = @JoinColumn(name = "album_id"), inverseJoinColumns = @JoinColumn(name = "artist_id"))
     private List<Artist> artists;
+
+    @ManyToOne
+    private Band band;
 
     @Column(nullable = false)
     @NotBlank
@@ -31,7 +34,6 @@ public class Album {
 
     @ManyToOne
     @NotNull
-
     private Label label;
 
     @Column(nullable = false)
