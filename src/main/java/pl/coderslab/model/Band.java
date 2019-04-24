@@ -6,7 +6,6 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -25,6 +24,16 @@ public class Band {
     @JoinTable(name = "band_artist", joinColumns = @JoinColumn(name = "band_id"), inverseJoinColumns = @JoinColumn(name = "artist_id"))
     private List<Artist> members;
 
-    private LocalDate formDate;
+    public String getMembersToString(){
+        StringBuilder members = new StringBuilder();
+        int counter = 0;
 
+        for (Artist x : this.members){
+            if (counter != 0)
+                members.append(", ");
+            members.append(x.getPseudonym());
+            counter++;
+        }
+        return members.toString();
+    }
 }
