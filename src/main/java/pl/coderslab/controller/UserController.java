@@ -7,10 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.model.*;
-import pl.coderslab.service.AlbumService;
-import pl.coderslab.service.ArtistService;
-import pl.coderslab.service.LabelService;
-import pl.coderslab.service.UserService;
+import pl.coderslab.service.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -36,6 +34,9 @@ public class UserController {
 
     @Autowired
     private LabelService labelService;
+
+    @Autowired
+    private BandService bandService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -151,6 +152,24 @@ public class UserController {
         labelService.addLabel(label);
         return "redirect:/labels/all";
     }
+
+    @GetMapping("/addband")
+    public String addBand(Model model){
+        model.addAttribute("band", new Band());
+        return "bands/add";
+    }
+
+    @PostMapping("/addband")
+    public String addBand(@Valid Band band, BindingResult result){
+
+        //TODO: dać tłumaczenia błędów
+        if (result.hasErrors())
+            return "bands/add";
+
+        bandService.addBand(band);
+        return "redirect:/bands/all";
+    }
+
 
     @ModelAttribute("labels")
     public List<Label> getLabels(){
