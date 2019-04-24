@@ -24,14 +24,11 @@ public class Artist {
     private String pseudonym;
 
     @NotBlank
-    @Column()
     private String name;
 
     @NotBlank
     private String surname;
 
-    @Column(nullable = false)
-    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
