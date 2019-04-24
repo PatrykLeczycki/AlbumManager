@@ -22,6 +22,14 @@
                 </ul>
             </li>
             <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="font-size: 20px">Bands
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="${pageContext.request.contextPath}/bands/all" style="font-size: 20px">All bands</a></li>
+                    <li><a href="${pageContext.request.contextPath}/user/addband" style="font-size: 20px">Add band</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="font-size: 20px">Labels
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -29,6 +37,9 @@
                     <li><a href="${pageContext.request.contextPath}/user/addlabel" style="font-size: 20px">Add label</a></li>
                 </ul>
             </li>
+            <sec:authorize access="hasRole('USER') && hasRole('ADMIN')">
+                <li><a href="${pageContext.request.contextPath}/admin/users" style="font-size: 20px">Users</a></li>
+            </sec:authorize>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">

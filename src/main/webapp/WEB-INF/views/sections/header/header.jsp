@@ -3,9 +3,7 @@
 <sec:authorize access="!isAuthenticated()">
     <%@include file="unloggedHeader.jsp"%>
 </sec:authorize>
-<sec:authorize access="hasRole('USER') && hasRole('ADMIN')">
-    <%@include file="adminHeader.jsp"%>
-</sec:authorize>
-<sec:authorize access="hasRole('USER') && !hasRole('ADMIN')">
+
+<sec:authorize access="isAuthenticated()">
     <%@include file="userHeader.jsp"%>
 </sec:authorize>
