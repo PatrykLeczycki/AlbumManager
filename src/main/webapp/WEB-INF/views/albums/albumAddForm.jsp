@@ -13,9 +13,6 @@
 
     <div class="clearfix"></div>
 
-    <%--<label for="radio-artist">Artist(s)</label><input type="radio" name="author" id="radio-artist">
-
-    <label for="radio-band">Band</label><input type="radio" name="author" id="radio-band">--%>
 </div>
 
 <br>
