@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import pl.coderslab.model.Band;
 import pl.coderslab.repository.BandRepository;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class BandService {
@@ -13,5 +15,9 @@ public class BandService {
 
     public void addBand(Band band){
         bandRepository.save(band);
+    }
+
+    public List<Band> getAllBands(){
+        return bandRepository.findAll();
     }
 }
