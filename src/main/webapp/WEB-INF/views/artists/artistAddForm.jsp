@@ -28,7 +28,16 @@
 </div>
 <div class="form-group">
     <label><span class="glyphicon glyphicon-globe"></span> Nationality</label><br>
-    <td><form:select path="nationality" items="${countries}"/></td>
+    <td><form:select path="nationality" items="${countries}" class="multi-select-demo"/></td>
     <form:errors path="nationality" cssClass="error" element="div"/>
 </div>
 <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-cd"></span> Add artist</button>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $('.multi-select-demo').multiselect();
+    });
+
+</script>
+
