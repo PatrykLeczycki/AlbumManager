@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Objects;
 
 @Entity
 @Table(name = "artist")
@@ -39,6 +40,9 @@ public class Artist {
     private String nationality;
 
     public Integer getAge() {
-        return Period.between(birthDate, LocalDate.now()).getYears();
+
+        if (!Objects.isNull(birthDate))
+            return Period.between(birthDate, LocalDate.now()).getYears();
+        return null;
     }
 }
