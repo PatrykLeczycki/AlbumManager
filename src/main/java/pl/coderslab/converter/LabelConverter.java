@@ -1,21 +1,25 @@
 package pl.coderslab.converter;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 import pl.coderslab.model.Label;
 import pl.coderslab.service.LabelService;
+import java.util.Objects;
 
-import java.util.Optional;
-
+@RequiredArgsConstructor
 public class LabelConverter implements Converter<String, Label> {
 
-    @Autowired
-    private LabelService labelService;
+
+    private final LabelService labelService;
 
     @Override
     public Label convert(String s) {
-        Optional<Label> optionalLabel = labelService.getLabelById(Long.parseLong(s));
+        Label label = labelService.getLabelById(Long.parseLong(s));
 
-        return optionalLabel.orElse(null);
+        if (!Objects.isNull(label))
+            return label;
+
+        return null;
+
     }
 }
