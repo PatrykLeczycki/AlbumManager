@@ -1,6 +1,6 @@
 package pl.coderslab.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,13 +15,11 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/albums")
+@RequiredArgsConstructor
 public class AlbumController {
 
-    @Autowired
-    private AlbumService albumService;
-
-    @Autowired
-    private UserService userService;
+    private final AlbumService albumService;
+    private final UserService userService;
 
     @GetMapping("/all")
     private String allAlbums(Model model){
