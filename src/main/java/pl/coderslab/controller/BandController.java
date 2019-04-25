@@ -16,7 +16,6 @@ public class BandController {
 
     @GetMapping("/all")
     private String allBands(Model model){
-        System.out.println(bandService.getAllBands().size());
         model.addAttribute("bands", bandService.getAllBands());
         return "bands/all";
     }
