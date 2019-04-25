@@ -1,6 +1,7 @@
 insert into label values (null, "Poland", "Prosto");
 insert into label values (null, "Poland", "SBM Label");
 insert into label values (null, "Poland", "QueQuality");
+insert into label values (null, "Poland", "Sorawrecords");
 
 insert into artist(id, name, surname, pseudonym, nationality, birth_date, sex) values (null, "Wojciech", "Sosnowski", "Sokół", "Poland", "1977-03-11", "M");
 insert into artist(id, name, surname, pseudonym, nationality, birth_date, sex) values (null, "Mateusz", "Karaś", "Białas", "Poland", "1987-12-11", "M");
@@ -21,6 +22,7 @@ insert into band values(null, "BonSoul");
 insert into album values (null, 0, "Rap", "2012-02-20", "Etenszyn: Drimz Kamyn Tru", null, 1);
 insert into album values (null, 0, "Rap", "2019-02-15", "Wojtek Sokół", null, 1);
 insert into album values (null, 0, "Rap", "2015-12-04", "Demówka EP", null, 3);
+insert into album values (null, 0, "Rap", "2015-04-01", "Lepiej nie pytać", 1, 4);
 
 insert into album_artist values (1, 8);
 insert into album_artist values (2, 1);
