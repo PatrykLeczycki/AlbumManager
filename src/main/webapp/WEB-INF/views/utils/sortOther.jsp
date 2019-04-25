@@ -4,9 +4,9 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/sorts/sortAll.js"></script>
 </sec:authorize>
 <sec:authorize access="hasRole('USER') && hasRole('ADMIN')">
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/sorts/sortAll.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/sorts/sortAllButLastTwo.js"></script>
 </sec:authorize>
 <sec:authorize access="hasRole('USER') && !hasRole('ADMIN')">
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/sorts/sortAllButLastTwo.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/sorts/sortAll.js"></script>
 </sec:authorize>
 
