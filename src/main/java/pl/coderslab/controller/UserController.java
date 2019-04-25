@@ -72,7 +72,6 @@ public class UserController {
     public String dashboard(HttpSession session, Model model, Principal principal){
 
         model.addAttribute("dashboard", true);
-        System.out.println(userService.findUserByUsername(principal.getName()).isEnabled());
         return "users/dashboard";
     }
 
