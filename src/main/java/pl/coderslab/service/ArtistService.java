@@ -22,8 +22,10 @@ public class ArtistService {
         return artistRepository.findAll();
     }
 
-    public Optional<Artist> getArtistById(long id){
-        return artistRepository.findById(id);
+    public Artist getArtistById(long id){
+
+        Optional<Artist> optionalArtist = artistRepository.findById(id);
+        return optionalArtist.orElse(null);
     }
 
     public void deleteArtist(long id){
