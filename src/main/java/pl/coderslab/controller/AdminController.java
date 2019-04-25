@@ -1,20 +1,18 @@
 package pl.coderslab.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.model.*;
 import pl.coderslab.repository.RoleRepository;
-import pl.coderslab.service.AlbumService;
-import pl.coderslab.service.ArtistService;
-import pl.coderslab.service.LabelService;
-import pl.coderslab.service.UserService;
-import javax.servlet.http.HttpServletRequest;
+import pl.coderslab.service.*;
+
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static pl.coderslab.utils.Functions.getCountries;
@@ -22,22 +20,15 @@ import static pl.coderslab.utils.Functions.getFormats;
 
 @Controller
 @RequestMapping("/admin")
+@RequiredArgsConstructor
 public class AdminController {
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private AlbumService albumService;
-
-    @Autowired
-    private ArtistService artistService;
-
-    @Autowired
-    private LabelService labelService;
-
-    @Autowired
-    private RoleRepository roleRepository;
+    private final UserService userService;
+    private final AlbumService albumService;
+    private final ArtistService artistService;
+    private final BandService bandService;
+    private final LabelService labelService;
+    private final RoleRepository roleRepository;
 
     @GetMapping("/users")
     public String all(Model model, Principal principal){
@@ -46,11 +37,11 @@ public class AdminController {
         model.addAttribute("loggedUser", principal.getName());
 
         //TODO: gryzie się z panelem powitalnym
-        return "admins/allUsers";
+        return "admins/allusers";
     }
 
     @RequestMapping(value = "/changerole/{id}", method = RequestMethod.GET)
-    public String changeUserRole(@PathVariable long id, HttpServletRequest request, Principal principal){
+    public String changeUserRole(@PathVariable long id, Model model, Principal principal){
 
         Optional<User> optionalUser = userService.findUserById(id);
 
@@ -62,12 +53,21 @@ public class AdminController {
                     user.getRoleSet().remove(roleRepository.findByName("ROLE_ADMIN"));
                 else user.getRoleSet().add(roleRepository.findByName("ROLE_ADMIN"));
                 userService.addUser(user);
-            } else request.setAttribute("ownRole", "You can't change your own role.");
+
+                return "redirect:/admin/users";
+            }
+
+            /*TODO: zamienić to na przekazywanie atrybutu z kontrolera do kontrolera*/
+
+            model.addAttribute("users", userService.getAllUsers());
+            model.addAttribute("loggedUser", principal.getName());
+            model.addAttribute("ownRole", true);
+            return "admins/allusers";
         }
 
         // TODO: dać obsługę nieistniejącego usera
-
         return "redirect:/admin/users";
+
     }
 
     ///////////////////////////////////////////////////////////////
@@ -115,9 +115,63 @@ public class AdminController {
     }
 
     @GetMapping("/deleteartist/{id}")
-    private String deleteArtist(@PathVariable long id){
-        artistService.deleteArtist(id);
+    private String deleteArtist(@PathVariable long id, Model model){
+        Artist artist = artistService.getArtistById(id);
+
+        if (!Objects.isNull(artist)){
+            List<Album> albums = albumService.getAlbumsByArtist(artist);
+            List<Band> bands = bandService.getBandsByArtist(artist);
+            if (albums.isEmpty() && bands.isEmpty())
+                artistService.deleteArtist(id);
+            else {
+                if (!albums.isEmpty())
+                    model.addAttribute("deleteerror", true);
+
+                if (!bands.isEmpty())
+                    model.addAttribute("deleteerror2", true);
+                model.addAttribute("artists", artistService.getAllArtists());
+                return "artists/all";
+            }
+        }
         return "redirect:/artists/all";
+    }
+
+    ///////////////////////////////////////////////////////////////
+
+    // BANDS ACTIONS
+
+    @GetMapping("/editband/{id}")
+    private String editBand(@PathVariable long id, Model model){
+        model.addAttribute("band", bandService.getBandById(id));
+        return "bands/edit";
+    }
+
+    @PostMapping("/editband")
+    private String editBand(@Valid Band band, BindingResult result){
+        if (result.hasErrors())
+            return "bands/edit";
+
+        bandService.addBand(band);
+        return "redirect:/bands/all";
+    }
+
+    @GetMapping("/deleteband/{id}")
+    private String deleteBand(@PathVariable long id, Model model){
+
+        Band band = bandService.getBandById(id);
+
+        if (!Objects.isNull(band)){
+            List<Album> albums = albumService.getAlbumsByBand(band);
+            if (albums.isEmpty())
+                bandService.deleteBand(id);
+            else {
+                model.addAttribute("deleteerror", true);
+                model.addAttribute("bands", bandService.getAllBands());
+                return "bands/all";
+            }
+        }
+
+        return "redirect:/bands/all";
     }
 
     ///////////////////////////////////////////////////////////////
@@ -140,8 +194,21 @@ public class AdminController {
     }
 
     @GetMapping("/deletelabel/{id}")
-    public String deleteLabel(@PathVariable long id){
-        labelService.deleteLabel(id);
+    public String deleteLabel(@PathVariable long id, Model model){
+
+        Label label = labelService.getLabelById(id);
+
+        if (!Objects.isNull(label)){
+            List<Album> albums = albumService.getAlbumsByLabel(label);
+            if (albums.isEmpty())
+                labelService.deleteLabel(id);
+            else {
+                model.addAttribute("deleteerror", true);
+                model.addAttribute("labels", labelService.getAllLabels());
+                return "labels/all";
+            }
+        }
+
         return "redirect:/labels/all";
     }
 
