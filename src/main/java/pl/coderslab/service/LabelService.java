@@ -22,8 +22,10 @@ public class LabelService {
         return labelRepository.findAll();
     }
 
-    public Optional<Label> getLabelById(long id){
-        return labelRepository.findById(id);
+    public Label getLabelById(long id){
+
+        Optional<Label> optionalLabel = labelRepository.findById(id);
+        return optionalLabel.orElse(null);
     }
 
     public void deleteLabel(long id){
