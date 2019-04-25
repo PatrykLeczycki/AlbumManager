@@ -23,7 +23,7 @@
             <div class="container" id="register-container">
                 <div class="modal-content" id="register-content">
                     <div class="modal-header" style="padding: 0;">
-                        <p class="modal-body" style="text-align: center; background-color: white; ">${ownRole}<span class="error"></span></p>
+                        <p class="modal-body error" style="text-align: center; background-color: white; ">You can't change your own role.</p>
                     </div>
                 </div>
             </div>
