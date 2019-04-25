@@ -5,8 +5,26 @@
     <td>${artist.pseudonym}</td>
     <td>${artist.name}</td>
     <td>${artist.surname}</td>
-    <td>${artist.birthDate}</td>
-    <td>${artist.age}</td>
+    <td>
+        <c:choose>
+            <c:when test="${not empty artist.birthDate}">
+                ${artist.birthDate}
+            </c:when>
+            <c:otherwise>
+                N/A
+            </c:otherwise>
+        </c:choose>
+    </td>
+    <td>
+        <c:choose>
+            <c:when test="${not empty artist.age}">
+                ${artist.age}
+            </c:when>
+            <c:otherwise>
+                N/A
+            </c:otherwise>
+        </c:choose>
+    </td>
     <td>${artist.sex}</td>
     <td>${artist.nationality}</td>
     <sec:authorize access="hasRole('USER') && hasRole('ADMIN')">
