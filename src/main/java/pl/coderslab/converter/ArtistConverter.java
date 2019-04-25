@@ -1,22 +1,24 @@
 package pl.coderslab.converter;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;
 import pl.coderslab.model.Artist;
 import pl.coderslab.service.ArtistService;
+import java.util.Objects;
 
-import java.util.Optional;
-
+@RequiredArgsConstructor
 public class ArtistConverter implements Converter<String, Artist> {
 
-    @Autowired
-    private ArtistService artistService;
+    private final ArtistService artistService;
 
     @Override
     public Artist convert(String s) {
 
-        Optional<Artist> optionalArtist = artistService.getArtistById(Long.parseLong(s));
-        return optionalArtist.orElse(null);
+        Artist artist = artistService.getArtistById(Long.parseLong(s));
 
+        if (!Objects.isNull(artist))
+            return artist;
+
+        return null;
     }
 }
