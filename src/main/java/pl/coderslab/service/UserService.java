@@ -34,8 +34,11 @@ public class UserService {
         userRepo.save(user);
     }
 
-    public Optional<User> findUserById(Long id){
-        return userRepo.findById(id);
+    public User findUserById(Long id){
+
+        Optional<User> optionalUser = userRepo.findById(id);
+
+        return optionalUser.orElse(null);
     }
 
     public User findUserByUsername(String username){
@@ -88,11 +91,12 @@ public class UserService {
         return token.toString();
     }
 
-    public String addPassRecoveryToken(String email) {
+    @Transactional
+    public void addPassRecoveryToken(String email) {
 
         User user = userRepo.findUserByEmail(email);
-
-        return "http://www.ameliaweb.pl/gifts/token/" + user.getRegistrationToken() + "/" + user.getId();
+        user.setPassRecoveryToken(generateToken());
+        userRepo.save(user);
     }
 
     public void sendRegistrationEmail(String receiverEmail) throws MessagingException, IOException, DocumentException {
@@ -106,16 +110,42 @@ public class UserService {
 
         String message= "<html lang=\"en\">" +
                 "<head>" +
-                "<title>Odzyskiwanie hasla</title>" +
+                "<title>Confirm registration</title>" +
                 "</head>" +
                 "<body>" +
-                "<div style=\"background-color: #f9c910; text-align: center\"><h1>Album Manager</h1></div>" +
+                "<<div style=\"background-color: #f9c910; text-align: center\"><h1><a href=\"http://77.55.213.198:8080/AlbumManager-1.0-SNAPSHOT/\">Album Manager</a></h1></div>" +
                 "<p style=\"text-align: center\">Thank you for registering on our site. Please click link below to confirm registration process:</p>" +
                 "<p style=\"text-align: center\"><a style=\"color: #2c7021; text-decoration: none; font-size: 30px\" href=\"" + link + "\" target=\"_blank\">Confirm registration</a></p>" +
                 "<p style=\"margin-top: 50px; text-align: center\">If you didn't register on our site, ignore this e-mail and make sure your data is safe.</p>" +
                 "</body></html>";
 
         mailer.send(receiverEmail, "Registration on Album Manager", message);
+    }
+
+    public void sendPassRecoveryEmail(String receiverEmail) {
+
+        User user = userRepo.findUserByEmail(receiverEmail);
+
+        //String link = "http://77.55.213.198:8080/AlbumManager-1.0-SNAPSHOT/lostpassword/" + user.getId() + "/" + user.getPassRecoveryToken();
+
+        String link = "http://localhost:8080/lostpassword/" + user.getId() + "/" + user.getPassRecoveryToken();
+
+
+
+        String message= "<html lang=\"en\">" +
+                "<head>" +
+                "<title>Password recovery</title>" +
+                "</head>" +
+                "<body>" +
+                "<<div style=\"background-color: #f9c910; text-align: center\"><h1><a href=\"http://77.55.213.198:8080/AlbumManager-1.0-SNAPSHOT/\">Album Manager</a></h1></div>" +
+                "<p style=\"text-align: center\">You have received this e-mail because your e-mail address was given during password retrieval process. To retrieve your password click here:</p>" +
+                "<p style=\"text-align: center\"><a style=\"color: #2c7021; text-decoration: none; font-size: 30px\" href=\"" + link + "\" target=\"_blank\">Retrieve password</a></p>" +
+                "<p style=\"margin-top: 50px; text-align: center\">If you didn't lost your password, ignore this e-mail and make sure your data is safe.</p>" +
+                "<p style=\"margin-top: 50px; text-align: center\">Pozdrawiamy</p>" +
+                "<p style=\"text-align: center\"><a href=\"http://www.ameliaweb.pl/gifts\">Link do aplikacji.</a></p>" +
+                "</body></html>";
+
+        mailer.send(receiverEmail, "Album Manager - password recovery", message);
     }
 
 
@@ -135,27 +165,5 @@ public class UserService {
 
      */
 
-    /*public void sendPassRecoveryEmail(String receiverEmail) {
 
-        String link = addPassRecoveryToken(receiverEmail);
-
-        String message= "<!DOCTYPE html>" +
-                "<html lang=\"pl\">" +
-                "<head>" +
-                "<meta charset=\"UTF-8\">" +
-                "<title>Odzyskiwanie hasla</title>" +
-                "<meta http-equiv=\"X-Ua-Compatible\" content=\"IE=edge,chrome=1\">" +
-                "</head>" +
-                "<body>" +
-                "<div style=\"background-color: #f9c910; text-align: center\"><h1>Oddaj rzeczy</h1></div>" +
-                "<p style=\"text-align: center\">W celu odzyskania hasla do aplikacji \"Oddaj rzeczy\" kliknij w link:</p>" +
-                "<p style=\"text-align: center;\"><a style=\"color: #2c7021; text-decoration: none; font-size: 30px\" href=\"" + link + "\" target=\"_blank\">Odzyskaj haslo</a></p>" +
-                "<p style=\"margin-top: 50px; text-align: center\">Jezeli ten mail to pomylka, skasuj wiadomosc.</p>" +
-                "<p style=\"margin-top: 50px; text-align: center\">Pozdrawiamy</p>" +
-                "<p style=\"text-align: center\"><a href=\"http://www.ameliaweb.pl/gifts\">Link do aplikacji.</a></p>" +
-                "</body>" +
-                "</html>";
-        String subject = "Aplikacja \"Oddaj rzeczy\". Resetowanie hasla";
-        mailer.send("stan.zapalny.band@gmail.com","halina07033",receiverEmail,subject,message);
-    }*/
 }

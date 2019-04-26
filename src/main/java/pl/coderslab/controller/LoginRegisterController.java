@@ -15,6 +15,7 @@ import pl.coderslab.model.User;
 import pl.coderslab.service.UserService;
 
 import javax.mail.MessagingException;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Objects;
@@ -59,10 +60,11 @@ public class LoginRegisterController {
 
     @RequestMapping(value = "/register/{id}/{token}", method = RequestMethod.GET)
     public String register(@PathVariable long id, @PathVariable String token){
-        Optional<User> optionalUser = userService.findUserById(id);
 
-        if (optionalUser.isPresent()){
-            User user = optionalUser.get();
+
+        User user = userService.findUserById(id);
+
+        if(!Objects.isNull(user)){
             String userToken = user.getRegistrationToken();
             if (userToken.equals(token)){
                 user.setRegistrationToken(null);
@@ -70,6 +72,8 @@ public class LoginRegisterController {
                 userService.addUser(user);
             }
         }
+
+        //TODO: dodać obsługę błędów
 
         return "redirect:/login";
     }
@@ -97,31 +101,76 @@ public class LoginRegisterController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth instanceof AnonymousAuthenticationToken)
-            return "lostpassword";
+            return "lostpassword1";
 
         return "redirect:/user/dashboard";
     }
 
-    @RequestMapping(value = "/lostpassword", method=RequestMethod.POST)
-    public String lostPassword(@ModelAttribute("user") UserDto userDto, Model model){
+    @PostMapping("/lostpassword")
+    public String lostPassword(@RequestParam("email-login") String emailLogin, Model model){
 
-        User user = userService.findUserByEmail(userDto.getEmail());
+        User user = userService.findUserByEmail(emailLogin);
 
-        if ( Objects.isNull(user) || !user.getUsername().equals(userDto.getUsername()) ||
-               userDto.getPassword().length() < 8 || !userDto.getPassword().equals(userDto.getMatchingPassword())){
-            if (Objects.isNull(user) || !user.getUsername().equals(userDto.getUsername())) //
-                model.addAttribute("wrongemailorusername", true);
-
-            if ( userDto.getPassword().length() < 8)
-                model.addAttribute("passlength", true);
-            else if (!userDto.getPassword().equals(userDto.getMatchingPassword()))
-                model.addAttribute("passnoteq", true);
-            return "lostpassword";
+        if (Objects.isNull(user)){
+            user = userService.findUserByUsername(emailLogin);
+            if (Objects.isNull(user)){
+                model.addAttribute("wrongemailorlogin", true);
+                return "lostpassword1";
+            }
         }
 
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        userService.addUser(user);
-        model.addAttribute("newPassInfo", "Password has been changed.");
+        userService.addPassRecoveryToken(user.getEmail());
+        userService.sendPassRecoveryEmail(user.getEmail());
+
         return "redirect:/login";
+    }
+
+
+
+    @RequestMapping(value = "/lostpassword/{id}/{token}", method = RequestMethod.GET)
+    @Transactional
+    public String lostPassword(@PathVariable long id, @PathVariable String token, Model model){
+
+        User user = userService.findUserById(id);
+
+        if (!Objects.isNull(user)){
+            String userToken = user.getPassRecoveryToken();
+            if (userToken.equals(token)){
+                user.setPassRecoveryToken(null);
+                userService.addUser(user);
+                model.addAttribute("id", id);
+                model.addAttribute("token", token);
+                return "lostpassword2";
+            }
+        }
+
+        return "redirect:/login";
+    }
+
+    @RequestMapping(value = "/lostpassword/{id}/{token}", method=RequestMethod.POST)
+    public String lostPassword(@PathVariable long id, @PathVariable String token, @RequestParam("newPassword") String newPassword, @RequestParam("newPasswordRepeat") String newPasswordRepeat, Model model){
+
+        if(newPassword.length() < 8 || !newPassword.equals(newPasswordRepeat)){
+            if (newPassword.length() < 8)
+                model.addAttribute("passlength", true);
+            if (!newPassword.equals(newPasswordRepeat))
+                model.addAttribute("passnoteq", true);
+
+            model.addAttribute("id", id);
+            model.addAttribute("token", token);
+
+            return "lostpassword2";
+        }
+
+        User user = userService.findUserById(id);
+
+        if (!Objects.isNull(user)){
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userService.addUser(user);
+            model.addAttribute("newPassInfo", "Password has been changed.");
+        }
+
+        return "redirect:/login";
+
     }
 }

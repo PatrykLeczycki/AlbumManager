@@ -23,13 +23,13 @@
                 <div class="modal-body" style="padding:40px 50px;">
                     <form action="${pageContext.request.contextPath}/lostpassword" method="post">
                         <div class="form-group">
-                            <label for="email"><span class="glyphicon glyphicon-envelope"></span> E-mail</label>
+                            <label for="email-login"><span class="glyphicon glyphicon-envelope"></span> E-mail address/login</label>
                             <c:if test="${wrongemailorlogin}">
-                                <br><span class="error">Incorrect email or login</span>
+                                <br><span class="error">No user with given e-mail address or login found</span>
                             </c:if>
-                            <input type="text" name="email" class="form-control" id="email" placeholder="Enter email">
+                            <input type="text" name="email-login" class="form-control" id="email-login" placeholder="Enter e-mail address or login">
                         </div>
-                        <div class="form-group">
+                        <%--<div class="form-group">
                             <label for="login"><span class="glyphicon glyphicon-user"></span> Login</label>
                             <input type="text" class="form-control" name="login" id="login" placeholder="Enter login">
                         </div>
@@ -46,7 +46,7 @@
                                 <br><span class="error">Passwords must be equal</span>
                             </c:if>
                             <input type="password" class="form-control" name="newPasswordRepeat" id="newPasswordRepeat" placeholder="Confirm password">
-                        </div>
+                        </div>--%>
                         <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-pencil"></span> Retrieve password</button>
                     </form>
                 </div>
