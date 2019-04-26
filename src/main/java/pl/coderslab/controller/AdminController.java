@@ -1,6 +1,9 @@
 package pl.coderslab.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,11 +46,9 @@ public class AdminController {
     @RequestMapping(value = "/changerole/{id}", method = RequestMethod.GET)
     public String changeUserRole(@PathVariable long id, Model model, Principal principal){
 
-        Optional<User> optionalUser = userService.findUserById(id);
+        User user = userService.findUserById(id);
 
-        if (optionalUser.isPresent()){
-            User user = optionalUser.get();
-
+        if(!Objects.isNull(user)){
             if(!user.getUsername().equals(principal.getName())){
                 if(user.getRoleSet().contains(roleRepository.findByName("ROLE_ADMIN")))
                     user.getRoleSet().remove(roleRepository.findByName("ROLE_ADMIN"));
@@ -67,7 +68,6 @@ public class AdminController {
 
         // TODO: dać obsługę nieistniejącego usera
         return "redirect:/admin/users";
-
     }
 
     ///////////////////////////////////////////////////////////////
@@ -75,7 +75,14 @@ public class AdminController {
 
     @GetMapping("/editalbum/{id}")
     private String editAlbum(@PathVariable long id, Model model){
-        model.addAttribute("album", albumService.getAlbumById(id));
+
+        Album album = albumService.getAlbumById(id);
+
+        model.addAttribute("album", album);
+
+        if(!Objects.isNull(album.getBand()))
+            model.addAttribute("gotoband", true);
+
         return "albums/edit";
     }
 
@@ -89,7 +96,16 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/deletealbum/{id}", method = RequestMethod.GET)
-    private String deleteAlbum(@PathVariable long id){
+    private String deleteAlbum(@PathVariable long id, Model model){
+
+        if (albumService.countAlbumsByAlbumId(id) > 0){
+            System.out.println(albumService.countAlbumsByAlbumId(id));
+            model.addAttribute("deleteerror", true);
+            model.addAttribute("albums", albumService.getAllAlbums());
+            return "albums/all";
+        }
+
+        System.out.println(albumService.countAlbumsByAlbumId(id));
 
         albumService.deleteAlbum(id);
         return "redirect:/albums/all";
@@ -224,6 +240,11 @@ public class AdminController {
         return artistService.getAllArtists();
     }
 
+    @ModelAttribute("bands")
+    public List<Band> getBands(){
+        return bandService.getAllBands();
+    }
+
     @ModelAttribute("formats")
     public List<String> formats(){
         return getFormats();
@@ -232,5 +253,20 @@ public class AdminController {
     @ModelAttribute("countries")
     public List<String> countries() {
         return getCountries();
+    }
+
+    // TODO: wywalić to, gdy ogarnę przenoszenie atrybutu z kontrolera do kontrolera
+
+    @ModelAttribute("useralbumsids")
+    public List<Long> allUserAlbumIds(Principal principal){
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (auth instanceof AnonymousAuthenticationToken)
+            return null;
+
+        Long id = userService.findUserByUsername(principal.getName()).getId();
+
+        return albumService.getAlbumIdsByUserId(id);
     }
 }
