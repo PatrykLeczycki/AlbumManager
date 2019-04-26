@@ -1,5 +1,6 @@
 package pl.coderslab.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
+import java.util.Objects;
 
 import static pl.coderslab.utils.Functions.getCountries;
 import static pl.coderslab.utils.Functions.getFormats;
@@ -21,25 +23,15 @@ import static pl.coderslab.utils.Functions.getFormats;
 @Controller
 @SessionAttributes({"dashboard"})
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private AlbumService albumService;
-
-    @Autowired
-    private ArtistService artistService;
-
-    @Autowired
-    private LabelService labelService;
-
-    @Autowired
-    private BandService bandService;
-
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private final UserService userService;
+    private final AlbumService albumService;
+    private final ArtistService artistService;
+    private final LabelService labelService;
+    private final BandService bandService;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/newpassword")
     public String newPassword(){
@@ -108,10 +100,22 @@ public class UserController {
     }
 
     @PostMapping("/addalbum")
-    private String addAlbum(@Valid Album album, BindingResult result){
+    private String addAlbum(@Valid Album album, BindingResult result, Model model){
         //TODO: dać tłumaczenia błędów
-        if (result.hasErrors())
+
+
+        if (result.hasErrors() || (album.getArtists().isEmpty() && Objects.isNull(album.getBand()))){
+
+            if (album.getArtists().isEmpty() && Objects.isNull(album.getBand()) ){
+                model.addAttribute("noauthor", true);
+                System.out.println("test0");
+            }
+            else if (!Objects.isNull(album.getBand())){
+                model.addAttribute("gotoband", true);
+                System.out.println("test2");
+            }
             return "albums/add";
+        }
 
         albumService.addAlbum(album);
         return "redirect:/albums/all";
@@ -178,6 +182,11 @@ public class UserController {
     @ModelAttribute("artists")
     public List<Artist> getArtists(){
         return artistService.getAllArtists();
+    }
+
+    @ModelAttribute("bands")
+    public List<Band> getBands(){
+        return bandService.getAllBands();
     }
 
     @ModelAttribute("formats")
