@@ -30,14 +30,14 @@ Deployed version (to be continued):
 
 ## Features
 
-* User management (Spring Security: registration panel - passwords hashed with jBCrypt, verification with token, login panel, permissions depending on user role)
-* Entities - album, artist, label
+* User management (Spring Security: registration panel - passwords hashed with jBCrypt, account verification and password recovery based on authentication tokens, login panel, permissions depending on user role)
+* Entities - album, artist, band, label
 * User can add entities objects and create and edit own album collection
 * Admin has the same permissions as an user, additionally he can modify other users' permissions
 
 ## To-do
 
 * Add image upload functionality to enable adding cover to album
-* Add tracklist and music band features
+* Add tracklist feature
 * Add OAuth2 authentication
 * Correct Spring Security login error messages
