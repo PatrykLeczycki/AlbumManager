@@ -20,4 +20,7 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
 
     @Query(value = "select user_album.album_id from user_album", nativeQuery = true)
     List<Long> getAllAlbumIds();
+
+    @Query(value = "select count(*) from user_album where album_id = :album_id", nativeQuery = true)
+    Long countAlbumsByAlbumId(@Param("album_id") Long album_id);
 }

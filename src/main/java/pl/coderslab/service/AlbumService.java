@@ -41,6 +41,10 @@ public class AlbumService {
         return optionalAlbum.orElse(null);
     }
 
+    public Long countAlbumsByAlbumId(Long id){
+        return albumRepository.countAlbumsByAlbumId(id);
+    }
+
     public List<Album> getAlbumsByLabel(Label label){
         return albumRepository.findAlbumsByLabel(label);
     }

@@ -3,7 +3,7 @@
 
 <div class="form-group" style="margin: 0 auto">
 
-    <div id="guzik1" class="btn btn-success <%--btn-block--%> author">
+    <div id="guzik1" class="btn btn-success <%--btn-block--%> author active">
         Artist
     </div>
 
@@ -17,13 +17,58 @@
 
 <br>
 
-<div class="form-group">
-    <label><i class="fas fa-users"></i>Artists</label>
-    <form:errors path="artists" cssClass="error" element="div"/><br>
-    <form:select path="artists" multiple="true" class="multi-select-demo">
-        <form:options itemValue="id" itemLabel="pseudonym" items="${artists}"/>
-    </form:select>
-</div>
+<c:choose>
+    <c:when test="${gotoband}">
+        <div class="form-group" id="artist-div" style="display:none">
+            <label><i class="fas fa-users"></i> Artists</label>
+            <c:if test="${noauthor}">
+                <br><span class="error">You must choose artist(s) or band</span>
+            </c:if>
+            <form:errors path="artists" cssClass="error" element="div"/><br>
+            <form:select path="artists" multiple="true" class="multi-select-demo" id="artist-select">
+                <form:options itemValue="id" itemLabel="pseudonym" items="${artists}"/>
+            </form:select>
+        </div>
+
+        <div class="form-group" id="band-div">
+            <label><i class="fas fa-users"></i> Band</label>
+            <c:if test="${noauthor}">
+                <br><span class="error">You must choose artist(s) or band</span>
+            </c:if>
+            <form:errors path="band" cssClass="error" element="div"/><br>
+            <form:select path="band" class="multi-select-demo" id="band-select">
+                <form:option value="0" label="None selected" id="band-first"/>
+                <form:options itemValue="id" itemLabel="name" items="${bands}"/>
+            </form:select>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <div class="form-group" id="artist-div">
+            <label><i class="fas fa-users"></i>Artists</label>
+            <c:if test="${noauthor}">
+                <br><span class="error">You must choose artist(s) or band</span>
+            </c:if>
+            <form:errors path="artists" cssClass="error" element="div"/><br>
+            <form:select path="artists" multiple="true" class="multi-select-demo" id="artist-select">
+                <form:options itemValue="id" itemLabel="pseudonym" items="${artists}"/>
+            </form:select>
+        </div>
+
+        <div class="form-group" id="band-div" style="display:none">
+            <label><i class="fas fa-users"></i>Band</label>
+            <c:if test="${noauthor}">
+                <br><span class="error">You must choose artist(s) or band</span>
+            </c:if>
+            <form:errors path="band" cssClass="error" element="div"/><br>
+            <form:select path="band" class="multi-select-demo" id="band-select">
+                <form:option value="0" label="None selected" id="band-first"/>
+                <form:options itemValue="id" itemLabel="name" items="${bands}"/>
+            </form:select>
+        </div>
+    </c:otherwise>
+
+</c:choose>
+
 <div class="form-group">
     <label><span class="glyphicon glyphicon-pencil"></span> Title</label><br>
     <form:errors path="title" cssClass="error" element="div"/>
@@ -70,18 +115,82 @@
 
 <script type="text/javascript">
 $("#guzik1").on("click", function(){
-    $(this).toggleClass("active");
-    if ($(this).hasClass("active") &&  $("#guzik2").hasClass("active")){
+
+    if(!$(this).hasClass("active")){
+        $(this).toggleClass("active");
         $("#guzik2").toggleClass("active");
+
+        /*if ($(this).hasClass("active") &&  $("#guzik2").hasClass("active")){
+            $("#guzik2").toggleClass("active");
+        }*/
+
+        $("#band-div").hide();
+        $("#artist-div").show();
+
+        $('#band-select').val(0);
+        $('#band-select').multiselect('refresh');
+
+
+        /*$("#band-select").multiselect('refresh');
+        $("#band-select").multiselect('updateButtonText');*/
+
+        /*if ($("#band-div").is(":visible")){
+            $("#band-div").hide();
+            $("#artist-div").show();
+        } else {
+            $("#band-div").show();
+            $("#artist-div").hide();
+        }*/
     }
 })
 </script>
 
 <script type="text/javascript">
     $("#guzik2").on("click", function(){
-        $(this).toggleClass("active");
-        if ($(this).hasClass("active") &&  $("#guzik1").hasClass("active")){
+
+        if(!$(this).hasClass("active")) {
+            $(this).toggleClass("active");
             $("#guzik1").toggleClass("active");
+
+            /*if ($(this).hasClass("active") &&  $("#guzik1").hasClass("active")){
+                $("#guzik1").toggleClass("active");
+            }*/
+
+            $("#artist-div").hide();
+            $("#band-div").show();
+
+            // $("#artist-select").multiselect('deselectAll', false);
+            $("#artist-select").multiselect('deselectAll', false);
+            $("#artist-select").multiselect('updateButtonText');
+
+            /*var lis = $(".multiselect-container").children();
+
+            for (var i = 0; i < lis.length; i++){
+                if(lis[i].hasClass("active"))
+                    lis[i].toggleClass("active");
+            }*/
+
+            /*if ($("#artist-div").is(":visible")){
+                $("#artist-div").hide();
+                $("#band-div").show();
+                $("#artist-select option:selected").removeAttr("selected");
+            } else {
+                $("#artist-div").show();
+                $("#band-div").hide();
+                $("#band-select option:selected").removeAttr("selected");
+            }*/
         }
     })
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var modelvalue = '${backtoband}';
+        if (modelvalue){
+            $("#artist-div").hide();
+            $("#band-div").show();
+            $("#guzik1").toggleClass("active");
+            $("#guzik2").toggleClass("active");
+        }
+    });
 </script>
