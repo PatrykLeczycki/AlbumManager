@@ -16,8 +16,11 @@ insert into artist(id, name, surname, pseudonym, nationality, birth_date, sex) v
 insert into artist(id, name, surname, pseudonym, nationality, birth_date, sex) values (null,  "Gerald", "Gillum", "G-Eazy", "United States", "1989-05-24", "M");
 insert into artist(id, name, surname, pseudonym, nationality, birth_date, sex) values (null, "Aubrey", "Graham", "Drake", "Canada", "1986-10-24", "M");
 insert into artist(id, name, surname, pseudonym, nationality, birth_date, sex) values (null, "Piotr", "Gędek", "Soulpete", "Poland", null, "M");
+insert into artist(id, name, surname, pseudonym, nationality, birth_date, sex) values (null, "Robert", "Darkowski", "Wilku", "Poland", "1977-03-08", "M");
+insert into artist(id, name, surname, pseudonym, nationality, birth_date, sex) values (null, "Maciej", "Bilka", "Bilon", "Poland", "1977-03-04", "M");
 
 insert into band values(null, "BonSoul");
+insert into band values(null, "Hemp Gru");
 
 insert into album values (null, 0, "Rap", "2012-02-20", "Etenszyn: Drimz Kamyn Tru", null, 1);
 insert into album values (null, 0, "Rap", "2019-02-15", "Wojtek Sokół", null, 1);
@@ -29,6 +32,7 @@ insert into album_artist values (2, 1);
 insert into album_artist values (3, 2), (3,3);
 
 insert into band_artist(band_id, artist_id) values(1, 7), (1, 13);
+insert into band_artist(band_id, artist_id) values(2, 14), (2, 15);
 
 insert into user(id, email, username, password, enabled, registration_token, pass_recovery_token) values (null, "patryk.leczycki1@gmail.com", "Pinky","$2a$10$5zl.4gm/CdR0l3v4Qv6Er.lk01q.1DXGXzLdAsDb6h3Dv8xF.uQRG", 1, null, null);
 insert into user(id, email, username, password, enabled, registration_token, pass_recovery_token) values (null, "email@email.com", "user1", "$2a$10$ZfOnsqjlibAnZ1d3BP26V.qR.m.P/zADl54bbF5IO1F9bhyeidnqK", 1, null, null);
