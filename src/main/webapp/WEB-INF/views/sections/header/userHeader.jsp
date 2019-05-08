@@ -5,7 +5,7 @@
         </div>
         <ul class="nav navbar-nav">
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="font-size: 20px">Albums
+                <a class="dropdown-toggle" <%--data-toggle="dropdown"--%> href="#" style="font-size: 20px">Albums
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="${pageContext.request.contextPath}/albums/all" style="font-size: 20px">All albums</a></li>
@@ -14,7 +14,7 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="font-size: 20px">Artists
+                <a class="dropdown-toggle" <%--data-toggle="dropdown" --%>href="#" style="font-size: 20px">Artists
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="${pageContext.request.contextPath}/artists/all" style="font-size: 20px">All artists</a></li>
@@ -22,7 +22,7 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="font-size: 20px">Bands
+                <a class="dropdown-toggle" <%--data-toggle="dropdown"--%> href="#" style="font-size: 20px">Bands
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="${pageContext.request.contextPath}/bands/all" style="font-size: 20px">All bands</a></li>
@@ -30,7 +30,7 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="font-size: 20px">Labels
+                <a class="dropdown-toggle" <%--data-toggle="dropdown" --%>href="#" style="font-size: 20px">Labels
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="${pageContext.request.contextPath}/labels/all" style="font-size: 20px">All labels</a></li>
@@ -48,7 +48,7 @@
             </c:if>
             <%--TODO: spróbować dać settings tylko w dashboardzie--%>
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="font-size: 20px">Settings
+                <a class="dropdown-toggle" <%--data-toggle="dropdown" --%>href="#" style="font-size: 20px">Settings
                     <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="${pageContext.request.contextPath}/user/newpassword" style="font-size: 20px">New password</a></li>
