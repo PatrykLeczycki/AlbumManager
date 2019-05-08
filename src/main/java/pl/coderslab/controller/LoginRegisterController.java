@@ -1,7 +1,7 @@
 package pl.coderslab.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.dom4j.DocumentException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,22 +13,21 @@ import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dto.UserDto;
 import pl.coderslab.model.User;
 import pl.coderslab.service.UserService;
+import pl.coderslab.utils.Prompt;
 
 import javax.mail.MessagingException;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Objects;
-import java.util.Optional;
 
 @Controller
+@RequiredArgsConstructor
 public class LoginRegisterController {
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+    private final UserService userService;
+    private final BCryptPasswordEncoder passwordEncoder;
+    private final Prompt prompt;
 
     @GetMapping("/register")
     public String register(Model model) {
@@ -48,12 +47,13 @@ public class LoginRegisterController {
 
             userDto.setEnabled(false);
             userService.registerUser(userDto);
+            prompt.add("registersuccess");
             return "redirect:/login";
         }
 
-        model.addAttribute("emailexists", userService.findUserByEmail(userDto.getEmail()) != null);
+        model.addAttribute("emailexists", !Objects.isNull(userService.findUserByEmail(userDto.getEmail())));
         model.addAttribute("passwordseq", !userDto.getPassword().equals(userDto.getMatchingPassword()));
-        model.addAttribute("usernameexists", userService.findUserByUsername(userDto.getUsername()) != null);
+        model.addAttribute("usernameexists", !Objects.isNull(userService.findUserByUsername(userDto.getUsername())));
         model.addAttribute("usernameeqpass", userDto.getUsername().equals(userDto.getPassword()));
         return "register";
     }
@@ -61,39 +61,49 @@ public class LoginRegisterController {
     @RequestMapping(value = "/register/{id}/{token}", method = RequestMethod.GET)
     public String register(@PathVariable long id, @PathVariable String token){
 
-
         User user = userService.findUserById(id);
 
-        if(!Objects.isNull(user)){
-            String userToken = user.getRegistrationToken();
-            if (userToken.equals(token)){
-                user.setRegistrationToken(null);
-                user.setEnabled(true);
-                userService.addUser(user);
-            }
-        }
-
-        //TODO: dodać obsługę błędów
+        if(!Objects.isNull(user) && user.getRegistrationToken().equals(token)){
+            user.setRegistrationToken(null);
+            user.setEnabled(true);
+            userService.addUser(user);
+        } else prompt.add("linkcorrupted");
 
         return "redirect:/login";
     }
 
     @GetMapping("/login")
-    public String loginPanel(){
+    public String loginPanel(Model model){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        if (auth instanceof AnonymousAuthenticationToken)
+        if (auth instanceof AnonymousAuthenticationToken){
+
+            if(prompt.doesContain("registersuccess")){
+                prompt.getNames().remove("registersuccess");
+                model.addAttribute("registersuccess", true);
+            }
+
+            if(prompt.doesContain("recoverymailsent")){
+                prompt.getNames().remove("recoverymailsent");
+                model.addAttribute("recoverymailsent", true);
+            }
+
+            if(prompt.doesContain("linkcorrupted")){
+                prompt.getNames().remove("linkcorrupted");
+                model.addAttribute("linkcorrupted", true);
+            }
+
+            if(prompt.doesContain("passwordchanged")){
+                prompt.getNames().remove("passwordchanged");
+                model.addAttribute("passwordchanged", true);
+            }
+
             return "login";
+        }
 
         return "redirect:/user/dashboard";
     }
-
-    /*@RequestMapping("/logout")
-    public String logout() {
-        SecurityContextHolder.clearContext();
-        return "redirect:/";
-    }*/
 
     @GetMapping("/lostpassword")
     public String lostPassword(){
@@ -122,10 +132,10 @@ public class LoginRegisterController {
         userService.addPassRecoveryToken(user.getEmail());
         userService.sendPassRecoveryEmail(user.getEmail());
 
+        prompt.add("recoverymailsent");
+
         return "redirect:/login";
     }
-
-
 
     @RequestMapping(value = "/lostpassword/{id}/{token}", method = RequestMethod.GET)
     @Transactional
@@ -143,6 +153,8 @@ public class LoginRegisterController {
                 return "lostpassword2";
             }
         }
+
+        prompt.add("linkcorrupted");
 
         return "redirect:/login";
     }
@@ -167,10 +179,9 @@ public class LoginRegisterController {
         if (!Objects.isNull(user)){
             user.setPassword(passwordEncoder.encode(newPassword));
             userService.addUser(user);
-            model.addAttribute("newPassInfo", "Password has been changed.");
+            prompt.add("passwordchanged");
         }
 
         return "redirect:/login";
-
     }
 }
