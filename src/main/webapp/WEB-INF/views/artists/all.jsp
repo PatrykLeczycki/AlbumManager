@@ -18,16 +18,19 @@
     <%@include file="../sections/header/header.jsp"%>
 
     <div id="body">
-        <c:if test="${deleteerror || deleteerror2}">
+        <c:if test="${deleteerror || deleteerror2 || artistnotfound}">
             <div class="container" id="register-container">
                 <div class="modal-content" id="register-content">
                     <div class="modal-header" style="padding: 0;">
                         <p class="modal-body error" style="text-align: center; background-color: white; ">
                             <c:if test="${deleteerror}">
-                                Error - Firstly delete albums associated with the artist.
+                                Error - Firstly delete albums associated with the artist
                             </c:if>
                             <c:if test="${deleteerror2}">
-                                Error - Firstly delete bands associated with the artist.
+                                Error - Firstly delete bands associated with the artist
+                            </c:if>
+                            <c:if test="${artistnotfound}">
+                                Error - Artist with given ID not found
                             </c:if>
                         </p>
                     </div>
