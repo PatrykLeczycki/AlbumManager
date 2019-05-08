@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import pl.coderslab.model.*;
 import pl.coderslab.repository.RoleRepository;
 import pl.coderslab.service.*;
+import pl.coderslab.utils.Prompt;
 
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import static pl.coderslab.utils.Functions.getCountries;
 import static pl.coderslab.utils.Functions.getFormats;
@@ -32,6 +32,7 @@ public class AdminController {
     private final BandService bandService;
     private final LabelService labelService;
     private final RoleRepository roleRepository;
+    private final Prompt prompt;
 
     @GetMapping("/users")
     public String all(Model model, Principal principal){
@@ -39,12 +40,21 @@ public class AdminController {
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("loggedUser", principal.getName());
 
-        //TODO: gryzie się z panelem powitalnym
+        if(prompt.doesContain("usernotfound")){
+            prompt.getNames().remove("usernotfound");
+            model.addAttribute("usernotfound", true);
+        }
+
+        if(prompt.doesContain("ownrole")){
+            prompt.getNames().remove("ownrole");
+            model.addAttribute("ownrole", true);
+        }
+
         return "admins/allusers";
     }
 
     @RequestMapping(value = "/changerole/{id}", method = RequestMethod.GET)
-    public String changeUserRole(@PathVariable long id, Model model, Principal principal){
+    public String changeUserRole(@PathVariable long id, Principal principal){
 
         User user = userService.findUserById(id);
 
@@ -58,15 +68,11 @@ public class AdminController {
                 return "redirect:/admin/users";
             }
 
-            /*TODO: zamienić to na przekazywanie atrybutu z kontrolera do kontrolera*/
-
-            model.addAttribute("users", userService.getAllUsers());
-            model.addAttribute("loggedUser", principal.getName());
-            model.addAttribute("ownRole", true);
+            prompt.add("ownrole");
             return "admins/allusers";
         }
 
-        // TODO: dać obsługę nieistniejącego usera
+        prompt.add("usernotfound");
         return "redirect:/admin/users";
     }
 
@@ -98,16 +104,10 @@ public class AdminController {
     @RequestMapping(value = "/deletealbum/{id}", method = RequestMethod.GET)
     private String deleteAlbum(@PathVariable long id, Model model){
 
-        if (albumService.countAlbumsByAlbumId(id) > 0){
-            System.out.println(albumService.countAlbumsByAlbumId(id));
-            model.addAttribute("deleteerror", true);
-            model.addAttribute("albums", albumService.getAllAlbums());
-            return "albums/all";
-        }
+        if (albumService.countAlbumsByAlbumId(id) == 0)
+            albumService.deleteAlbum(id);
+        else prompt.add("albumincollection");
 
-        System.out.println(albumService.countAlbumsByAlbumId(id));
-
-        albumService.deleteAlbum(id);
         return "redirect:/albums/all";
     }
 
@@ -131,7 +131,7 @@ public class AdminController {
     }
 
     @GetMapping("/deleteartist/{id}")
-    private String deleteArtist(@PathVariable long id, Model model){
+    private String deleteArtist(@PathVariable long id){
         Artist artist = artistService.getArtistById(id);
 
         if (!Objects.isNull(artist)){
@@ -141,14 +141,12 @@ public class AdminController {
                 artistService.deleteArtist(id);
             else {
                 if (!albums.isEmpty())
-                    model.addAttribute("deleteerror", true);
+                    prompt.add("deleteerror");
 
                 if (!bands.isEmpty())
-                    model.addAttribute("deleteerror2", true);
-                model.addAttribute("artists", artistService.getAllArtists());
-                return "artists/all";
+                    prompt.add("deleteerror2");
             }
-        }
+        } else prompt.add("artistnotfound");
         return "redirect:/artists/all";
     }
 
@@ -172,7 +170,7 @@ public class AdminController {
     }
 
     @GetMapping("/deleteband/{id}")
-    private String deleteBand(@PathVariable long id, Model model){
+    private String deleteBand(@PathVariable long id){
 
         Band band = bandService.getBandById(id);
 
@@ -180,12 +178,9 @@ public class AdminController {
             List<Album> albums = albumService.getAlbumsByBand(band);
             if (albums.isEmpty())
                 bandService.deleteBand(id);
-            else {
-                model.addAttribute("deleteerror", true);
-                model.addAttribute("bands", bandService.getAllBands());
-                return "bands/all";
-            }
-        }
+            else prompt.add("deleteerror");
+
+        } else prompt.add("bandnotfound");
 
         return "redirect:/bands/all";
     }
@@ -210,7 +205,7 @@ public class AdminController {
     }
 
     @GetMapping("/deletelabel/{id}")
-    public String deleteLabel(@PathVariable long id, Model model){
+    public String deleteLabel(@PathVariable long id){
 
         Label label = labelService.getLabelById(id);
 
@@ -218,12 +213,9 @@ public class AdminController {
             List<Album> albums = albumService.getAlbumsByLabel(label);
             if (albums.isEmpty())
                 labelService.deleteLabel(id);
-            else {
-                model.addAttribute("deleteerror", true);
-                model.addAttribute("labels", labelService.getAllLabels());
-                return "labels/all";
-            }
-        }
+
+            else prompt.add("deleteerror");
+        } else prompt.add("labelnotfound");
 
         return "redirect:/labels/all";
     }
