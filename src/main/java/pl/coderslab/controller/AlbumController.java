@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.service.AlbumService;
 import pl.coderslab.service.UserService;
+import pl.coderslab.utils.Prompt;
 
 import java.security.Principal;
 import java.util.List;
@@ -20,10 +21,17 @@ public class AlbumController {
 
     private final AlbumService albumService;
     private final UserService userService;
+    private final Prompt prompt;
 
     @GetMapping("/all")
     private String allAlbums(Model model){
         model.addAttribute("albums", albumService.getAllAlbums());
+
+        if(prompt.doesContain("albumincollection")){
+            prompt.getNames().remove("albumincollection");
+            model.addAttribute("deleteerror", true);
+        }
+
         return "albums/all";
     }
 
