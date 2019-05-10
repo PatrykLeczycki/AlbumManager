@@ -2,7 +2,16 @@
     <sec:authorize access="hasRole('USER') && hasRole('ADMIN')">
         <td>${album.id}</td>
     </sec:authorize>
-    <td>${album.getArtistsToString()}</td>
+    <td>
+        <c:choose>
+            <c:when test="${album.band != null}">
+                ${album.band.name}
+            </c:when>
+            <c:otherwise>
+                ${album.getArtistsToString()}
+            </c:otherwise>
+        </c:choose>
+    </td>
     <td>${album.title}</td>
     <td>${album.label.name}</td>
     <td>${album.releaseDate}</td>
