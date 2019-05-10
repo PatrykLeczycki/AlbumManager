@@ -76,153 +76,11 @@ public class AdminController {
         return "redirect:/admin/users";
     }
 
-    ///////////////////////////////////////////////////////////////
-    // ALBUMS ACTIONS
 
-    @GetMapping("/editalbum/{id}")
-    private String editAlbum(@PathVariable long id, Model model){
-
-        Album album = albumService.getAlbumById(id);
-
-        model.addAttribute("album", album);
-
-        if(!Objects.isNull(album.getBand()))
-            model.addAttribute("gotoband", true);
-
-        return "albums/edit";
-    }
-
-    @PostMapping("/editalbum")
-    private String editAlbum(@Valid Album album, BindingResult result){
-        if (result.hasErrors())
-            return "albums/edit";
-
-        albumService.addAlbum(album);
-        return "redirect:/albums/all";
-    }
-
-    @RequestMapping(value = "/deletealbum/{id}", method = RequestMethod.GET)
-    private String deleteAlbum(@PathVariable long id, Model model){
-
-        if (albumService.countAlbumsByAlbumId(id) == 0)
-            albumService.deleteAlbum(id);
-        else prompt.add("albumincollection");
-
-        return "redirect:/albums/all";
-    }
 
     ///////////////////////////////////////////////////////////////
 
-    // ARTISTS ACTIONS
-
-    @GetMapping("/editartist/{id}")
-    private String editArtist(@PathVariable long id, Model model){
-        model.addAttribute("artist", artistService.getArtistById(id));
-        return "artists/edit";
-    }
-
-    @PostMapping("/editartist")
-    private String editArtist(@Valid Artist artist, BindingResult result){
-        if (result.hasErrors())
-            return "artists/edit";
-
-        artistService.addArtist(artist);
-        return "redirect:/artists/all";
-    }
-
-    @GetMapping("/deleteartist/{id}")
-    private String deleteArtist(@PathVariable long id){
-        Artist artist = artistService.getArtistById(id);
-
-        if (!Objects.isNull(artist)){
-            List<Album> albums = albumService.getAlbumsByArtist(artist);
-            List<Band> bands = bandService.getBandsByArtist(artist);
-            if (albums.isEmpty() && bands.isEmpty())
-                artistService.deleteArtist(id);
-            else {
-                if (!albums.isEmpty())
-                    prompt.add("deleteerror");
-
-                if (!bands.isEmpty())
-                    prompt.add("deleteerror2");
-            }
-        } else prompt.add("artistnotfound");
-        return "redirect:/artists/all";
-    }
-
-    ///////////////////////////////////////////////////////////////
-
-    // BANDS ACTIONS
-
-    @GetMapping("/editband/{id}")
-    private String editBand(@PathVariable long id, Model model){
-        model.addAttribute("band", bandService.getBandById(id));
-        return "bands/edit";
-    }
-
-    @PostMapping("/editband")
-    private String editBand(@Valid Band band, BindingResult result){
-        if (result.hasErrors())
-            return "bands/edit";
-
-        bandService.addBand(band);
-        return "redirect:/bands/all";
-    }
-
-    @GetMapping("/deleteband/{id}")
-    private String deleteBand(@PathVariable long id){
-
-        Band band = bandService.getBandById(id);
-
-        if (!Objects.isNull(band)){
-            List<Album> albums = albumService.getAlbumsByBand(band);
-            if (albums.isEmpty())
-                bandService.deleteBand(id);
-            else prompt.add("deleteerror");
-
-        } else prompt.add("bandnotfound");
-
-        return "redirect:/bands/all";
-    }
-
-    ///////////////////////////////////////////////////////////////
-
-    // LABEL ACTIONS
-
-    @GetMapping("/editlabel/{id}")
-    public String editLabel(@PathVariable long id, Model model){
-        model.addAttribute("label", labelService.getLabelById(id));
-        return "labels/edit";
-    }
-
-    @PostMapping("/editlabel")
-    public String editLabel(@Valid Label label, BindingResult result){
-        if (result.hasErrors())
-            return "labels/edit";
-
-        labelService.addLabel(label);
-        return "redirect:/labels/all";
-    }
-
-    @GetMapping("/deletelabel/{id}")
-    public String deleteLabel(@PathVariable long id){
-
-        Label label = labelService.getLabelById(id);
-
-        if (!Objects.isNull(label)){
-            List<Album> albums = albumService.getAlbumsByLabel(label);
-            if (albums.isEmpty())
-                labelService.deleteLabel(id);
-
-            else prompt.add("deleteerror");
-        } else prompt.add("labelnotfound");
-
-        return "redirect:/labels/all";
-    }
-
-    ///////////////////////////////////////////////////////////////
-
-    @ModelAttribute("labels")
+  /*  @ModelAttribute("labels")
     public List<Label> getLabels(){
         return labelService.getAllLabels();
     }
@@ -260,5 +118,5 @@ public class AdminController {
         Long id = userService.findUserByUsername(principal.getName()).getId();
 
         return albumService.getAlbumIdsByUserId(id);
-    }
+    }*/
 }

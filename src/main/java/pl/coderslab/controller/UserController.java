@@ -92,87 +92,6 @@ public class UserController {
         return "redirect:/albums/all";
     }
 
-    @GetMapping("/addalbum")
-    private String addAlbum(Model model){
-        model.addAttribute("album", new Album());
-        return "albums/add";
-    }
-
-    @PostMapping("/addalbum")
-    private String addAlbum(@Valid Album album, BindingResult result, Model model){
-        //TODO: dać tłumaczenia błędów
-
-
-        if (result.hasErrors() || (album.getArtists().isEmpty() && Objects.isNull(album.getBand()))){
-
-            if (album.getArtists().isEmpty() && Objects.isNull(album.getBand()) ){
-                model.addAttribute("noauthor", true);
-                System.out.println("test0");
-            }
-            else if (!Objects.isNull(album.getBand())){
-                model.addAttribute("gotoband", true);
-                System.out.println("test2");
-            }
-            return "albums/add";
-        }
-
-        albumService.addAlbum(album);
-        return "redirect:/albums/all";
-    }
-
-    @GetMapping("/addartist")
-    private String addArtist(Model model){
-        model.addAttribute("artist", new Artist());
-        return "artists/add";
-    }
-
-    // TODO: sprawdzić debuggerem, czemu trzeba odświeżyć, żeby zobaczyć świeżo dodany item
-
-    @PostMapping("/addartist")
-    private String addArtist(@Valid Artist artist, BindingResult result){
-        //TODO: dać tłumaczenia błędów
-        if (result.hasErrors())
-            return "artists/add";
-
-        artistService.addArtist(artist);
-        return "redirect:/artists/all";
-    }
-
-    @GetMapping("/addlabel")
-    public String addLabel(Model model){
-        model.addAttribute("label", new Label());
-        return "labels/add";
-    }
-
-    @PostMapping("/addlabel")
-    public String addLabel(@Valid Label label, BindingResult result){
-
-        //TODO: dać tłumaczenia błędów
-        if (result.hasErrors())
-            return "labels/add";
-
-        labelService.addLabel(label);
-        return "redirect:/labels/all";
-    }
-
-    @GetMapping("/addband")
-    public String addBand(Model model){
-        model.addAttribute("band", new Band());
-        return "bands/add";
-    }
-
-    @PostMapping("/addband")
-    public String addBand(@Valid Band band, BindingResult result){
-
-        //TODO: dać tłumaczenia błędów
-        if (result.hasErrors())
-            return "bands/add";
-
-        bandService.addBand(band);
-        return "redirect:/bands/all";
-    }
-
-
     @ModelAttribute("labels")
     public List<Label> getLabels(){
         return labelService.getAllLabels();
@@ -191,11 +110,6 @@ public class UserController {
     @ModelAttribute("formats")
     public List<String> formats(){
         return getFormats();
-    }
-
-    @ModelAttribute("countries")
-    public List<String> countries() {
-        return getCountries();
     }
 
     @ModelAttribute("allalbums")
