@@ -5,7 +5,6 @@
 <head>
     <title>Log in</title>
     <%@include file="utils/files.jsp"%>
-    <%@include file="sections/modal.jsp"%>
 </head>
 <body>
 
