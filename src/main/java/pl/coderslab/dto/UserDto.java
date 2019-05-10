@@ -19,7 +19,7 @@ public class UserDto {
             message = "Wrong e-mail address format")
     private String email;
 
-    @Size(min = 8, message = "Password must have at lest 8 characters")
+    @Size(min = 8, message = "Password must have at least 8 characters")
     private String password;
 
     private String matchingPassword;
