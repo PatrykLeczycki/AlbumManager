@@ -43,8 +43,8 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-            <c:if test="${not empty dashboard}">
-                <li><a href="${pageContext.request.contextPath}/user/dashboard" style="font-size: 20px"><span>Dashboard</span></a></li>
+            <c:if test="${!dashboard}">
+                <li><a href="${pageContext.request.contextPath}/user/dashboard" style="font-size: 20px">Dashboard</a></li>
             </c:if>
             <%--TODO: spróbować dać settings tylko w dashboardzie--%>
             <li class="dropdown">

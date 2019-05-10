@@ -21,7 +21,6 @@ import static pl.coderslab.utils.Functions.getCountries;
 import static pl.coderslab.utils.Functions.getFormats;
 
 @Controller
-@SessionAttributes({"dashboard"})
 @RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
@@ -61,7 +60,7 @@ public class UserController {
     }
 
     @RequestMapping("/dashboard")
-    public String dashboard(HttpSession session, Model model, Principal principal){
+    public String dashboard(Model model){
 
         model.addAttribute("dashboard", true);
         return "users/dashboard";
@@ -206,11 +205,6 @@ public class UserController {
 
     @ModelAttribute("useralbumids")
     public List<Long> allUsersAlbumsIds(Principal principal){
-
-        /*Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        if (auth instanceof AnonymousAuthenticationToken)
-            return null;*/
 
         Long id = userService.findUserByUsername(principal.getName()).getId();
 
