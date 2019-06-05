@@ -29,24 +29,6 @@
                             </c:if>
                             <input type="text" name="email-login" class="form-control" id="email-login" placeholder="Enter e-mail address or login">
                         </div>
-                        <%--<div class="form-group">
-                            <label for="login"><span class="glyphicon glyphicon-user"></span> Login</label>
-                            <input type="text" class="form-control" name="login" id="login" placeholder="Enter login">
-                        </div>
-                        <div class="form-group">
-                            <label for="newPassword"><span class="glyphicon glyphicon-eye-open"></span> New password</label>
-                            <c:if test="${passlength}">
-                                <br><span class="error">Password must have at least 8 characters</span>
-                            </c:if>
-                            <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="Enter password">
-                        </div>
-                        <div class="form-group">
-                            <label for="newPasswordRepeat"><span class="glyphicon glyphicon-eye-open"></span> Confirm new password</label>
-                            <c:if test="${passnoteq}">
-                                <br><span class="error">Passwords must be equal</span>
-                            </c:if>
-                            <input type="password" class="form-control" name="newPasswordRepeat" id="newPasswordRepeat" placeholder="Confirm password">
-                        </div>--%>
                         <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-pencil"></span> Retrieve password</button>
                     </form>
                 </div>
