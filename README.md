@@ -10,23 +10,22 @@ Web application created with Java
 * [To-do](#to-do)
 
 ## General info
-AlbumManager is a web application that can be used to manage album collection.
+AlbumManagers is a web application that helps user with managing his music albums
+collection. It provides register and password retrieval functionalities
+based on Spring Security. It allows user to add music labels, artists or
+bands and albums that are based on these ones and can be added to
+user's private collection.
 
 ## Technologies
 
-Spring (+ Spring Security), Hibernate, Maven, HTML, MySQL, Bootstrap
+Spring Boot, Spring Security, Hibernate, Maven, HTML, CSS, JavaScript, jQuery, MySQL, Bootstrap
 
 ## Setup
 
-To get access to the application, clone repository and open it as a Maven project.
-GroupId - pl.coderslab
-ArtifactId - AlbumManager
-Additionally, there's MySQL database and Tomcat needed.
+To get access to the application you can:
 
-Deployed version (to be continued): 
-
-* http://77.55.213.198:8080/AlbumManager-1.0-SNAPSHOT/
-* patrykleczycki.pl (early version)
+* clone repository and open it in your IDE (MySQL database and Tomcat needed)
+* visit http://pleczycki.pl/albummanager 
 
 ## Features
 
