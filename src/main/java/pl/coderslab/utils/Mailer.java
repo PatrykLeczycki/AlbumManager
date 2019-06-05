@@ -4,15 +4,18 @@ import org.springframework.stereotype.Component;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Properties;
+import java.util.Scanner;
 
 @Component
 public class Mailer {
 
     public void send(String to, String sub, String msg) {
 
-        String from = Functions.getData()[0];
-        String pass = Functions.getData()[1];
+        String from = getData()[0];
+        String pass = getData()[1];
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", true);
@@ -40,5 +43,22 @@ public class Mailer {
             throw new RuntimeException(e);
         }
     }
+
+    public String[] getData(){
+//        File file = new File("/usr/local/bin/albummanager/data.txt");
+
+        File file = new File("/pass.txt");
+        String[] data = new String[2];
+
+        try (Scanner scan = new Scanner(file)) {
+            //read lines from file
+            data[0] = scan.nextLine();
+            data[1] = scan.nextLine();
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        }
+        return data;
+    }
+
 
 }
