@@ -120,27 +120,11 @@ $("#guzik1").on("click", function(){
         $(this).toggleClass("active");
         $("#guzik2").toggleClass("active");
 
-        /*if ($(this).hasClass("active") &&  $("#guzik2").hasClass("active")){
-            $("#guzik2").toggleClass("active");
-        }*/
-
         $("#band-div").hide();
         $("#artist-div").show();
 
         $('#band-select').val(0);
         $('#band-select').multiselect('refresh');
-
-
-        /*$("#band-select").multiselect('refresh');
-        $("#band-select").multiselect('updateButtonText');*/
-
-        /*if ($("#band-div").is(":visible")){
-            $("#band-div").hide();
-            $("#artist-div").show();
-        } else {
-            $("#band-div").show();
-            $("#artist-div").hide();
-        }*/
     }
 })
 </script>
@@ -152,33 +136,11 @@ $("#guzik1").on("click", function(){
             $(this).toggleClass("active");
             $("#guzik1").toggleClass("active");
 
-            /*if ($(this).hasClass("active") &&  $("#guzik1").hasClass("active")){
-                $("#guzik1").toggleClass("active");
-            }*/
-
             $("#artist-div").hide();
             $("#band-div").show();
 
-            // $("#artist-select").multiselect('deselectAll', false);
             $("#artist-select").multiselect('deselectAll', false);
             $("#artist-select").multiselect('updateButtonText');
-
-            /*var lis = $(".multiselect-container").children();
-
-            for (var i = 0; i < lis.length; i++){
-                if(lis[i].hasClass("active"))
-                    lis[i].toggleClass("active");
-            }*/
-
-            /*if ($("#artist-div").is(":visible")){
-                $("#artist-div").hide();
-                $("#band-div").show();
-                $("#artist-select option:selected").removeAttr("selected");
-            } else {
-                $("#artist-div").show();
-                $("#band-div").hide();
-                $("#band-select option:selected").removeAttr("selected");
-            }*/
         }
     })
 </script>
