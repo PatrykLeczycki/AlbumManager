@@ -38,7 +38,7 @@ public class Album {
 
     @Column(nullable = false)
     @NotNull
-    //TODO: dowiedzieć się czy pattern jest potrzebny
+    //TODO: check if pattern is necessary
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate releaseDate;
 

@@ -52,7 +52,6 @@ public class BandController {
     @PostMapping("/user/addband")
     public String addBand(@Valid Band band, BindingResult result){
 
-        //TODO: dać tłumaczenia błędów
         if (result.hasErrors())
             return "bands/add";
 

@@ -15,8 +15,6 @@ public interface UserRepo extends JpaRepository<User, Long> {
 
     User findUserByEmail(String email);
 
-    // TODO: sprawdzić czy można wypchnąć annotacje nad interfejs
-
     @Modifying
     @Transactional
     @Query(value = "insert into user_album values(:tempuser, :album)", nativeQuery = true)

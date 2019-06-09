@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class MyUserDetails extends User implements UserDetails {
 
-  //Zamieniam usera na obiekt UserDetails
   public MyUserDetails(User user) {
     this.setEnabled(user.isEnabled());
     this.setPassword(user.getPassword());

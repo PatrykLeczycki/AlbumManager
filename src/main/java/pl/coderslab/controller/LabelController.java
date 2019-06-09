@@ -51,7 +51,7 @@ public class LabelController {
     @PostMapping("/user/addlabel")
     public String addLabel(@Valid Label label, BindingResult result){
 
-        //TODO: dać tłumaczenia błędów
+        //TODO: add custom error messages
         if (result.hasErrors())
             return "labels/add";
 

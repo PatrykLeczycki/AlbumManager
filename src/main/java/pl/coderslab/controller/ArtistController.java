@@ -57,11 +57,10 @@ public class ArtistController {
         return "artists/add";
     }
 
-    // TODO: sprawdzić debuggerem, czemu trzeba odświeżyć, żeby zobaczyć świeżo dodany item
-
     @PostMapping("/user/addartist")
     private String addArtist(@Valid Artist artist, BindingResult result){
-        //TODO: dać tłumaczenia błędów
+
+        //TODO: add custom error messages
         if (result.hasErrors())
             return "artists/add";
 

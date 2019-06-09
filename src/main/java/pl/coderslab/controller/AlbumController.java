@@ -53,7 +53,7 @@ public class AlbumController {
 
     @PostMapping("/user/addalbum")
     private String addAlbum(@Valid Album album, BindingResult result, Model model){
-        //TODO: dać tłumaczenia błędów
+        //TODO: add custom error messages
 
 
         if (result.hasErrors() || (album.getArtists().isEmpty() && Objects.isNull(album.getBand()))){
