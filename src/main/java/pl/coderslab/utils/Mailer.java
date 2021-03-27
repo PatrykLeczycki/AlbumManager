@@ -45,9 +45,9 @@ public class Mailer {
     }
 
     public String[] getData(){
-//        File file = new File("/usr/local/bin/albummanager/data.txt");
+        File file = new File("/usr/local/bin/albummanager/data.txt");
 
-        File file = new File("/pass.txt");
+//        File file = new File("/pass.txt");
         String[] data = new String[2];
 
         try (Scanner scan = new Scanner(file)) {
@@ -59,6 +59,4 @@ public class Mailer {
         }
         return data;
     }
-
-
 }

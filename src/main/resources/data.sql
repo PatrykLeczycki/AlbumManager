@@ -34,26 +34,18 @@ insert into album_artist values (3, 2), (3,3);
 insert into band_artist(band_id, artist_id) values(1, 7), (1, 13);
 insert into band_artist(band_id, artist_id) values(2, 14), (2, 15);
 
-insert into user(id, email, username, password, enabled, registration_token, pass_recovery_token) values (null, "patryk.leczycki1@gmail.com", "Pinky","$2a$10$5zl.4gm/CdR0l3v4Qv6Er.lk01q.1DXGXzLdAsDb6h3Dv8xF.uQRG", 1, null, null);
-insert into user(id, email, username, password, enabled, registration_token, pass_recovery_token) values (null, "email@email.com", "user1", "$2a$10$ZfOnsqjlibAnZ1d3BP26V.qR.m.P/zADl54bbF5IO1F9bhyeidnqK", 1, null, null);
-insert into user(id, email, username, password, enabled, registration_token, pass_recovery_token) values (null, "matrix9596@gmail.com", "YourFatherDrunk", "$2a$10$sgJIPaeihpn2oyPEpPQcvO8Fn3A2xcI5hZrviLLQPs9Co.EIP7G2O", 1, null, null);
+insert into user(id, email, username, password, enabled, registration_token, pass_recovery_token) values
+
+(null, "patryk.leczycki1@gmail.com", "Pinky","$2a$10$5zl.4gm/CdR0l3v4Qv6Er.lk01q.1DXGXzLdAsDb6h3Dv8xF.uQRG", 1, null, null),
+(null, "email@email.com", "user1", "$2a$10$ZfOnsqjlibAnZ1d3BP26V.qR.m.P/zADl54bbF5IO1F9bhyeidnqK", 1, null, null),
+(null, "admin@admin", "admin", "$2a$10$6UefAy/6SYU.PU66ZMPApuQrGJtTWEP9LJS1x7Pk.gKH0vvqMkBKm", 1, null, null);
+
+insert into role (name) values
+('ROLE_ADMIN'),
+('ROLE_USER');
 
 
-insert into role (name)
-values ('ROLE_ADMIN');
-
-insert into role (name)
-values ('ROLE_USER');
-
-
-insert into user_role (user_id, role_id)
-values (1, 1);
-
-insert into user_role (USER_ID, ROLE_ID)
-values (1, 2);
-
-insert into user_role (USER_ID, ROLE_ID)
-values (2, 2);
-
-insert into user_role (USER_ID, ROLE_ID)
-values (3, 2);
+insert into user_role (user_id, role_id) values
+(1, 1), (1, 2),
+(2, 2),
+(3, 1), (3, 2);
