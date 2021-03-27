@@ -7,7 +7,7 @@ Web application created with Java
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [Features](#features)
-* [To-do](#to-do)
+* [Credentials](#credentials)
 
 ## General info
 AlbumManagers is a web application that helps user with managing his music albums
@@ -34,9 +34,10 @@ To get access to the application you can:
 * User can add entities objects and create and edit own album collection
 * Admin has the same permissions as an user, additionally he can modify other users' permissions
 
-## To-do
+## Credentials
 
-* Add image upload functionality to enable adding cover to album
-* Add tracklist feature
-* Add OAuth2 authentication
-* Correct Spring Security login error messages
+To add new location or write a review, user must be registered and logged in. To skip this process you can anter provided credentials:
+
+* **Username:** admin
+* **Password:** admin123
+
